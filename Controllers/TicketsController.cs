@@ -12,44 +12,48 @@ namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class TicketsController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public TicketsController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Tickets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Tickets.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Tickets/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var ticket = await _context.Tickets.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
+            if (ticket == null)
+            {
+                return NotFound();
+            }
 
-            return project;
+            return ticket;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Tickets/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutTicket(int id, Ticket ticket)
         {
-            if (id != project.Id)
-            { return BadRequest(); }
+            if (id != ticket.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(ticket).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace TicketManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!TicketExists(id))
                 {
                     return NotFound();
                 }
@@ -70,37 +74,37 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Tickets
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-            _context.Projects.Add(project);
+            _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Tickets/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Project>> DeleteProject(int id)
+        public async Task<ActionResult<Ticket>> DeleteTicket(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var ticket = await _context.Tickets.FindAsync(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
+            _context.Tickets.Remove(ticket);
             await _context.SaveChangesAsync();
 
-            return project;
+            return ticket;
         }
 
-        private bool ProjectExists(int id)
+        private bool TicketExists(int id)
         {
-            return _context.Projects.Any(e => e.Id == id);
+            return _context.Tickets.Any(e => e.Id == id);
         }
     }
 }

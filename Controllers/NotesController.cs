@@ -12,44 +12,48 @@ namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class NotesController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public NotesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Notes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<Note>>> GetNotes()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Notes.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Notes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<Note>> GetNote(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var note = await _context.Notes.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
+            if (note == null)
+            {
+                return NotFound();
+            }
 
-            return project;
+            return note;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Notes/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutNote(int id, Note note)
         {
-            if (id != project.Id)
-            { return BadRequest(); }
+            if (id != note.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(note).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace TicketManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!NoteExists(id))
                 {
                     return NotFound();
                 }
@@ -70,37 +74,37 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Notes
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<Note>> PostNote(Note note)
         {
-            _context.Projects.Add(project);
+            _context.Notes.Add(note);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return CreatedAtAction("GetNote", new { id = note.Id }, note);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Notes/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Project>> DeleteProject(int id)
+        public async Task<ActionResult<Note>> DeleteNote(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var note = await _context.Notes.FindAsync(id);
+            if (note == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
+            _context.Notes.Remove(note);
             await _context.SaveChangesAsync();
 
-            return project;
+            return note;
         }
 
-        private bool ProjectExists(int id)
+        private bool NoteExists(int id)
         {
-            return _context.Projects.Any(e => e.Id == id);
+            return _context.Notes.Any(e => e.Id == id);
         }
     }
 }

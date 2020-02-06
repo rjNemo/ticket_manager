@@ -12,44 +12,48 @@ namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class FilesController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public FilesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Files
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<File>>> GetFiles()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Files.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Files/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<File>> GetFile(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var file = await _context.Files.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
+            if (file == null)
+            {
+                return NotFound();
+            }
 
-            return project;
+            return file;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Files/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutFile(int id, File file)
         {
-            if (id != project.Id)
-            { return BadRequest(); }
+            if (id != file.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(file).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace TicketManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!FileExists(id))
                 {
                     return NotFound();
                 }
@@ -70,37 +74,37 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Files
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<File>> PostFile(File file)
         {
-            _context.Projects.Add(project);
+            _context.Files.Add(file);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return CreatedAtAction("GetFile", new { id = file.Id }, file);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Files/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Project>> DeleteProject(int id)
+        public async Task<ActionResult<File>> DeleteFile(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var file = await _context.Files.FindAsync(id);
+            if (file == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
+            _context.Files.Remove(file);
             await _context.SaveChangesAsync();
 
-            return project;
+            return file;
         }
 
-        private bool ProjectExists(int id)
+        private bool FileExists(int id)
         {
-            return _context.Projects.Any(e => e.Id == id);
+            return _context.Files.Any(e => e.Id == id);
         }
     }
 }

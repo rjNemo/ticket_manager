@@ -12,44 +12,48 @@ namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public UsersController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<User>> GetUser(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var user = await _context.Users.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-            return project;
+            return user;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Users/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutUser(int id, User user)
         {
-            if (id != project.Id)
-            { return BadRequest(); }
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(user).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace TicketManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!UserExists(id))
                 {
                     return NotFound();
                 }
@@ -70,37 +74,37 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Users
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<User>> PostUser(User user)
         {
-            _context.Projects.Add(project);
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return CreatedAtAction("GetUser", new { id = user.Id }, user);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Project>> DeleteProject(int id)
+        public async Task<ActionResult<User>> DeleteUser(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
 
-            return project;
+            return user;
         }
 
-        private bool ProjectExists(int id)
+        private bool UserExists(int id)
         {
-            return _context.Projects.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

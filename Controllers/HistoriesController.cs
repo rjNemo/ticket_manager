@@ -12,44 +12,48 @@ namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ProjectsController : ControllerBase
+    public class HistoriesController : ControllerBase
     {
         private readonly AppDbContext _context;
 
-        public ProjectsController(AppDbContext context)
+        public HistoriesController(AppDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Projects
+        // GET: api/Histories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+        public async Task<ActionResult<IEnumerable<History>>> GetEdits()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Edits.ToListAsync();
         }
 
-        // GET: api/Projects/5
+        // GET: api/Histories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<History>> GetHistory(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var history = await _context.Edits.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
+            if (history == null)
+            {
+                return NotFound();
+            }
 
-            return project;
+            return history;
         }
 
-        // PUT: api/Projects/5
+        // PUT: api/Histories/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutHistory(int id, History history)
         {
-            if (id != project.Id)
-            { return BadRequest(); }
+            if (id != history.Id)
+            {
+                return BadRequest();
+            }
 
-            _context.Entry(project).State = EntityState.Modified;
+            _context.Entry(history).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +61,7 @@ namespace TicketManager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProjectExists(id))
+                if (!HistoryExists(id))
                 {
                     return NotFound();
                 }
@@ -70,37 +74,37 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
+        // POST: api/Histories
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<History>> PostHistory(History history)
         {
-            _context.Projects.Add(project);
+            _context.Edits.Add(history);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            return CreatedAtAction("GetHistory", new { id = history.Id }, history);
         }
 
-        // DELETE: api/Projects/5
+        // DELETE: api/Histories/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Project>> DeleteProject(int id)
+        public async Task<ActionResult<History>> DeleteHistory(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
-            if (project == null)
+            var history = await _context.Edits.FindAsync(id);
+            if (history == null)
             {
                 return NotFound();
             }
 
-            _context.Projects.Remove(project);
+            _context.Edits.Remove(history);
             await _context.SaveChangesAsync();
 
-            return project;
+            return history;
         }
 
-        private bool ProjectExists(int id)
+        private bool HistoryExists(int id)
         {
-            return _context.Projects.Any(e => e.Id == id);
+            return _context.Edits.Any(e => e.Id == id);
         }
     }
 }

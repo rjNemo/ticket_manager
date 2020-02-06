@@ -4,7 +4,7 @@ namespace TicketManager.Models
 {
     public interface ITask
     {
-        public int Id { get; set; }
+        int Id { get; set; }
         string Title { get; set; }
         string Description { get; set; }
         DateTime CreatedAt { get; }
