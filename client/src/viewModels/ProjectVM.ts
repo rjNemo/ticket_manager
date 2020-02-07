@@ -1,5 +1,6 @@
 import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
+import { Constants } from "../utils/Constants";
 
 export default class ProjectVM {
   public id: number;
@@ -8,6 +9,17 @@ export default class ProjectVM {
   // public avatars: string[];
   public value: number;
   public tickets: Ticket[];
+
+  /**
+   * getMembers
+   */
+  public getMembers() {
+    let res: Promise<Response> = fetch(
+      `${Constants.getProjectURI}/${this.id}/members`
+    );
+    return JSON.stringify(res);
+    // res.json();
+  }
 
   public constructor(project: Project) {
     this.id = project.id;
