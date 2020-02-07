@@ -40,6 +40,18 @@ namespace TicketManager.Controllers
             return project;
         }
 
+        // GET: api/Projects/5/Members
+        [HttpGet("{id}/members")]
+        public async Task<ActionResult<IEnumerable<User>>> GetProjectMembers(int id)
+        {
+            var project = await _context.Projects.FindAsync(id);
+
+            if (project == null)
+            { return NotFound(); }
+
+            return project.GetMembers();
+        }
+
         // PUT: api/Projects/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.

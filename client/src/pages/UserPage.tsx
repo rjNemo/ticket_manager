@@ -3,7 +3,7 @@ import { Header } from "../components/Header";
 
 export const UserPage: FC = () => {
   return (
-    <Header />
+    <Header title = "Brand Concept and Design" description = "Research, ideate and present brand concepts for client consideration"/>
     // <TabView>
     //     <CardList>
     //     <CardList>

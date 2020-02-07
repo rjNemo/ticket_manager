@@ -10,6 +10,8 @@ namespace TicketManager.Models
         public string LastName { get; set; }
         public string FullName => $"{FirstName} {LastName}";
         public string Presentation { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
         public DateTime Created_at { get; } = DateTime.Now;
         public byte[] Picture { get; set; }
         // public Role Role { get; set; }

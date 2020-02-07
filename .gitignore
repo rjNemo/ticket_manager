@@ -3,5 +3,5 @@ obj/
 .vs/
 .vscode/
 Migrations/
-app.db
+app.db*
 .DS_Store

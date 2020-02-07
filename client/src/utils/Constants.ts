@@ -1,3 +1,3 @@
 export class Constants {
-  static weatherIconUrl?: string;
+  static getProjectURI: string = "/api/projects";
 }

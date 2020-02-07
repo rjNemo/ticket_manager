@@ -15,7 +15,7 @@ namespace TicketManager.Models
         {
             get
             {
-                return (float)this.Tickets.
+                return this.Tickets.Count() == 0 ? 0 : (float)this.Tickets.
                     Where(t => t.Status == Status.Done).Count()
                     / this.Tickets.Count()
                     * 100;

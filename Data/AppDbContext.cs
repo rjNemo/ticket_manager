@@ -16,10 +16,12 @@ namespace TicketManager.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder builder)
-        // {
-        //     base.OnModelCreating(builder);
-        //     builder.Entity<Team>().HasKey(t => new { t.ProjectId, t.UserId });
-        // }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Assignment>().HasKey(a => new { a.ProjectId, a.UserId });
+            builder.Entity<Assignment>().HasOne(a => a.Project).WithMany(p => p.Assignments).HasForeignKey(a => a.ProjectId);
+            builder.Entity<Assignment>().HasOne(a => a.User).WithMany(u => u.Assignments).HasForeignKey(a => a.UserId);
+        }
     }
 }

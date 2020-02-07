@@ -1,3 +1,12 @@
+import { Ticket } from "./Ticket";
+import { User } from "./User";
+
 export interface Project {
-  Id: number;
+  id: number;
+  title: string;
+  description: string;
+  progression: number;
+  tickets: Ticket[];
+
+  getUsers(): User[];
 }
