@@ -1,10 +1,11 @@
 import React from "react";
 import { Router, Route, Switch, Link, NavLink } from "react-router-dom";
 import * as creacteHistory from "history";
-import { HomePage } from "../pages/HomePage";
-import { UserPage } from "../pages/UserPage";
-import { ProjectPage } from "../pages/ProjectPage";
 import { TicketPage } from "../pages/TicketPage";
+import { HomeController } from "../controllers/HomeController";
+import { ProjectController } from "../controllers/ProjectController";
+import { UserController } from "../controllers/UserController";
+import { TicketController } from "../controllers/TicketController";
 
 export const history = creacteHistory.createBrowserHistory();
 
@@ -13,18 +14,18 @@ export const AppRouter = () => {
     <Router history={history}>
       <div>
         <Switch>
-          <Route path="/">
-            <HomePage />
+          {/* <Route path="/">
+            <HomeController />
           </Route>
           <Route path="/users/:id">
-            <UserPage />
-          </Route>
+            <UserController />
+          </Route> */}
           <Route path="/projects/:id">
-            <ProjectPage />
+            <ProjectController />
           </Route>
-          <Route path="/tickets/:id">
-            <TicketPage />
-          </Route>
+          {/* <Route path="/tickets/:id">
+            <TicketController />
+          </Route> */}
         </Switch>
       </div>
     </Router>
