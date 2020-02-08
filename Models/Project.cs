@@ -60,7 +60,7 @@ namespace TicketManager.Models
         {
             return this.Assignments.Select(a => a.User).ToList();
         }
-        public void AddMembers(List<User> usersToAdd)
+        public List<Assignment> AddMembers(List<User> usersToAdd)
         {
             foreach (var user in usersToAdd)
             {
@@ -73,6 +73,7 @@ namespace TicketManager.Models
                 };
                 this.Assignments.Add(newAssign);
             }
+            return this.Assignments;
         }
         public void RemoveMembers(List<User> membersToRemove)
         {

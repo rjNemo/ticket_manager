@@ -9,7 +9,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   return (
     <div className="row">
       {tickets.map((t: Ticket) => (
-        <li key={t.Id}>{t.Title}</li>
+        <li key={t.id}>{t.title}</li>
       ))}
     </div>
   );

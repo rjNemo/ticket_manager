@@ -1,4 +1,6 @@
 import React, { FC } from "react";
+import { Button } from "./Button";
+import { FloatingButton } from "./FloatingButton";
 
 type AvatarListProps = {
   avatars: string[];
@@ -10,6 +12,7 @@ export const AvatarList: FC<AvatarListProps> = ({ avatars }) => {
       {avatars.map((avatar: string) => (
         <img className="circle" src={avatar} width="50vh" height="50vh" />
       ))}
+      <FloatingButton icon="add" color="grey" size="small" />
     </div>
   );
 };

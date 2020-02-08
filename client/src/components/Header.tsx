@@ -5,10 +5,7 @@ type HeaderProps = {
   description: string;
 };
 
-export const Header: FC<HeaderProps> = ({
-  title,
-  description
-}) => {
+export const Header: FC<HeaderProps> = ({ title, description }) => {
   return (
     <>
       <h2>{title}</h2>

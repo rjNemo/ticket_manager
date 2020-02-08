@@ -94,6 +94,40 @@ namespace TicketManager.Controllers
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
+        [HttpPost("{id}/addmembers")]
+        public async Task<ActionResult<Project>> PostAssignment(int id, List<User> usersToAdd)
+        {
+            var project = await _context.Projects.FindAsync(id);
+
+            if (project == null)
+            { return NotFound(); }
+
+            List<Assignment> assignments = project.AddMembers(usersToAdd);
+
+            foreach (var assignment in assignments)
+            { _context.Assignments.Add(assignment); }
+
+            await _context.SaveChangesAsync();
+            // try
+            // {
+            //     await _context.SaveChangesAsync();
+            // }
+            // catch (DbUpdateException)
+            // {
+            //     if (AssignmentExists(assignment.ProjectId))
+            //     {
+            //         return Conflict();
+            //     }
+            //     else
+            //     {
+            //         throw;
+            //     }
+            // }
+
+            // return CreatedAtAction("GetAssignment", new { id = assignment.ProjectId }, assignment);
+            return project;
+        }
+
         // DELETE: api/Projects/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(int id)
@@ -113,6 +147,10 @@ namespace TicketManager.Controllers
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.Id == id);
+        }
+        private bool AssignmentExists(int id)
+        {
+            return _context.Assignments.Any(e => e.ProjectId == id);
         }
     }
 }

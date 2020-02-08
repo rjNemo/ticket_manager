@@ -7,6 +7,5 @@ export interface Project {
   description: string;
   progression: number;
   tickets: Ticket[];
-
-  getUsers(): User[];
+  // getMembers(): User[];
 }
