@@ -60,11 +60,15 @@ namespace TicketManager.Models
         {
             return this.Assignments.Select(a => a.User).ToList();
         }
-        public List<Assignment> AddMembers(List<User> usersToAdd)
+        public void AddMembers(List<User> usersToAdd)
         {
+            var projectUsers = new List<Guid>
+                (this.Assignments.Select(a => a.UserId));
+
+
             foreach (var user in usersToAdd)
             {
-                Assignment newAssign = new Assignment()
+                Assignment newAssign = new Assignment
                 {
                     Project = this,
                     ProjectId = this.Id,
@@ -73,7 +77,7 @@ namespace TicketManager.Models
                 };
                 this.Assignments.Add(newAssign);
             }
-            return this.Assignments;
+            // return this.Assignments;
         }
         public void RemoveMembers(List<User> membersToRemove)
         {

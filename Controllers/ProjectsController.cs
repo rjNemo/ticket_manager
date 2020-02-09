@@ -25,14 +25,19 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects
+                .Include(p => p.Assignments)
+                    .ThenInclude(a => a.User)
+                .ToListAsync();
         }
 
         // GET: api/Projects/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)
             { return NotFound(); }
@@ -102,10 +107,10 @@ namespace TicketManager.Controllers
             if (project == null)
             { return NotFound(); }
 
-            List<Assignment> assignments = project.AddMembers(usersToAdd);
+            project.AddMembers(usersToAdd);
 
-            foreach (var assignment in assignments)
-            { _context.Assignments.Add(assignment); }
+            // foreach (var assignment in assignments)
+            // { _context.Assignments.Add(assignment); }
 
             await _context.SaveChangesAsync();
             // try
