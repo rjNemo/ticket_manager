@@ -32,7 +32,10 @@ namespace TicketManager.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
-            var project = await _context.Projects.FindAsync(id);
+            var project = await _context.Projects
+            .Include(p => p.Assignments)
+            .FirstOrDefaultAsync(p => p.Id == id);
+            // .FindAsync(id);
 
             if (project == null)
             { return NotFound(); }
