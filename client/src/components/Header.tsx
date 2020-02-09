@@ -8,8 +8,8 @@ type HeaderProps = {
 export const Header: FC<HeaderProps> = ({ title, description }) => {
   return (
     <>
-      <h2>{title}</h2>
-      <h4>{description}</h4>
+      <h1>{title}</h1>
+      <p className="lead">{description}</p>
     </>
   );
 };
