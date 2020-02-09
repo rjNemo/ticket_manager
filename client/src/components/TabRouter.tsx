@@ -1,22 +1,50 @@
 import React, { FC } from "react";
 import { TabRouterHeader } from "./TabRouterHeader";
+import { TicketList } from "./TicketList";
+import { Ticket } from "../types/Ticket";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-interface IProps {}
-export const TabRouter: FC<IProps> = ({ children }) => {
+interface IProps {
+  tickets: Ticket[];
+  tasksTotalCount?: number;
+  tasksDone?: number;
+  remainingDays?: number;
+  avatars: string[];
+}
+
+export const TabRouter: FC<IProps> = ({
+  tickets,
+  tasksDone,
+  tasksTotalCount,
+  remainingDays,
+  avatars
+}) => {
+  const { url } = useRouteMatch();
   return (
     <>
-      <div className="row">
-        <TabRouterHeader />
-        <div id="test1" className="col s12">
-          Tickets
+      <Switch>
+        <div className="row">
+          <TabRouterHeader />
+
+          <Route path={`${url}/tickets`}>
+            <TicketList
+              tickets={tickets}
+              tasksDone={tasksDone}
+              tasksTotalCount={tasksTotalCount}
+              remainingDays={remainingDays}
+              avatars={avatars}
+            />
+          </Route>
+
+          <Route path={`${url}/files`}>
+            {/* <TicketList tickets={tickets} /> */}
+          </Route>
+
+          <Route path={`${url}/activity`}>
+            {/* <TicketList tickets={tickets} /> */}
+          </Route>
         </div>
-        <div id="test2" className="col s12">
-          Files
-        </div>
-        <div id="test3" className="col s12">
-          Activity
-        </div>
-      </div>
+      </Switch>
     </>
   );
 };

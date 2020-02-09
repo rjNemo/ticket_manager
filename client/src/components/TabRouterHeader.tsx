@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { Link, useRouteMatch } from "react-router-dom";
 
 interface TabUnitProps {
   tabClass: string;
@@ -15,16 +16,17 @@ const TabUnit: FC<TabUnitProps> = ({
   text,
   value
 }) => {
+  const { url } = useRouteMatch();
   return (
     <li className={tabClass} key={value}>
-      <a
+      <Link
+        to={`${url}/${text}`}
         id={value}
         className={isActive === parseInt(value) ? "active" : ""}
-        href={`#${text}`}
         onClick={() => setIsActive(parseInt(value))}
       >
         {text}
-      </a>
+      </Link>
     </li>
   );
 };
@@ -47,7 +49,7 @@ export const TabRouterHeader: FC<IProps> = ({
 
   return (
     <>
-      <div className="col s12">
+      <div className="row col s12">
         <ul className="tabs">
           <TabUnit
             text="Tickets"
