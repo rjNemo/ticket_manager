@@ -28,6 +28,10 @@ namespace TicketManager.Controllers
             return await _context.Projects
                 .Include(p => p.Assignments)
                     .ThenInclude(a => a.User)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .AsNoTracking()
                 .ToListAsync();
         }
 
@@ -37,7 +41,12 @@ namespace TicketManager.Controllers
         {
             var project = await _context.Projects
                 .Include(p => p.Assignments)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .AsNoTracking()
                 .FirstOrDefaultAsync(p => p.Id == id);
+
 
             if (project == null)
             { return NotFound(); }

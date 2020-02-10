@@ -24,7 +24,7 @@ namespace TicketManager.Models
         public Status Status { get; set; } = Status.ToDo;
 
         public User Manager { get; set; }
-        public int ManagerId { get; set; }
+        public Guid ManagerId { get; set; }
         private List<Assignment> _assignments;
         public List<Assignment> Assignments
         {
@@ -40,13 +40,13 @@ namespace TicketManager.Models
             { return _tickets ?? new List<Ticket>(); }
             set { _tickets = value; }
         }
-        private List<History> _edits;
-        public List<History> Edits
-        {
-            get
-            { return _edits ?? new List<History>(); }
-            set { _edits = value; }
-        }
+        // private List<History> _edits;
+        // public List<History> Edits
+        // {
+        //     get
+        //     { return _edits ?? new List<History>(); }
+        //     set { _edits = value; }
+        // }
         private List<File> _files;
         public List<File> Files
         {

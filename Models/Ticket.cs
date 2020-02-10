@@ -17,9 +17,9 @@ namespace TicketManager.Models
         public Category Category { get; set; } = Category.Undefined;
 
         public User Creator { get; set; }
-        public int CreatorId { get; set; }
-        public Project Project { get; set; }
-        public int ProjectId { get; set; }
+        public Guid CreatorId { get; set; }
+        // public Project Project { get; set; }
+        // public int ProjectId { get; set; }
         private List<Note> _notes;
         public List<Note> Notes
         {

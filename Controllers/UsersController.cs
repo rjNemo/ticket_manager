@@ -25,14 +25,20 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+                .Include(p => p.Assignments)
+                .Include(p => p.Edits)
+                .ToListAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int id)
+        public async Task<ActionResult<User>> GetUser(Guid id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Users
+                .Include(p => p.Assignments)
+                .Include(p => p.Edits)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (user == null)
             {
