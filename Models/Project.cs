@@ -9,7 +9,7 @@ namespace TicketManager.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime PlannedEnding { get; set; }
         public float Progression
         {
@@ -40,13 +40,13 @@ namespace TicketManager.Models
             { return _tickets ?? new List<Ticket>(); }
             set { _tickets = value; }
         }
-        // private List<History> _edits;
-        // public List<History> Edits
-        // {
-        //     get
-        //     { return _edits ?? new List<History>(); }
-        //     set { _edits = value; }
-        // }
+        private List<History> _edits;
+        public List<History> Edits
+        {
+            get
+            { return _edits ?? new List<History>(); }
+            set { _edits = value; }
+        }
         private List<File> _files;
         public List<File> Files
         {
@@ -78,6 +78,9 @@ namespace TicketManager.Models
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
         }
+
+        public void SetMembers(List<User> projectMembers)
+        { throw new NotImplementedException("Not Implemented"); }
         public int GetMembersCount() => this.GetMembers().Count();
         public void GetTicketsCount() => this.Tickets.Count();
         public void GetTicketsUpdates()

@@ -8,7 +8,7 @@ namespace TicketManager.Models
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.Now;
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime PlannedEnding { get; set; }
 
         public Status Status { get; set; } = Status.ToDo;

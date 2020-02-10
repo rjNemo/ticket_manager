@@ -111,7 +111,45 @@ namespace TicketManager.Controllers
 
             return project;
         }
+        [HttpPost("{id}/addMembers")]
+        public async Task<ActionResult<Project>> AddMembersToProject(int id, List<User> usersToAdd)
+        {
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
+            project.AddMembers(usersToAdd);
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
+
+
+        [HttpPost("{id}/removeMembers")]
+        public async Task<ActionResult<Project>> RemoveMembersToProject(int id, List<User> usersToRemove)
+        {
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            project.RemoveMembers(usersToRemove);
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
+
+        [HttpPost("{id}/setMembers")]
+        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<User> projectMembers)
+        {
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
+            project.SetMembers(projectMembers);
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.Id == id);
