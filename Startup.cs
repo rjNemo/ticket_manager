@@ -17,6 +17,8 @@ using System.Reflection;
 using System.IO;
 using TicketManager.Data;
 using TicketManager.Models;
+using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using Newtonsoft.Json;
 
 namespace TicketManager
 {
@@ -34,7 +36,12 @@ namespace TicketManager
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
-            services.AddControllers();
+            services.AddControllers()
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
+            });
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "client/build";

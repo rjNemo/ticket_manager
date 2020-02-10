@@ -5,3 +5,4 @@ obj/
 Migrations/
 app.db
 client/node_modules
+Scripts/

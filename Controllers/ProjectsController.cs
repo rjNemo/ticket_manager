@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
 using TicketManager.Models;
 
+
 namespace TicketManager.Controllers
 {
     [Route("api/[controller]")]

@@ -18,8 +18,8 @@ namespace TicketManager.Models
 
         public User Creator { get; set; }
         public Guid CreatorId { get; set; }
-        // public Project Project { get; set; }
-        // public int ProjectId { get; set; }
+        public Project Project { get; set; }
+        public int ProjectId { get; set; }
         private List<Note> _notes;
         public List<Note> Notes
         {
