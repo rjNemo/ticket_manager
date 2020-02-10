@@ -25,7 +25,13 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects.ToListAsync();
+            return await _context.Projects
+                .Include(p => p.Assignments)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Projects/5
@@ -34,6 +40,10 @@ namespace TicketManager.Controllers
         {
             var project = await _context.Projects
             .Include(p => p.Assignments)
+            .Include(p => p.Tickets)
+            .Include(p => p.Manager)
+            .Include(p => p.Files)
+            .AsNoTracking()
             .FirstOrDefaultAsync(p => p.Id == id);
             // .FindAsync(id);
 

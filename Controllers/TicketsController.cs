@@ -25,14 +25,25 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            return await _context.Tickets.ToListAsync();
+            return await _context.Tickets
+                .Include(t => t.Creator)
+                .Include(p => p.Notes)
+                .Include(p => p.Edits)
+                .Include(p => p.Files)
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _context.Tickets
+                .Include(t => t.Creator)
+                .Include(p => p.Notes)
+                .Include(p => p.Edits)
+                .Include(p => p.Files)
+                .FirstOrDefaultAsync(t => t.Id == id);
 
             if (ticket == null)
             {
