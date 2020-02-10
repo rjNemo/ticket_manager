@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { TabRouterHeader } from "./TabRouterHeader";
 import { TicketList } from "./TicketList";
 import { Ticket } from "../types/Ticket";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 
 interface IProps {
   tickets: Ticket[];
@@ -25,6 +25,8 @@ export const TabRouter: FC<IProps> = ({
       <Switch>
         <div className="row">
           <TabRouterHeader />
+
+          <Redirect from={url} to={`${url}/tickets`} />
 
           <Route path={`${url}/tickets`}>
             <TicketList

@@ -18,6 +18,9 @@ export const TicketList: FC<TicketListProps> = ({
   remainingDays,
   avatars
 }) => {
+  const archiveTicket = () => {};
+  const validateTicket = () => {};
+
   return (
     <div className="col s12">
       <div className="row valign-wrapper">
@@ -38,6 +41,8 @@ export const TicketList: FC<TicketListProps> = ({
               tasksTotalCount={tasksTotalCount}
               remainingDays={remainingDays}
               avatars={avatars}
+              validateTicket={validateTicket}
+              archiveTicket={archiveTicket}
             />
           </li>
         ))}
