@@ -60,12 +60,12 @@ namespace TicketManager
                         Url = new Uri("https://ruidywebsite.herokuapp.com/"),
                     }
                 });
-
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+            services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
         }
 
 
@@ -77,10 +77,14 @@ namespace TicketManager
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
 
-
+            app.UseHttpsRedirection();
             app.UseDefaultFiles();
-            app.UseStaticFiles();
+
 
             app.UseSwagger();
 
@@ -89,7 +93,7 @@ namespace TicketManager
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API V1");
             });
 
-            app.UseHttpsRedirection();
+
 
             app.UseSpaStaticFiles();
             app.UseRouting();

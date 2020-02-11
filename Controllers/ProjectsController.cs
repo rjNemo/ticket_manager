@@ -119,13 +119,28 @@ namespace TicketManager.Controllers
             return project;
         }
 
-        [HttpPost("{id}/addMembers")]
+        [HttpPut("{id}/addMembers")]
         public async Task<ActionResult<Project>> AddMembersToProject(int id, List<User> usersToAdd)
         {
+            if (usersToAdd == null)
+            {
+                return BadRequest();
+            }
             Project project = await GetProjectByIdAsync(id);
 
             project.AddMembers(usersToAdd);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists, " +
+                    "see your system administrator.");
+            }
+
 
             return project;
         }
@@ -147,23 +162,25 @@ namespace TicketManager.Controllers
         }
         private async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
         {
-            return await _context.Projects
-                .Include(p => p.Assignments)
-                .Include(p => p.Tickets)
-                .Include(p => p.Manager)
-                .Include(p => p.Files)
-                .AsNoTracking()
+            return await makeProjectsQueryAsync()
                 .ToListAsync();
         }
         private async Task<Project> GetProjectByIdAsync(int id)
         {
-            return await _context.Projects
+            return await makeProjectsQueryAsync()
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        private IQueryable<TicketManager.Models.Project> makeProjectsQueryAsync()
+        {
+            return _context.Projects
                 .Include(p => p.Assignments)
+                    .ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
                 .Include(p => p.Files)
-                .AsNoTracking()
-                .FirstOrDefaultAsync(p => p.Id == id);
+                .AsNoTracking();
         }
+
     }
 }

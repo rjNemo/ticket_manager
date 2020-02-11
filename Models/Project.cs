@@ -1,38 +1,62 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace TicketManager.Models
 {
     public class Project : ITask
     {
+        public Project()
+        {
+
+        }
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Title")]
         public string Title { get; set; }
+
+        [StringLength(200)]
+        [Display(Name = "Short Description")]
         public string Description { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PlannedEnding { get; set; }
+
+        [Display(Name = "Progress")]
         public float Progression
         {
             get
             {
-                return Tickets.Count() == 0 ? 0 : (float)this.Tickets.
+                return Tickets.Count() == 0 ? 0 :
+                (float)this.Tickets.
                     Where(t => t.Status == Status.Done).Count()
                     / this.Tickets.Count()
                     * 100;
             }
         }
+
+        [Display(Name = "Project Status")]
         public Status Status { get; set; } = Status.ToDo;
 
+        [Display(Name = "Project Manager")]
         public User Manager { get; set; }
         public Guid ManagerId { get; set; }
         private List<Assignment> _assignments;
-        public List<Assignment> Assignments
-        {
-            get
-            { return _assignments ?? new List<Assignment>(); }
-            set
-            { _assignments = value; }
-        }
+        public List<Assignment> Assignments { get; set; } = new List<Assignment>();
+        // {
+        //     get
+        //     { return _assignments ?? new List<Assignment>(); }
+        //     set
+        //     { _assignments = value; }
+        // }
         private List<Ticket> _tickets;
         public List<Ticket> Tickets
         {

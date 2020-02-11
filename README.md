@@ -31,9 +31,9 @@
 
 ## TO DO
 
+- Write API tests using Postman: request + test, environment variables, mock server
+- Annotate API request in controllers
+- Annotate Properties in Models
 - Write backend tests
-- Reinitialize db
-- Write Project SetMembers Method and related API endpoint code
-- Write Project GetMembers Method and related API endpoint code
 - Ensure Tickets Edits belong to Project Edits
 - Ensure Tickets Files belong to Project Files
