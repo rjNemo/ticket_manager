@@ -7,10 +7,6 @@ namespace TicketManager.Models
 {
     public class Project : ITask
     {
-        public Project()
-        {
-
-        }
         public int Id { get; set; }
 
         [Required]
@@ -48,36 +44,17 @@ namespace TicketManager.Models
 
         [Display(Name = "Project Manager")]
         public User Manager { get; set; }
-        public Guid ManagerId { get; set; }
-        private List<Assignment> _assignments;
+
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
-        // {
-        //     get
-        //     { return _assignments ?? new List<Assignment>(); }
-        //     set
-        //     { _assignments = value; }
-        // }
-        private List<Ticket> _tickets;
-        public List<Ticket> Tickets
-        {
-            get
-            { return _tickets ?? new List<Ticket>(); }
-            set { _tickets = value; }
-        }
-        private List<History> _edits;
-        public List<History> Edits
-        {
-            get
-            { return _edits ?? new List<History>(); }
-            set { _edits = value; }
-        }
-        private List<File> _files;
-        public List<File> Files
-        {
-            get
-            { return _files ?? new List<File>(); }
-            set { _files = value; }
-        }
+
+
+        public List<Ticket> Tickets { get; set; } = new List<Ticket>();
+
+
+        public List<History> Edits { get; set; } = new List<History>();
+
+
+        public List<File> Files { get; set; } = new List<File>();
 
         // Methods
         public List<User> GetMembers()
@@ -96,6 +73,7 @@ namespace TicketManager.Models
                     UserId = user.Id
                 };
                 this.Assignments.Add(newAssign);
+                AddLogEntry(" joined the project.");
             }
         }
         public void RemoveMembers(List<User> membersToRemove)
@@ -113,10 +91,18 @@ namespace TicketManager.Models
                         cp => !projectMembers.Contains(cp)
                     );
                 this.RemoveMembers(membersToRemove);
+
+                var membersToAdd = projectMembers.FindAll(
+                    pm => !currentProjectMembers.Contains(pm)
+                );
+                this.AddMembers(membersToAdd);
+            }
+            else
+            {
+                this.AddMembers(projectMembers);
             }
 
-            this.AddMembers(projectMembers);
-            // remove precedent members first
+
         }
         public int GetMembersCount() => this.GetMembers().Count();
         public void GetTicketsCount() => this.Tickets.Count();
@@ -125,6 +111,18 @@ namespace TicketManager.Models
         public void Close()
         {
             this.Status = Status.Done;
+        }
+
+        private void AddLogEntry(string description)//, User user)
+        {
+            History Edit = new History()
+            {
+                Description = description,
+                ActivityType = ActivityType.Undefined,
+                // User = user,
+                UpdateDate = DateTime.Now
+            };
+            this.Edits.Add(Edit);
         }
     }
 }

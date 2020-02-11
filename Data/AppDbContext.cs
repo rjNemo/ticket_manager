@@ -16,10 +16,10 @@ namespace TicketManager.Data
         public DbSet<Note> Notes { get; set; }
         public DbSet<File> Files { get; set; }
 
-        // protected override void OnModelCreating(ModelBuilder builder)
-        // {
-        //     base.OnModelCreating(builder);
-        //     builder.Entity<Team>().HasKey(t => new { t.ProjectId, t.UserId });
-        // }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<Assignment>().HasKey(a => new { a.ProjectId, a.UserId });
+        }
     }
 }

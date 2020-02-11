@@ -112,10 +112,18 @@ namespace TicketManager.Controllers
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<User> projectMembers)
         {
             Project project = await GetProjectByIdAsync(id);
-
             project.SetMembers(projectMembers);
-            await _context.SaveChangesAsync();
-
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists, " +
+                    "see your system administrator.");
+            }
             return project;
         }
 
@@ -127,7 +135,6 @@ namespace TicketManager.Controllers
                 return BadRequest();
             }
             Project project = await GetProjectByIdAsync(id);
-
             project.AddMembers(usersToAdd);
             try
             {
@@ -140,19 +147,25 @@ namespace TicketManager.Controllers
                     "Try again, and if the problem persists, " +
                     "see your system administrator.");
             }
-
-
             return project;
         }
 
-        [HttpPost("{id}/removeMembers")]
-        public async Task<ActionResult<Project>> RemoveMembersToProject(int id, List<User> usersToRemove)
+        [HttpPut("{id}/removeMembers")]
+        public async Task<ActionResult<Project>> RemoveMembersFromProject(int id, List<User> usersToRemove)
         {
             Project project = await GetProjectByIdAsync(id);
-
             project.RemoveMembers(usersToRemove);
-            await _context.SaveChangesAsync();
-
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists, " +
+                    "see your system administrator.");
+            }
             return project;
         }
 
@@ -160,6 +173,7 @@ namespace TicketManager.Controllers
         {
             return _context.Projects.Any(e => e.Id == id);
         }
+
         private async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
         {
             return await makeProjectsQueryAsync()
@@ -171,16 +185,14 @@ namespace TicketManager.Controllers
                 .FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        private IQueryable<TicketManager.Models.Project> makeProjectsQueryAsync()
+        private IQueryable<Project> makeProjectsQueryAsync()
         {
             return _context.Projects
                 .Include(p => p.Assignments)
                     .ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
-                .Include(p => p.Files)
-                .AsNoTracking();
+                .Include(p => p.Files);
         }
-
     }
 }
