@@ -26,31 +26,18 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
-            return await _context.Projects
-                .Include(p => p.Assignments)
-                .Include(p => p.Tickets)
-                .Include(p => p.Manager)
-                .Include(p => p.Files)
-                .AsNoTracking()
-                .ToListAsync();
+            return await GetAllProjectsAsync();
         }
 
         // GET: api/Projects/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
-            var project = await _context.Projects
-            .Include(p => p.Assignments)
-            .Include(p => p.Tickets)
-            .Include(p => p.Manager)
-            .Include(p => p.Files)
-            .AsNoTracking()
-            .FirstOrDefaultAsync(p => p.Id == id);
-            // .FindAsync(id);
-
+            Project project = await GetProjectByIdAsync(id);
             if (project == null)
-            { return NotFound(); }
-
+            {
+                return NotFound();
+            }
             return project;
         }
 
@@ -61,7 +48,9 @@ namespace TicketManager.Controllers
         public async Task<IActionResult> PutProject(int id, Project project)
         {
             if (id != project.Id)
-            { return BadRequest(); }
+            {
+                return BadRequest();
+            }
 
             _context.Entry(project).State = EntityState.Modified;
 
@@ -111,12 +100,29 @@ namespace TicketManager.Controllers
 
             return project;
         }
+
+        [HttpGet("{id}/members")]
+        public async Task<ActionResult<List<User>>> GetProjectMembers(int id)
+        {
+            Project project = await GetProjectByIdAsync(id);
+            return project.GetMembers();
+        }
+
+        [HttpPut("{id}/setMembers")] // test put & post
+        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<User> projectMembers)
+        {
+            Project project = await GetProjectByIdAsync(id);
+
+            project.SetMembers(projectMembers);
+            await _context.SaveChangesAsync();
+
+            return project;
+        }
+
         [HttpPost("{id}/addMembers")]
         public async Task<ActionResult<Project>> AddMembersToProject(int id, List<User> usersToAdd)
         {
-            var project = await _context.Projects
-                .Include(p => p.Assignments)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            Project project = await GetProjectByIdAsync(id);
 
             project.AddMembers(usersToAdd);
             await _context.SaveChangesAsync();
@@ -124,13 +130,10 @@ namespace TicketManager.Controllers
             return project;
         }
 
-
         [HttpPost("{id}/removeMembers")]
         public async Task<ActionResult<Project>> RemoveMembersToProject(int id, List<User> usersToRemove)
         {
-            var project = await _context.Projects
-                .Include(p => p.Assignments)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            Project project = await GetProjectByIdAsync(id);
 
             project.RemoveMembers(usersToRemove);
             await _context.SaveChangesAsync();
@@ -138,21 +141,29 @@ namespace TicketManager.Controllers
             return project;
         }
 
-        [HttpPost("{id}/setMembers")]
-        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<User> projectMembers)
-        {
-            var project = await _context.Projects
-                .Include(p => p.Assignments)
-                .FirstOrDefaultAsync(p => p.Id == id);
-
-            project.SetMembers(projectMembers);
-            await _context.SaveChangesAsync();
-
-            return project;
-        }
         private bool ProjectExists(int id)
         {
             return _context.Projects.Any(e => e.Id == id);
+        }
+        private async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
+        {
+            return await _context.Projects
+                .Include(p => p.Assignments)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .AsNoTracking()
+                .ToListAsync();
+        }
+        private async Task<Project> GetProjectByIdAsync(int id)
+        {
+            return await _context.Projects
+                .Include(p => p.Assignments)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
         }
     }
 }

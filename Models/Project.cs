@@ -80,7 +80,20 @@ namespace TicketManager.Models
         }
 
         public void SetMembers(List<User> projectMembers)
-        { throw new NotImplementedException("Not Implemented"); }
+        {
+            var currentProjectMembers = this.GetMembers();
+            if (currentProjectMembers != null)
+            {
+                var membersToRemove = currentProjectMembers
+                    .FindAll(
+                        cp => !projectMembers.Contains(cp)
+                    );
+                this.RemoveMembers(membersToRemove);
+            }
+
+            this.AddMembers(projectMembers);
+            // remove precedent members first
+        }
         public int GetMembersCount() => this.GetMembers().Count();
         public void GetTicketsCount() => this.Tickets.Count();
         public void GetTicketsUpdates()
