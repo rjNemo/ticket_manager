@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using TicketManager.Models;
 
 namespace TicketManager.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
@@ -22,15 +24,37 @@ namespace TicketManager.Controllers
             _context = context;
         }
 
-        // GET: api/Projects
+        /// <summary>
+        /// Returns all existing projects. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET: api/Projects
+        ///
+        /// </remarks>
+        /// <response code="200">Returns all existing projects</response> 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
         {
             return await GetAllProjectsAsync();
         }
 
-        // GET: api/Projects/5
+        /// <summary>
+        /// Returns a specific project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET: api/Projects/2
+        ///
+        /// </remarks>
+        /// <response code="200">Returns a specific project</response> 
+        /// <response code="404">If the required project is null</response> 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
             Project project = await GetProjectByIdAsync(id);
@@ -41,10 +65,30 @@ namespace TicketManager.Controllers
             return project;
         }
 
-        // PUT: api/Projects/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Updates a specific project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT: api/Projects/3
+        ///     {
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the modified project</response> 
+        /// <response code="204">Request was succesful but no content is changed</response> 
+        /// <response code="404">If the required project is null</response> 
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
             if (id != project.Id)

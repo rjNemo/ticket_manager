@@ -18,6 +18,12 @@ namespace TicketManager.Models
         [Display(Name = "Short Description")]
         public string Description { get; set; }
 
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
@@ -47,12 +53,9 @@ namespace TicketManager.Models
 
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
-
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
 
-
         public List<History> Edits { get; set; } = new List<History>();
-
 
         public List<File> Files { get; set; } = new List<File>();
 

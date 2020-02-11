@@ -20,6 +20,7 @@ using TicketManager.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
 
+[assembly: ApiController]
 namespace TicketManager
 {
     public class Startup

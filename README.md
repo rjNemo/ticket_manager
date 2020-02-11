@@ -38,3 +38,4 @@
 - Ensure Tickets Edits belong to Project Edits
 - Ensure Tickets Files belong to Project Files
 - Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
+- Async model methods ?
