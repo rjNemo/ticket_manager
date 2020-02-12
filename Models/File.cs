@@ -11,7 +11,7 @@ namespace TicketManager.Models
         public int Size { get; set; }
         public string Format { get; set; }
 
-        public User AddedBy { get; set; }
+        public AppUser AddedBy { get; set; }
         public int UserId { get; set; }
         // public ITask AddedTo { get; set; }
         // public int ITaskId { get; set; }

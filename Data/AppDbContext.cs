@@ -9,7 +9,7 @@ namespace TicketManager.Data
         { }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<History> Edits { get; set; }

@@ -16,7 +16,7 @@ namespace TicketManager.Models
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
 
-        public User Creator { get; set; }
+        public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
         public Project Project { get; set; }
         public int ProjectId { get; set; }

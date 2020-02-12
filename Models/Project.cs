@@ -18,12 +18,6 @@ namespace TicketManager.Models
         [Display(Name = "Short Description")]
         public string Description { get; set; }
 
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        [DataType(DataType.PhoneNumber)]
-        public string Phone { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
@@ -32,16 +26,20 @@ namespace TicketManager.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PlannedEnding { get; set; }
 
+        private decimal _progression;
         [Display(Name = "Progress")]
-        public float Progression
+        public decimal Progression
         {
             get
             {
-                return Tickets.Count() == 0 ? 0 :
-                (float)this.Tickets.
+                return _progression;
+            }
+            set
+            {
+                _progression = Tickets.Count() == 0 ? 0 :
+                (decimal)this.Tickets.
                     Where(t => t.Status == Status.Done).Count()
-                    / this.Tickets.Count()
-                    * 100;
+                    / this.Tickets.Count() * 100;
             }
         }
 
@@ -49,7 +47,7 @@ namespace TicketManager.Models
         public Status Status { get; set; } = Status.ToDo;
 
         [Display(Name = "Project Manager")]
-        public User Manager { get; set; }
+        public AppUser Manager { get; set; }
 
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
@@ -60,11 +58,11 @@ namespace TicketManager.Models
         public List<File> Files { get; set; } = new List<File>();
 
         // Methods
-        public List<User> GetMembers()
+        public List<AppUser> GetMembers()
         {
             return this.Assignments.Select(a => a.User).ToList();
         }
-        public void AddMembers(List<User> usersToAdd)
+        public void AddMembers(List<AppUser> usersToAdd)
         {
             foreach (var user in usersToAdd)
             {
@@ -76,15 +74,15 @@ namespace TicketManager.Models
                     UserId = user.Id
                 };
                 this.Assignments.Add(newAssign);
-                AddLogEntry(" joined the project.");
+                // AddLogEntry(this, " joined the project.");
             }
         }
-        public void RemoveMembers(List<User> membersToRemove)
+        public void RemoveMembers(List<AppUser> membersToRemove)
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
         }
 
-        public void SetMembers(List<User> projectMembers)
+        public void SetMembers(List<AppUser> projectMembers)
         {
             var currentProjectMembers = this.GetMembers();
             if (currentProjectMembers != null)
@@ -105,7 +103,6 @@ namespace TicketManager.Models
                 this.AddMembers(projectMembers);
             }
 
-
         }
         public int GetMembersCount() => this.GetMembers().Count();
         public void GetTicketsCount() => this.Tickets.Count();
@@ -116,16 +113,16 @@ namespace TicketManager.Models
             this.Status = Status.Done;
         }
 
-        private void AddLogEntry(string description)//, User user)
-        {
-            History Edit = new History()
-            {
-                Description = description,
-                ActivityType = ActivityType.Undefined,
-                // User = user,
-                UpdateDate = DateTime.Now
-            };
-            this.Edits.Add(Edit);
-        }
+        // private void AddLogEntry(string description)//, User user)
+        // {
+        //     History Edit = new History()
+        //     {
+        //         Description = description,
+        //         ActivityType = ActivityType.Undefined,
+        //         // User = user,
+        //         UpdateDate = DateTime.Now
+        //     };
+        //     this.Edits.Add(Edit);
+        // }
     }
 }

@@ -146,14 +146,14 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/members")]
-        public async Task<ActionResult<List<User>>> GetProjectMembers(int id)
+        public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
         {
             Project project = await GetProjectByIdAsync(id);
             return project.GetMembers();
         }
 
-        [HttpPut("{id}/setMembers")] // test put & post
-        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<User> projectMembers)
+        [HttpPut("{id}/setMembers")]
+        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await GetProjectByIdAsync(id);
             project.SetMembers(projectMembers);
@@ -168,11 +168,11 @@ namespace TicketManager.Controllers
                     "Try again, and if the problem persists, " +
                     "see your system administrator.");
             }
-            return project;
+            return NoContent();
         }
 
         [HttpPut("{id}/addMembers")]
-        public async Task<ActionResult<Project>> AddMembersToProject(int id, List<User> usersToAdd)
+        public async Task<ActionResult<Project>> AddMembersToProject(int id, List<AppUser> usersToAdd)
         {
             if (usersToAdd == null)
             {
@@ -191,11 +191,11 @@ namespace TicketManager.Controllers
                     "Try again, and if the problem persists, " +
                     "see your system administrator.");
             }
-            return project;
+            return NoContent();
         }
 
         [HttpPut("{id}/removeMembers")]
-        public async Task<ActionResult<Project>> RemoveMembersFromProject(int id, List<User> usersToRemove)
+        public async Task<ActionResult<Project>> RemoveMembersFromProject(int id, List<AppUser> usersToRemove)
         {
             Project project = await GetProjectByIdAsync(id);
             project.RemoveMembers(usersToRemove);
@@ -210,7 +210,7 @@ namespace TicketManager.Controllers
                     "Try again, and if the problem persists, " +
                     "see your system administrator.");
             }
-            return project;
+            return NoContent();
         }
 
         private bool ProjectExists(int id)
