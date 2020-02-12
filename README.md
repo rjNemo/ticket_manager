@@ -6,7 +6,9 @@
 
 ## API Documentation
 
-- [Internal Link. Don't forget to update](https://localhost:5001/swagger/index.html)
+### v1
+
+- [Internal Link. Don't forget to update](https://localhost:5001/swagger)
 
 ## Features
 
@@ -39,3 +41,4 @@
 - Ensure Tickets Files belong to Project Files
 - Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
 - Async model methods ?
+- setMembers & removeMembers from project api not working

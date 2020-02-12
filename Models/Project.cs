@@ -34,7 +34,7 @@ namespace TicketManager.Models
             {
                 return _progression;
             }
-            set
+            private set
             {
                 _progression = Tickets.Count() == 0 ? 0 :
                 (decimal)this.Tickets.

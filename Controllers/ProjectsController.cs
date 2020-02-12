@@ -13,7 +13,7 @@ using TicketManager.Models;
 namespace TicketManager.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
@@ -152,7 +152,7 @@ namespace TicketManager.Controllers
             return project.GetMembers();
         }
 
-        [HttpPut("{id}/setMembers")]
+        [HttpPut("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await GetProjectByIdAsync(id);

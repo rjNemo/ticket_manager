@@ -10,7 +10,7 @@ using TicketManager.Models;
 
 namespace TicketManager.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class HistoriesController : ControllerBase
     {

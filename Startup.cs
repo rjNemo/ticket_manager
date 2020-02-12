@@ -53,7 +53,7 @@ namespace TicketManager
                 {
                     Version = "v1",
                     Title = "Ticket Manager API",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Description = "Ticket Manger API for Teams",
                     Contact = new OpenApiContact
                     {
                         Name = "Ruidy Nemausat",
@@ -91,7 +91,7 @@ namespace TicketManager
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API v1");
             });
 
 
