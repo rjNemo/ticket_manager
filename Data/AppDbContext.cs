@@ -9,7 +9,7 @@ namespace TicketManager.Data
         { }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<History> Edits { get; set; }
@@ -20,8 +20,6 @@ namespace TicketManager.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<Assignment>().HasKey(a => new { a.ProjectId, a.UserId });
-            builder.Entity<Assignment>().HasOne(a => a.Project).WithMany(p => p.Assignments).HasForeignKey(a => a.ProjectId);
-            builder.Entity<Assignment>().HasOne(a => a.User).WithMany(u => u.Assignments).HasForeignKey(a => a.UserId);
         }
     }
 }

@@ -5,3 +5,6 @@ obj/
 Migrations/
 app.db*
 .DS_Store
+app.db
+client/node_modules
+Scripts/

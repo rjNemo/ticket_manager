@@ -1,14 +1,27 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TicketManager.Models
 {
     public class Ticket : ITask
     {
         public int Id { get; set; }
+
+        [Required]
+        [StringLength(100)]
         public string Title { get; set; }
+
+        [StringLength(100)]
         public string Description { get; set; }
-        public DateTime CreatedAt { get; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Creation Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
+        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Estimated Ending Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime PlannedEnding { get; set; }
 
         public Status Status { get; set; } = Status.ToDo;
@@ -16,42 +29,28 @@ namespace TicketManager.Models
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
 
-        public User Creator { get; set; }
+        [Display(Name = "Created By")]
+        public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
-        // public Project Project { get; set; }
-        // public int ProjectId { get; set; }
-        private List<Note> _notes;
-        public List<Note> Notes
-        {
-            get
-            {
-                return _notes ?? new List<Note>();
-            }
-            set { _notes = value; }
-        }
-        private List<History> _edits;
-        public List<History> Edits
-        {
-            get
-            {
-                return _edits ?? new List<History>();
-            }
-            set { _edits = value; }
-        }
-        private List<File> _files;
-        public List<File> Files
-        {
-            get
-            {
-                return _files ?? new List<File>();
-            }
-            set { _files = value; }
-        }
+
+        [Display(Name = "Project")]
+        public Project Project { get; set; }
+        public int ProjectId { get; set; }
+        public List<Note> Notes = new List<Note>();
+
+        public List<History> Edits = new List<History>();
+
+        public List<File> Files = new List<File>();
 
         // Methods
-        public void GetAssignees() { throw new NotImplementedException("Not Implemented"); }
+        public List<AppUser> GetAssignees()
+        {
+            return Project.Assignments.Select(a => a.User).ToList();
+        }
         public void GetLastUpdateTime() { throw new NotImplementedException("Not Implemented"); }
-        public void Close() { throw new NotImplementedException("Not Implemented"); }
-        public void AddFile() { throw new NotImplementedException("Not Implemented"); }
+        public void Close()
+        {
+            Status = Status.Done;
+        }
     }
 }

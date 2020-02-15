@@ -10,7 +10,7 @@ using TicketManager.Models;
 
 namespace TicketManager.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -23,22 +23,16 @@ namespace TicketManager.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-            return await _context.Users
-                .Include(p => p.Assignments)
-                .Include(p => p.Edits)
-                .ToListAsync();
+            return await getAllAppUsersAsync();
         }
 
         // GET: api/Users/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(Guid id)
+        public async Task<ActionResult<AppUser>> GetUser(Guid id)
         {
-            var user = await _context.Users
-                .Include(p => p.Assignments)
-                .Include(p => p.Edits)
-                .FirstOrDefaultAsync(p => p.Id == id);
+            var user = await getAppUserByIdAsync(id);
 
             if (user == null)
             {
@@ -52,7 +46,7 @@ namespace TicketManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUser(Guid id, User user)
+        public async Task<IActionResult> PutUser(Guid id, AppUser user)
         {
             if (id != user.Id)
             {
@@ -84,9 +78,9 @@ namespace TicketManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<AppUser>> PostUser(AppUser user)
         {
-            _context.Users.Add(user);
+            _context.AppUsers.Add(user);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetUser", new { id = user.Id }, user);
@@ -94,23 +88,64 @@ namespace TicketManager.Controllers
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
+        public async Task<ActionResult<AppUser>> DeleteUser(int id)
         {
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.AppUsers.FindAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(user);
+            _context.AppUsers.Remove(user);
             await _context.SaveChangesAsync();
 
             return user;
         }
 
+        [HttpGet("{id}/projects")]
+        public async Task<ActionResult<IEnumerable<Project>>> GetAppUserProjects(Guid id)
+        {
+            AppUser user = await getAppUserByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return user.GetProjects();
+        }
+
+        [HttpGet("{id}/tickets/")]
+        public async Task<ActionResult<IEnumerable<Ticket>>> GetAppUserTickets(Guid id)
+        {
+            AppUser user = await getAppUserByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest();
+            }
+            return user.GetTickets();
+        }
+
         private bool UserExists(Guid id)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.AppUsers.Any(e => e.Id == id);
+        }
+
+        private IQueryable<AppUser> appUserQuery()
+        {
+            return _context.AppUsers
+                .Include(p => p.Assignments)
+                    .ThenInclude(a => a.Project)
+                        .ThenInclude(p => p.Tickets)
+                .Include(p => p.Edits);
+        }
+
+        private async Task<ActionResult<IEnumerable<AppUser>>> getAllAppUsersAsync()
+        {
+            return await appUserQuery().ToListAsync();
+        }
+
+        private async Task<AppUser> getAppUserByIdAsync(Guid id)
+        {
+            return await appUserQuery().FirstOrDefaultAsync(a => a.Id == id);
         }
     }
 }

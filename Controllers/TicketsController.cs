@@ -10,7 +10,7 @@ using TicketManager.Models;
 
 namespace TicketManager.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase
     {
@@ -25,25 +25,14 @@ namespace TicketManager.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
         {
-            return await _context.Tickets
-                .Include(t => t.Creator)
-                .Include(p => p.Notes)
-                .Include(p => p.Edits)
-                .Include(p => p.Files)
-                .AsNoTracking()
-                .ToListAsync();
+            return await getAllTicketsAsync();
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-            var ticket = await _context.Tickets
-                .Include(t => t.Creator)
-                .Include(p => p.Notes)
-                .Include(p => p.Edits)
-                .Include(p => p.Files)
-                .FirstOrDefaultAsync(t => t.Id == id);
+            var ticket = await getTicketByIdAsync(id);
 
             if (ticket == null)
             {
@@ -113,9 +102,47 @@ namespace TicketManager.Controllers
             return ticket;
         }
 
+        [HttpGet("{id}/assignees")]
+        public async Task<ActionResult<List<AppUser>>> GetTicketAssignees(int id)
+        {
+            Ticket ticket = await getTicketByIdAsync(id);
+            return ticket.GetAssignees();
+        }
+
+        [HttpPut("{id}/closed")]
+        public async Task<ActionResult> CloseTicket(int id)
+        {
+            Ticket ticket = await getTicketByIdAsync(id);
+            ticket.Close();
+            return NoContent();
+        }
+
         private bool TicketExists(int id)
         {
             return _context.Tickets.Any(e => e.Id == id);
+        }
+
+        private IQueryable<Ticket> ticketQuery() // problem with link
+        {
+            return _context.Tickets
+                .Include(p => p.Project)
+                    .ThenInclude(a => a.Assignments)
+                        .ThenInclude(p => p.User)
+                // .Include(p => p.Edits)
+                // .Include(p => p.Notes)
+                // .Include(p => p.Files)
+                .Include(p => p.Creator)
+                ;
+        }
+
+        private async Task<ActionResult<IEnumerable<Ticket>>> getAllTicketsAsync()
+        {
+            return await ticketQuery().ToListAsync();
+        }
+
+        private async Task<Ticket> getTicketByIdAsync(int id)
+        {
+            return await ticketQuery().FirstOrDefaultAsync(a => a.Id == id);
         }
     }
 }
