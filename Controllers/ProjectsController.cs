@@ -65,11 +65,6 @@ namespace TicketManager.Controllers
             return project;
         }
 
-
-
-        // PUT: api/Projects/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
         /// <summary>
         /// Updates a specific project. 
         /// </summary>
@@ -122,10 +117,26 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // POST: api/Projects
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+        /// <summary>
+        /// Creates a  project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST: api/Projects/
+        ///     {
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the created project</response>  
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
             _context.Projects.Add(project);
@@ -134,41 +145,21 @@ namespace TicketManager.Controllers
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
-        [HttpPost("{id}/addmembers")]
-        public async Task<ActionResult<Project>> PostAssignment(int id, List<AppUser> usersToAdd)
-        {
-            var project = await _context.Projects.FindAsync(id);
 
-            if (project == null)
-            { return NotFound(); }
 
-            project.AddMembers(usersToAdd);
 
-            // foreach (var assignment in assignments)
-            // { _context.Assignments.Add(assignment); }
-
-            await _context.SaveChangesAsync();
-            // try
-            // {
-            //     await _context.SaveChangesAsync();
-            // }
-            // catch (DbUpdateException)
-            // {
-            //     if (AssignmentExists(assignment.ProjectId))
-            //     {
-            //         return Conflict();
-            //     }
-            //     else
-            //     {
-            //         throw;
-            //     }
-            // }
-
-            // return CreatedAtAction("GetAssignment", new { id = assignment.ProjectId }, assignment);
-            return project;
-        }
-
-        // DELETE: api/Projects/5
+        /// <summary>
+        /// Deletes a  project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE: api/Projects/5
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the deleted project</response>  
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Project>> DeleteProject(int id)
         {
@@ -177,13 +168,23 @@ namespace TicketManager.Controllers
             {
                 return NotFound();
             }
-
             _context.Projects.Remove(project);
             await _context.SaveChangesAsync();
-
             return project;
         }
-        // GET: api/Projects/5/Members
+
+        /// <summary>
+        /// Gets a project members. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET: api/Projects/5/Members
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the project members</response>  
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}/members")]
         public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
         {
@@ -193,6 +194,25 @@ namespace TicketManager.Controllers
             return project.GetMembers();
         }
 
+        /// <summary>
+        /// Updates a project members. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT: api/Projects/5/Members
+        ///     {
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        /// </remarks>
+        /// <response code="204">No content</response>  
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
@@ -212,6 +232,26 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Assign a user to a project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST: api/Projects/addmembers
+        ///     [{
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }]
+        ///
+        /// </remarks>
+        /// <response code="204">Returns the created project</response>  
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{id}/addMembers")]
         public async Task<ActionResult<Project>> AddMembersToProject(int id, List<AppUser> usersToAdd)
         {
@@ -235,6 +275,26 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Remove a user to a project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT: api/Projects/removemembers
+        ///     [{
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }]
+        ///
+        /// </remarks>
+        /// <response code="204">Returns the created project</response>  
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPut("{id}/removeMembers")]
         public async Task<ActionResult<Project>> RemoveMembersFromProject(int id, List<AppUser> usersToRemove)
         {
@@ -258,10 +318,7 @@ namespace TicketManager.Controllers
         {
             return _context.Projects.Any(e => e.Id == id);
         }
-        private bool AssignmentExists(int id)
-        {
-            return _context.Assignments.Any(e => e.ProjectId == id);
-        }
+
 
         private async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
         {
