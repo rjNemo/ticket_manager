@@ -30,6 +30,7 @@
         <PackageReference Include="Microsoft.OpenApi" Version="1.1.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.0.0" />
+        <PackageReference Include="Xunit" Version="2.4.1" />
     </ItemGroup>
     <ItemGroup>
         <Folder Include="client\" />
