@@ -26,22 +26,36 @@ namespace TicketManager.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PlannedEnding { get; set; }
 
-        private decimal _progression;
+        // private decimal _progression;
         [Display(Name = "Progress")]
         public decimal Progression
         {
             get
             {
-                return _progression;
-            }
-            private set
-            {
-                _progression = Tickets.Count() == 0 ? 0 :
+                return Tickets.Count() == 0 ? 0 :
                 (decimal)this.Tickets.
                     Where(t => t.Status == Status.Done).Count()
                     / this.Tickets.Count() * 100;
             }
+            // private set
+            // {
+            //     _progression = 
+            // }
         }
+        // public decimal Progression
+        // {
+        //     get
+        //     {
+        //         return _progression;
+        //     }
+        //     private set
+        //     {
+        //         _progression = Tickets.Count() == 0 ? 0 :
+        //         (decimal)this.Tickets.
+        //             Where(t => t.Status == Status.Done).Count()
+        //             / this.Tickets.Count() * 100;
+        //     }
+        // }
 
         [Display(Name = "Project Status")]
         public Status Status { get; set; } = Status.ToDo;

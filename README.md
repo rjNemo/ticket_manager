@@ -40,6 +40,7 @@
 - Have a Look at typeahead component
 - Ensure Tickets Edits belong to Project Edits
 - Ensure Tickets Files belong to Project Files
-- Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
 - Async model methods ?
 - setMembers & removeMembers from project api not working
+- Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
+- repository + strategy to decouple controllers from DbContext. Easier testing

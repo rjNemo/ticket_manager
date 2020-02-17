@@ -16,17 +16,17 @@ namespace TicketManager.Tests
             // _context = context;
         }
 
-        [Fact]
-        public void Get_ReturnsProjectList()
-        {
-            // Arange
-            // var controller = new ProjectsController();
+        // [Fact]
+        // public void Get_ReturnsProjectList()
+        // {
+        //     // Arange
+        //     // var controller = new ProjectsController();
 
-            // Act
-            // var result = controller.GetProjects();
+        //     // Act
+        //     // var result = controller.GetProjects();
 
-            // Assert
-            // Assert.IsType<IEnumerable<Project>>(result);
-        }
+        //     // Assert
+        //     // Assert.IsType<IEnumerable<Project>>(result);
+        // }
     }
 }
