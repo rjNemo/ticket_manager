@@ -37,6 +37,7 @@ namespace TicketManager
         {
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
+            services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddControllers()
             .AddNewtonsoftJson(options =>
             {
@@ -72,11 +73,14 @@ namespace TicketManager
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                var repository = serviceProvider.GetRequiredService<IProjectRepository>();
+
+                // InitializeDatabaseAsync(repository).Wait()
             }
             else
             {

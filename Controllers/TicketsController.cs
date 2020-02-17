@@ -131,7 +131,7 @@ namespace TicketManager.Controllers
                 // .Include(p => p.Edits)
                 // .Include(p => p.Notes)
                 // .Include(p => p.Files)
-                .Include(p => p.Creator)
+                // .Include(p => p.Creator)
                 ;
         }
 

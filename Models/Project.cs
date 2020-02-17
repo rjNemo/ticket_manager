@@ -26,22 +26,36 @@ namespace TicketManager.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PlannedEnding { get; set; }
 
-        private decimal _progression;
+        // private decimal _progression;
         [Display(Name = "Progress")]
         public decimal Progression
         {
             get
             {
-                return _progression;
-            }
-            private set
-            {
-                _progression = Tickets.Count() == 0 ? 0 :
+                return Tickets.Count() == 0 ? 0 :
                 (decimal)this.Tickets.
                     Where(t => t.Status == Status.Done).Count()
                     / this.Tickets.Count() * 100;
             }
+            // private set
+            // {
+            //     _progression = 
+            // }
         }
+        // public decimal Progression
+        // {
+        //     get
+        //     {
+        //         return _progression;
+        //     }
+        //     private set
+        //     {
+        //         _progression = Tickets.Count() == 0 ? 0 :
+        //         (decimal)this.Tickets.
+        //             Where(t => t.Status == Status.Done).Count()
+        //             / this.Tickets.Count() * 100;
+        //     }
+        // }
 
         [Display(Name = "Project Status")]
         public Status Status { get; set; } = Status.ToDo;
@@ -62,11 +76,12 @@ namespace TicketManager.Models
         {
             return this.Assignments.Select(a => a.User).ToList();
         }
+
         public void AddMembers(List<AppUser> usersToAdd)
         {
             foreach (var user in usersToAdd)
             {
-                Assignment newAssign = new Assignment()
+                Assignment newAssign = new Assignment
                 {
                     Project = this,
                     ProjectId = this.Id,
@@ -74,9 +89,10 @@ namespace TicketManager.Models
                     UserId = user.Id
                 };
                 this.Assignments.Add(newAssign);
-                // AddLogEntry(this, " joined the project.");
+                user.Assignments.Add(newAssign);
             }
         }
+
         public void RemoveMembers(List<AppUser> membersToRemove)
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
@@ -102,27 +118,15 @@ namespace TicketManager.Models
             {
                 this.AddMembers(projectMembers);
             }
-
         }
-        public int GetMembersCount() => this.GetMembers().Count();
-        public void GetTicketsCount() => this.Tickets.Count();
+        // public int GetMembersCount() => this.GetMembers().Count();
+        // public void GetTicketsCount() => this.Tickets.Count();
         public void GetTicketsUpdates()
         { throw new NotImplementedException("Not Implemented"); }
+
         public void Close()
         {
             this.Status = Status.Done;
         }
-
-        // private void AddLogEntry(string description)//, User user)
-        // {
-        //     History Edit = new History()
-        //     {
-        //         Description = description,
-        //         ActivityType = ActivityType.Undefined,
-        //         // User = user,
-        //         UpdateDate = DateTime.Now
-        //     };
-        //     this.Edits.Add(Edit);
-        // }
     }
 }

@@ -30,12 +30,12 @@ namespace TicketManager.Models
         public Category Category { get; set; } = Category.Undefined;
 
         [Display(Name = "Created By")]
-        public AppUser Creator { get; set; }
+        // public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
 
         [Display(Name = "Project")]
         public Project Project { get; set; }
-        public int ProjectId { get; set; }
+        // public int ProjectId { get; set; }
         public List<Note> Notes = new List<Note>();
 
         public List<History> Edits = new List<History>();
