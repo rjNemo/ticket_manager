@@ -3,56 +3,44 @@ using TicketManager.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 
 namespace TicketManager.Data
 {
-    public class ProjectRepository : IProjectRepository
+    public class ProjectRepository : GenericRepository<Project>, IProjectRepository
     {
-        private readonly AppDbContext _context;
         private readonly IQueryable<Project> _query;
-        public ProjectRepository(AppDbContext context)
+        public ProjectRepository(AppDbContext context) : base(context)
         {
-            _context = context;
-            _query = _context.Projects
-                .Include(p => p.Assignments)
-                    .ThenInclude(a => a.User)
+            _query = _dbSet
+                .Include(p => p.Assignments).ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
-                .Include(p => p.Files);
+                .Include(p => p.Files)
+                .AsNoTracking();
         }
 
-        public Task AddAsync(Project project)
-        {
-            _context.Projects.Add(project);
-            return _context.SaveChangesAsync();
-        }
-
-        public async Task<int> DeleteAsync(int id)
-        {
-            Project project = await GetByIdAsync(id);
-            _context.Projects.Remove(project);
-            return await _context.SaveChangesAsync();
-        }
-
-        public async Task<Project> GetByIdAsync(int id)
+        public override async Task<Project> Get(int id)
         {
             return await _query.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<IEnumerable<Project>> ListAsync()
+        public override async Task<IEnumerable<Project>> List()
         {
             return await _query.ToListAsync();
         }
 
-        public Task UpdateAsync(Project project)
-        {
-            _context.Entry(project).State = EntityState.Modified;
-            return _context.SaveChangesAsync();
-        }
-
         public bool Exists(int id)
-        { return _context.Projects.Any(e => e.Id == id); }
+        { return _dbSet.Any(e => e.Id == id); }
 
+        public async Task<IEnumerable<AppUser>> GetMembers(int id)
+        {
+            Project project = await Get(id);
+            return project.GetMembers();
+        }
+        public async Task SetMembers(int id, List<AppUser> usersToAdd)
+        {
+            Project project = await Get(id);
+            project.SetMembers(usersToAdd);
+        }
     }
 }

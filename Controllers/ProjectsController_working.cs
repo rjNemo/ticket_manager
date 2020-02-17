@@ -15,13 +15,13 @@
 //     [Produces("application/json")]
 //     [Route("api/v1/[controller]")]
 //     [ApiController]
-//     public class ProjectsController2 : ControllerBase
+//     public class ProjectsController : ControllerBase
 //     {
-//         private readonly AppDbContext _context;
+//         private readonly IProjectRepository _projectRepo;
 
-//         public ProjectsController2(AppDbContext context)
+//         public ProjectsController(IProjectRepository projectRepo)
 //         {
-//             _context = context;
+//             _projectRepo = projectRepo;
 //         }
 
 //         /// <summary>
@@ -36,9 +36,10 @@
 //         /// <response code="200">Returns all existing projects</response> 
 //         [HttpGet]
 //         [ProducesResponseType(StatusCodes.Status200OK)]
-//         public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+//         public async Task<IEnumerable<Project>> GetProjects()
 //         {
-//             return await GetAllProjectsAsync();
+//             return await _projectRepo.ListAsync();
+//             // GetAllProjectsAsync();
 //         }
 
 //         /// <summary>
@@ -57,11 +58,8 @@
 //         [ProducesResponseType(StatusCodes.Status404NotFound)]
 //         public async Task<ActionResult<Project>> GetProject(int id)
 //         {
-//             Project project = await GetProjectByIdAsync(id);
-//             if (project == null)
-//             {
-//                 return NotFound();
-//             }
+//             Project project = await _projectRepo.GetByIdAsync(id);
+//             if (project == null) { return NotFound(); }
 //             return project;
 //         }
 
@@ -91,20 +89,15 @@
 //         [ProducesResponseType(StatusCodes.Status404NotFound)]
 //         public async Task<IActionResult> PutProject(int id, Project project)
 //         {
-//             if (id != project.Id)
-//             {
-//                 return BadRequest();
-//             }
-
-//             _context.Entry(project).State = EntityState.Modified;
+//             if (id != project.Id) { return BadRequest(); }
 
 //             try
 //             {
-//                 await _context.SaveChangesAsync();
+//                 await _projectRepo.UpdateAsync(project);
 //             }
 //             catch (DbUpdateConcurrencyException)
 //             {
-//                 if (!ProjectExists(id))
+//                 if (!_projectRepo.Exists(id))
 //                 {
 //                     return NotFound();
 //                 }
@@ -139,8 +132,8 @@
 //         [ProducesResponseType(StatusCodes.Status404NotFound)]
 //         public async Task<ActionResult<Project>> PostProject(Project project)
 //         {
-//             _context.Projects.Add(project);
-//             await _context.SaveChangesAsync();
+//             if (!ModelState.IsValid) { return BadRequest(); }
+//             await _projectRepo.AddAsync(project);
 
 //             return CreatedAtAction("GetProject", new { id = project.Id }, project);
 //         }
@@ -163,13 +156,12 @@
 //         [HttpDelete("{id}")]
 //         public async Task<ActionResult<Project>> DeleteProject(int id)
 //         {
-//             var project = await _context.Projects.FindAsync(id);
+//             var project = await _projectRepo.GetByIdAsync(id);
 //             if (project == null)
 //             {
 //                 return NotFound();
 //             }
-//             _context.Projects.Remove(project);
-//             await _context.SaveChangesAsync();
+//             await _projectRepo.DeleteAsync(id);
 //             return project;
 //         }
 
@@ -188,7 +180,7 @@
 //         [HttpGet("{id}/members")]
 //         public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
 //         {
-//             Project project = await GetProjectByIdAsync(id);
+//             Project project = await _projectRepo.GetByIdAsync(id);
 //             if (project == null)
 //             { return NotFound(); }
 //             return project.GetMembers();
@@ -216,11 +208,15 @@
 //         [HttpPut("{id}/members")]
 //         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
 //         {
-//             Project project = await GetProjectByIdAsync(id);
+//             Project project = await _projectRepo.GetByIdAsync(id);
+//             if (project == null)
+//             {
+//                 return NotFound();
+//             }
 //             project.SetMembers(projectMembers);
 //             try
 //             {
-//                 await _context.SaveChangesAsync();
+//                 await _projectRepo.UpdateAsync(project);
 //             }
 //             catch (DbUpdateException /* ex */)
 //             {
@@ -314,31 +310,8 @@
 //         //     return NoContent();
 //         // }
 
-//         private bool ProjectExists(int id)
-//         {
-//             return _context.Projects.Any(e => e.Id == id);
-//         }
 
 
-//         private async Task<ActionResult<IEnumerable<Project>>> GetAllProjectsAsync()
-//         {
-//             return await makeProjectsQueryAsync()
-//                 .ToListAsync();
-//         }
-//         private async Task<Project> GetProjectByIdAsync(int id)
-//         {
-//             return await makeProjectsQueryAsync()
-//                 .FirstOrDefaultAsync(p => p.Id == id);
-//         }
 
-//         private IQueryable<Project> makeProjectsQueryAsync()
-//         {
-//             return _context.Projects
-//                 .Include(p => p.Assignments)
-//                     .ThenInclude(a => a.User)
-//                 .Include(p => p.Tickets)
-//                 .Include(p => p.Manager)
-//                 .Include(p => p.Files);
-//         }
 //     }
 // }
