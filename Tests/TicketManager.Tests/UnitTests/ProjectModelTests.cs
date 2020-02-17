@@ -1,8 +1,6 @@
 using System.Linq;
 using Xunit;
 using System.Collections.Generic;
-using TicketManager.Controllers;
-using TicketManager.Data;
 using TicketManager.Models;
 
 namespace TicketManager.Tests

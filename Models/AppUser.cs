@@ -51,15 +51,6 @@ namespace TicketManager.Models
             return Assignments.Select(a => a.Project).ToList();
         }
 
-        // public Project GetProject(int id)
-        // {
-        //     return Assignments.Single(a => a.Project.Id == id).Project;
-        // }
-
-        // public List<AppUser> GetProjectMembers(int id)
-        // {
-        //     return GetProject(id).GetMembers();
-        // }
         public List<Ticket> GetTickets()
         {
             List<Ticket> tickets = new List<Ticket>();

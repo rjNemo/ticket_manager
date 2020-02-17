@@ -76,10 +76,9 @@ namespace TicketManager.Models
         {
             return this.Assignments.Select(a => a.User).ToList();
         }
+
         public void AddMembers(List<AppUser> usersToAdd)
         {
-            var projectUsers = new List<Guid>
-                (this.Assignments.Select(a => a.UserId));
             foreach (var user in usersToAdd)
             {
                 Assignment newAssign = new Assignment
@@ -92,6 +91,7 @@ namespace TicketManager.Models
                 this.Assignments.Add(newAssign);
             }
         }
+
         public void RemoveMembers(List<AppUser> membersToRemove)
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
@@ -122,21 +122,10 @@ namespace TicketManager.Models
         // public void GetTicketsCount() => this.Tickets.Count();
         public void GetTicketsUpdates()
         { throw new NotImplementedException("Not Implemented"); }
+
         public void Close()
         {
             this.Status = Status.Done;
         }
-
-        // private void AddLogEntry(string description)//, User user)
-        // {
-        //     History Edit = new History()
-        //     {
-        //         Description = description,
-        //         ActivityType = ActivityType.Undefined,
-        //         // User = user,
-        //         UpdateDate = DateTime.Now
-        //     };
-        //     this.Edits.Add(Edit);
-        // }
     }
 }
