@@ -80,8 +80,6 @@ namespace TicketManager.Models
         {
             var projectUsers = new List<Guid>
                 (this.Assignments.Select(a => a.UserId));
-
-
             foreach (var user in usersToAdd)
             {
                 Assignment newAssign = new Assignment
@@ -92,9 +90,7 @@ namespace TicketManager.Models
                     UserId = user.Id
                 };
                 this.Assignments.Add(newAssign);
-                // AddLogEntry(this, " joined the project.");
             }
-            // return this.Assignments;
         }
         public void RemoveMembers(List<AppUser> membersToRemove)
         {
@@ -121,10 +117,9 @@ namespace TicketManager.Models
             {
                 this.AddMembers(projectMembers);
             }
-
         }
-        public int GetMembersCount() => this.GetMembers().Count();
-        public void GetTicketsCount() => this.Tickets.Count();
+        // public int GetMembersCount() => this.GetMembers().Count();
+        // public void GetTicketsCount() => this.Tickets.Count();
         public void GetTicketsUpdates()
         { throw new NotImplementedException("Not Implemented"); }
         public void Close()

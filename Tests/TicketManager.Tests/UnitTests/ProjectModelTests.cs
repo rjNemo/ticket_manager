@@ -105,5 +105,13 @@ namespace TicketManager.Tests
             var res = project.GetMembers().Count();
             Assert.Equal(1, res);
         }
+
+        [Fact]
+        public void CloseProject_IsClosed()
+        {
+            Project project = new Project() { Status = Status.InProgress };
+            project.Close();
+            Assert.Equal(Status.Done, project.Status);
+        }
     }
 }
