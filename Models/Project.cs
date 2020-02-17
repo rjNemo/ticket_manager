@@ -89,6 +89,7 @@ namespace TicketManager.Models
                     UserId = user.Id
                 };
                 this.Assignments.Add(newAssign);
+                user.Assignments.Add(newAssign);
             }
         }
 

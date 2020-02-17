@@ -44,3 +44,4 @@
 - setMembers & removeMembers from project api not working
 - Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
 - repository + strategy to decouple controllers from DbContext. Easier testing
+- update assignments automatically from context
