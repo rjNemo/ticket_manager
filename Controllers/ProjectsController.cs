@@ -17,12 +17,7 @@ namespace TicketManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectRepository _projectRepo;
-
-        public ProjectsController(IProjectRepository projectRepo)
-        {
-            _projectRepo = projectRepo;
-        }
+        private UnitOfWork _context;
 
         /// <summary>
         /// Returns all existing projects. 
@@ -38,7 +33,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<Project>> GetProjects()
         {
-            return await _projectRepo.List();
+            return await _context.Projects.List();
         }
 
         /// <summary>
@@ -57,7 +52,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
-            Project project = await _projectRepo.Get(id);
+            Project project = await _context.Projects.Get(id);
             if (project == null) { return NotFound(); }
             return project;
         }
