@@ -10,6 +10,7 @@ import { User } from "../types/User";
 export const ProjectController: FC = () => {
   // const [project, setProject] = useState({} as Project);
   const [isLoading, setIsLoading] = useState(false);
+
   // const { id } = useParams();
 
   // const getProject: Function = (id: number) => {
