@@ -30,7 +30,9 @@ namespace TicketManager.Data
         }
 
         public bool Exists(int id)
-        { return _dbSet.Any(e => e.Id == id); }
+        {
+            return _dbSet.Any(e => e.Id == id);
+        }
 
         public async Task<IEnumerable<AppUser>> GetMembers(int id)
         {

@@ -14,31 +14,29 @@ namespace TicketManager.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ITicketRepository _tickets;
 
-        public TicketsController(AppDbContext context)
+        public TicketsController(ITicketRepository tickets)
         {
-            _context = context;
+            _tickets = tickets;
         }
 
         // GET: api/Tickets
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ticket>>> GetTickets()
+        public async Task<IEnumerable<Ticket>> GetTickets()
         {
-            return await getAllTicketsAsync();
+            return await _tickets.List();
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Ticket>> GetTicket(int id)
         {
-            var ticket = await getTicketByIdAsync(id);
-
+            var ticket = await _tickets.Get(id);
             if (ticket == null)
             {
                 return NotFound();
             }
-
             return ticket;
         }
 
@@ -52,16 +50,13 @@ namespace TicketManager.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(ticket).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
+                await _tickets.Update(ticket);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TicketExists(id))
+                if (!_tickets.Exists(id))
                 {
                     return NotFound();
                 }
@@ -70,7 +65,6 @@ namespace TicketManager.Controllers
                     throw;
                 }
             }
-
             return NoContent();
         }
 
@@ -80,9 +74,7 @@ namespace TicketManager.Controllers
         [HttpPost]
         public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
         {
-            _context.Tickets.Add(ticket);
-            await _context.SaveChangesAsync();
-
+            await _tickets.Add(ticket);
             return CreatedAtAction("GetTicket", new { id = ticket.Id }, ticket);
         }
 
@@ -90,59 +82,28 @@ namespace TicketManager.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Ticket>> DeleteTicket(int id)
         {
-            var ticket = await _context.Tickets.FindAsync(id);
+            var ticket = await _tickets.Get(id);
             if (ticket == null)
             {
                 return NotFound();
             }
-
-            _context.Tickets.Remove(ticket);
-            await _context.SaveChangesAsync();
-
+            await _tickets.Delete(ticket);
             return ticket;
         }
 
         [HttpGet("{id}/assignees")]
         public async Task<ActionResult<List<AppUser>>> GetTicketAssignees(int id)
         {
-            Ticket ticket = await getTicketByIdAsync(id);
+            Ticket ticket = await _tickets.Get(id);
             return ticket.GetAssignees();
         }
 
         [HttpPut("{id}/closed")]
-        public async Task<ActionResult> CloseTicket(int id)
+        public async Task<IActionResult> CloseTicket(int id)
         {
-            Ticket ticket = await getTicketByIdAsync(id);
+            Ticket ticket = await _tickets.Get(id);
             ticket.Close();
-            return NoContent();
-        }
-
-        private bool TicketExists(int id)
-        {
-            return _context.Tickets.Any(e => e.Id == id);
-        }
-
-        private IQueryable<Ticket> ticketQuery() // problem with link
-        {
-            return _context.Tickets
-                .Include(p => p.Project)
-                    .ThenInclude(a => a.Assignments)
-                        .ThenInclude(p => p.User)
-                // .Include(p => p.Edits)
-                // .Include(p => p.Notes)
-                // .Include(p => p.Files)
-                // .Include(p => p.Creator)
-                ;
-        }
-
-        private async Task<ActionResult<IEnumerable<Ticket>>> getAllTicketsAsync()
-        {
-            return await ticketQuery().ToListAsync();
-        }
-
-        private async Task<Ticket> getTicketByIdAsync(int id)
-        {
-            return await ticketQuery().FirstOrDefaultAsync(a => a.Id == id);
+            return await PutTicket(ticket.Id, ticket);
         }
     }
 }

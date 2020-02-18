@@ -13,10 +13,10 @@ namespace TicketManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private AppDbContext _dbContext;
-        public ProjectsController(AppDbContext context)
+        private IProjectRepository _projects;
+        public ProjectsController(IProjectRepository context)
         {
-            _dbContext = context;
+            _projects = context;
         }
 
         /// <summary>
@@ -33,8 +33,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<Project>> GetProjects()
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
-            return await _context.Projects.List();
+            return await _projects.List();
         }
 
         /// <summary>
@@ -53,8 +52,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Project>> GetProject(int id)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
-            Project project = await _context.Projects.Get(id);
+            Project project = await _projects.Get(id);
             if (project == null) { return NotFound(); }
             return project;
         }
@@ -83,16 +81,14 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
             if (id != project.Id) { return BadRequest(); }
             try
             {
-                _context.Projects.Update(project);
-                await _context.Complete();
+                await _projects.Update(project);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_context.Projects.Exists(id)) { return NotFound(); }
+                if (!_projects.Exists(id)) { return NotFound(); }
                 else { throw; }
             }
             return NoContent();
@@ -120,10 +116,8 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Project>> PostProject(Project project)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
             if (!ModelState.IsValid) { return BadRequest(); }
-            _context.Projects.Add(project);
-            await _context.Complete();
+            await _projects.Add(project);
             return CreatedAtAction("GetProject", new { id = project.Id }, project);
         }
 
@@ -142,14 +136,12 @@ namespace TicketManager.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(int id)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
-            var project = await _context.Projects.Get(id);
+            var project = await _projects.Get(id);
             if (project == null)
             {
                 return NotFound();
             }
-            _context.Projects.Delete(project);
-            await _context.Complete();
+            await _projects.Delete(project);
             return Ok();
         }
 
@@ -168,8 +160,7 @@ namespace TicketManager.Controllers
         [HttpGet("{id}/members")]
         public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
-            Project project = await _context.Projects.Get(id);
+            var project = await _projects.Get(id);
             if (project == null)
             { return NotFound(); }
             return project.GetMembers();
@@ -198,8 +189,7 @@ namespace TicketManager.Controllers
         [HttpPut("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
-            UnitOfWork _context = new UnitOfWork(_dbContext);
-            Project project = await _context.Projects.Get(id);
+            Project project = await _projects.Get(id);
             if (project == null)
             {
                 return NotFound();
@@ -207,8 +197,7 @@ namespace TicketManager.Controllers
             project.SetMembers(projectMembers);
             try
             {
-                _context.Projects.Update(project);
-                await _context.Complete();
+                await _projects.Update(project);
             }
             catch (DbUpdateException /* ex */)
             {

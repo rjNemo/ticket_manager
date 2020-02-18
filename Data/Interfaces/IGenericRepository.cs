@@ -11,10 +11,10 @@ namespace TicketManager.Data
         Task<T> Get(int id);
         Task<IEnumerable<T>> Find(int id, Expression<Func<T, bool>> expr);
 
-        void Add(T entity);
+        Task<int> Add(T entity);
 
-        void Update(T entity);
+        Task<int> Update(T entity);
 
-        void Delete(T entity);
+        Task<int> Delete(T entity);
     }
 }
