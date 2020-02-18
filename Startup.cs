@@ -38,6 +38,8 @@ namespace TicketManager
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("Sqlite")));
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddControllers()
             .AddNewtonsoftJson(options =>
             {

@@ -19,7 +19,7 @@ namespace TicketManager.Data
                 // .Include(p => p.Notes)
                 // .Include(p => p.Files)
                 // .Include(p => p.Creator)
-                .AsNoTracking();
+                ;
         }
 
         public override async Task<Ticket> Get(int id)

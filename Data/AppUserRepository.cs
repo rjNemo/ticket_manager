@@ -16,8 +16,7 @@ namespace TicketManager.Data
                 .Include(p => p.Assignments)
                     .ThenInclude(a => a.Project)
                         .ThenInclude(p => p.Tickets)
-                .Include(p => p.Edits)
-                .AsNoTracking();
+                .Include(p => p.Edits);
         }
 
         public async Task<AppUser> GetUser(Guid id)
