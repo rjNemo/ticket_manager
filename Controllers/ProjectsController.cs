@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,8 @@ using TicketManager.Models;
 
 namespace TicketManager.Controllers
 {
+    // [Authorize(Roles = "Admin")]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]

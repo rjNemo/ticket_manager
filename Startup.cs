@@ -19,6 +19,7 @@ using TicketManager.Data;
 using TicketManager.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 [assembly: ApiController]
 namespace TicketManager
@@ -32,7 +33,6 @@ namespace TicketManager
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
@@ -40,11 +40,25 @@ namespace TicketManager
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
-            services.AddControllers()
-            .AddNewtonsoftJson(options =>
+
+            services.AddAuthentication(options =>
             {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://dev-fyjrvohx.auth0.com/";
+                options.Audience = "https://localhost:5001/api/V1/";
+                //options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
+                //options.Audience = Configuration["Auth0:Audience"];
             });
+
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
+                    }
+                );
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -72,17 +86,12 @@ namespace TicketManager
             services.AddSwaggerGenNewtonsoftSupport(); // explicit opt-in - needs to be placed after AddSwaggerGen()
         }
 
-
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                var repository = serviceProvider.GetRequiredService<IProjectRepository>();
-
-                // InitializeDatabaseAsync(repository).Wait()
+                // var repository = serviceProvider.GetRequiredService<IProjectRepository>();
             }
             else
             {
@@ -92,7 +101,6 @@ namespace TicketManager
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
 
-
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
@@ -100,11 +108,9 @@ namespace TicketManager
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API v1");
             });
 
-
-
             app.UseSpaStaticFiles();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -124,8 +130,3 @@ namespace TicketManager
         }
     }
 }
-
-
-
-
-
