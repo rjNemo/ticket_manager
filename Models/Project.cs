@@ -119,8 +119,7 @@ namespace TicketManager.Models
                 this.AddMembers(projectMembers);
             }
         }
-        // public int GetMembersCount() => this.GetMembers().Count();
-        // public void GetTicketsCount() => this.Tickets.Count();
+
         public void GetTicketsUpdates()
         { throw new NotImplementedException("Not Implemented"); }
 

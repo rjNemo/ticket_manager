@@ -29,7 +29,7 @@ namespace TicketManager.Models
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
 
-        [Display(Name = "Created By")]
+        // [Display(Name = "Created By")]
         // public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
 

@@ -24,7 +24,6 @@ namespace TicketManager.Data
         {
             return await _context.SaveChangesAsync();
         }
-
         public void Dispose()
         {
             _context.DisposeAsync();

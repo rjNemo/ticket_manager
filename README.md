@@ -43,3 +43,4 @@
 - Async model methods ?
 - update assignments automatically from context
 - use PATCH instead of PUT
+- logging
