@@ -1,9 +1,10 @@
 import React, { FC, MouseEvent } from "react";
 import { Link } from "react-router-dom";
+import { getRemainingdays } from "../utils/methods";
 
 interface IProps {
   title: string;
-  remainingDays?: number;
+  remainingDays: string;
   validateTicket: (event: MouseEvent) => void;
   archiveTicket: (event: MouseEvent) => void;
 }
@@ -26,7 +27,7 @@ export const HorizontalCard: FC<IProps> = ({
                 </Link>
               </h6>
             </div>
-            <span>Due {remainingDays} days</span>
+            <span>Due {getRemainingdays(remainingDays)} days</span>
             <div className="right">
               <Link to="#">
                 <i className="material-icons" onClick={validateTicket}>

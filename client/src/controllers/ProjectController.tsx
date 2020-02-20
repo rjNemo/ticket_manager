@@ -37,12 +37,16 @@ export const ProjectController: FC = () => {
   const tickets: Ticket[] = [
     {
       id: 1,
-      title: "Ticket #1",
+      title: "Client objective meeting",
+      description: "Client objective meeting",
+      plannedEnding: "2020-02-17 15:51:02.787373",
       status: "Done"
     },
     {
       id: 2,
-      title: "Ticket #2",
+      title: "Assemble Outcomes Report for client",
+      description: "Assemble Outcomes Report for client",
+      plannedEnding: "2020-02-27 15:51:02.787373",
       status: "To Do"
     }
   ];

@@ -18,7 +18,6 @@ interface IProps {
 
 export const TabRouter: FC<IProps> = ({
   tickets,
-  remainingDays,
   tabNames,
   files,
   activities
@@ -32,7 +31,7 @@ export const TabRouter: FC<IProps> = ({
         <Redirect from={url} to={`${url}/tickets`} />
 
         <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} remainingDays={remainingDays} />
+          <TicketList tickets={tickets} />
         </Route>
 
         <Route path={`${url}/files`}>

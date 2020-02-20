@@ -5,6 +5,7 @@ import { Project } from "../types/Project";
 import { AppFile } from "../types/AppFile";
 import { Activity } from "../types/Activity";
 import { User } from "../types/User";
+import { getRemainingdays } from "../utils/methods";
 
 export default class ProjectVM {
   public id: number;
@@ -12,7 +13,6 @@ export default class ProjectVM {
   public description: string;
   public value: number;
   public tickets: Ticket[];
-  // public avatars: string[];
   public users: User[];
   public ticketsTotalCount: number;
   public ticketsDone: number;
@@ -35,7 +35,6 @@ export default class ProjectVM {
     this.id = project.id;
     this.title = project.title;
     this.description = project.description;
-    // this.avatars = project.users.map(u => u.picture);
     this.users = project.users;
     this.value = project.progression;
     this.tickets = project.tickets;
@@ -43,12 +42,6 @@ export default class ProjectVM {
     this.ticketsDone = this.tickets.filter(t => t.status === "Done").length;
     this.files = project.files;
     this.activities = project.activities;
-
-    let endingDate: Date = new Date(project.plannedEnding);
-    let today: Date = new Date();
-    let plannedEnding: number = Math.abs(
-      endingDate.getDate() - today.getDate()
-    );
-    this.remainingDays = plannedEnding;
+    this.remainingDays = getRemainingdays(project.plannedEnding);
   }
 }

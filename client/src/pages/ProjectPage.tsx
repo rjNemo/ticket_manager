@@ -41,7 +41,6 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           tabNames={tabNames}
           tickets={tickets}
           files={files}
-          remainingDays={remainingDays}
           activities={activities}
         />
       </div>
