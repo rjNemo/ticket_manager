@@ -20,6 +20,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     ticketsTotalCount,
     remainingDays
   } = viewModel;
+  const tabNames: string[] = ["Tickets", "Files", "Activity"];
   return (
     <div className="section">
       <div className="container">
@@ -35,11 +36,9 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           remainingDays={remainingDays}
         />
         <TabRouter
+          tabNames={tabNames}
           tickets={tickets}
-          tasksDone={ticketsDone}
-          tasksTotalCount={ticketsTotalCount}
           remainingDays={remainingDays}
-          avatars={avatars}
         />
       </div>
     </div>

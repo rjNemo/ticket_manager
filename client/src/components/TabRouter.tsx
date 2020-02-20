@@ -6,36 +6,22 @@ import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 
 interface IProps {
   tickets: Ticket[];
-  tasksTotalCount?: number;
-  tasksDone?: number;
   remainingDays?: number;
-  avatars: string[];
+  tabNames: string[];
 }
 
-export const TabRouter: FC<IProps> = ({
-  tickets,
-  tasksDone,
-  tasksTotalCount,
-  remainingDays,
-  avatars
-}) => {
+export const TabRouter: FC<IProps> = ({ tickets, remainingDays, tabNames }) => {
   const { url } = useRouteMatch();
   return (
     <>
       <Switch>
         <div className="row">
-          <TabRouterHeader />
+          <TabRouterHeader nTabs={tabNames.length} tabNames={tabNames} />
 
           <Redirect from={url} to={`${url}/tickets`} />
 
           <Route path={`${url}/tickets`}>
-            <TicketList
-              tickets={tickets}
-              tasksDone={tasksDone}
-              tasksTotalCount={tasksTotalCount}
-              remainingDays={remainingDays}
-              avatars={avatars}
-            />
+            <TicketList tickets={tickets} remainingDays={remainingDays} />
           </Route>
 
           <Route path={`${url}/files`}>
