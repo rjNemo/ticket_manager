@@ -1,8 +1,12 @@
-import React, { FC, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, {
+  FC,
+  useState
+  // useEffect
+} from "react";
+// import { useParams } from "react-router-dom";
 import { ProjectPage } from "../pages/ProjectPage";
 import ProjectVM from "../viewModels/ProjectVM";
-import { Constants } from "../utils/Constants";
+// import { Constants } from "../utils/Constants";
 import { Project } from "../types/Project";
 import { Ticket } from "../types/Ticket";
 import { User } from "../types/User";
@@ -96,7 +100,7 @@ export const ProjectController: FC = () => {
       ticket: tickets[0]
     },
     {
-      id: 3,
+      id: 2,
       description: " added the task ",
       date: new Date(),
       user: users[1],

@@ -13,7 +13,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const {
     title,
     description,
-    avatars,
+    users,
     value,
     tickets,
     ticketsDone,
@@ -28,7 +28,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
       <div className="container">
         <Header title={title} description={description} />
         <div className="row valign-wrapper">
-          <AvatarList avatars={avatars} />
+          <AvatarList users={users} />
           <FloatingButton icon="add" color="grey" size="small" />
         </div>
         <ProgressBar

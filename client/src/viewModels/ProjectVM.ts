@@ -1,9 +1,10 @@
 import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
-import { Constants } from "../utils/Constants";
-import { User } from "../types/User";
+// import { Constants } from "../utils/Constants";
+// import { User } from "../types/User";
 import { AppFile } from "../types/AppFile";
 import { Activity } from "../types/Activity";
+import { User } from "../types/User";
 
 export default class ProjectVM {
   public id: number;
@@ -11,7 +12,8 @@ export default class ProjectVM {
   public description: string;
   public value: number;
   public tickets: Ticket[];
-  public avatars: string[];
+  // public avatars: string[];
+  public users: User[];
   public ticketsTotalCount: number;
   public ticketsDone: number;
   public remainingDays: number;
@@ -33,7 +35,8 @@ export default class ProjectVM {
     this.id = project.id;
     this.title = project.title;
     this.description = project.description;
-    this.avatars = project.users.map(u => u.picture);
+    // this.avatars = project.users.map(u => u.picture);
+    this.users = project.users;
     this.value = project.progression;
     this.tickets = project.tickets;
     this.ticketsTotalCount = this.tickets.length;

@@ -3,22 +3,21 @@ import { Link, useRouteMatch } from "react-router-dom";
 
 interface IProps {
   tabClass?: string;
-  nTabs: number;
   tabNames: string[];
 }
 
 export const TabRouterHeader: FC<IProps> = ({
   tabClass = "tab col s4",
-  nTabs,
   tabNames
 }) => {
-  const [isActive, setIsActive] = useState<number>(0);
-
+  const [isActive, setIsActive] = useState(0);
+  const nTabs = tabNames.length;
   return (
     <>
       <ul className="tabs z-depth-1">
         {tabNames.map((name, i) => (
           <TabUnit
+            key={i}
             text={name}
             value={i.toString()}
             tabClass={tabClass}

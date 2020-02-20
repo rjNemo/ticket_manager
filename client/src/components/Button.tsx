@@ -1,4 +1,4 @@
-import React, { FC, Children } from "react";
+import React, { FC } from "react";
 
 interface IProps {
   icon?: string;

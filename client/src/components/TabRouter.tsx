@@ -4,7 +4,7 @@ import { TicketList } from "./TicketList";
 import { FileList } from "./AppFileList";
 import { Ticket } from "../types/Ticket";
 import { AppFile } from "../types/AppFile";
-import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
+import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { ActivityList } from "./ActivityList";
 import { Activity } from "../types/Activity";
 
@@ -26,25 +26,23 @@ export const TabRouter: FC<IProps> = ({
   const { url } = useRouteMatch();
   return (
     <>
-      <Switch>
-        <div className="row">
-          <TabRouterHeader nTabs={tabNames.length} tabNames={tabNames} />
+      <div className="row">
+        <TabRouterHeader tabNames={tabNames} />
 
-          <Redirect from={url} to={`${url}/tickets`} />
+        <Redirect from={url} to={`${url}/tickets`} />
 
-          <Route path={`${url}/tickets`}>
-            <TicketList tickets={tickets} remainingDays={remainingDays} />
-          </Route>
+        <Route path={`${url}/tickets`}>
+          <TicketList tickets={tickets} remainingDays={remainingDays} />
+        </Route>
 
-          <Route path={`${url}/files`}>
-            <FileList files={files} />
-          </Route>
+        <Route path={`${url}/files`}>
+          <FileList files={files} />
+        </Route>
 
-          <Route path={`${url}/activity`}>
-            <ActivityList activities={activities} />
-          </Route>
-        </div>
-      </Switch>
+        <Route path={`${url}/activity`}>
+          <ActivityList activities={activities} />
+        </Route>
+      </div>
     </>
   );
 };

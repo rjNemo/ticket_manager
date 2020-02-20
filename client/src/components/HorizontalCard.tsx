@@ -1,5 +1,4 @@
 import React, { FC, MouseEvent } from "react";
-import { AvatarList } from "./AvatarList";
 import { Link } from "react-router-dom";
 
 interface IProps {
@@ -29,16 +28,16 @@ export const HorizontalCard: FC<IProps> = ({
             </div>
             <span>Due {remainingDays} days</span>
             <div className="right">
-              <a>
+              <Link to="#">
                 <i className="material-icons" onClick={validateTicket}>
                   check
                 </i>
-              </a>
-              <a>
+              </Link>
+              <Link to="#">
                 <i className="material-icons" onClick={archiveTicket}>
                   archive
                 </i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

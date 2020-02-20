@@ -9,8 +9,10 @@ export const ActivityCollection: FC<IProps> = ({ activities }) => {
   return (
     <>
       <ul className="collection">
-        {activities.map((f: Activity) => (
-          <ActivityEntry activity={f} />
+        {activities.map((activity: Activity) => (
+          <li key={activity.id} className="collection-item avatar">
+            <ActivityEntry activity={activity} />
+          </li>
         ))}
       </ul>
     </>
@@ -23,13 +25,13 @@ type IFProps = {
 
 export const ActivityEntry: FC<IFProps> = ({ activity }) => {
   return (
-    <li key={activity.id} className="collection-item avatar">
+    <>
       <img src={activity.user.picture} alt="" className="circle" />
       {/* <i className="material-icons circle">folder</i> */}
       <span className="title">
         {activity.user.firstName} {activity.description} {activity.ticket.title}
       </span>
       <p>{activity.date.toDateString()}</p>
-    </li>
+    </>
   );
 };

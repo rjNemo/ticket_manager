@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes, CSSProperties } from "react";
+import React, { FC, CSSProperties } from "react";
 
 type ProgressBarProps = {
   value: number;

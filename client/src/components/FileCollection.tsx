@@ -9,8 +9,8 @@ export const FileCollection: FC<IProps> = ({ files }) => {
   return (
     <>
       <ul className="collection">
-        {files.map((f: AppFile) => (
-          <FileEntry file={f} />
+        {files.map((file: AppFile) => (
+          <FileEntry file={file} key={file.id} />
         ))}
       </ul>
     </>
@@ -23,7 +23,7 @@ type IFProps = {
 
 export const FileEntry: FC<IFProps> = ({ file }) => {
   return (
-    <li key={file.id} className="collection-item avatar">
+    <li className="collection-item avatar">
       {/* <img src={require("../images/user_1.jpg")} alt="" className="circle" /> */}
       <i className="material-icons circle">folder</i>
       <span className="title">{file.name}</span>
