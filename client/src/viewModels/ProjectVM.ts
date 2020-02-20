@@ -2,6 +2,8 @@ import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
 import { Constants } from "../utils/Constants";
 import { User } from "../types/User";
+import { AppFile } from "../types/AppFile";
+import { Activity } from "../types/Activity";
 
 export default class ProjectVM {
   public id: number;
@@ -13,6 +15,8 @@ export default class ProjectVM {
   public ticketsTotalCount: number;
   public ticketsDone: number;
   public remainingDays: number;
+  public files: AppFile[];
+  public activities: Activity[];
 
   /**
    * getMembers
@@ -34,13 +38,14 @@ export default class ProjectVM {
     this.tickets = project.tickets;
     this.ticketsTotalCount = this.tickets.length;
     this.ticketsDone = this.tickets.filter(t => t.status === "Done").length;
+    this.files = project.files;
+    this.activities = project.activities;
 
     let endingDate: Date = new Date(project.plannedEnding);
     let today: Date = new Date();
     let plannedEnding: number = Math.abs(
       endingDate.getDate() - today.getDate()
     );
-
     this.remainingDays = plannedEnding;
   }
 }

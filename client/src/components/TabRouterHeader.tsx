@@ -12,7 +12,7 @@ export const TabRouterHeader: FC<IProps> = ({
   nTabs,
   tabNames
 }) => {
-  const [isActive, setIsActive] = useState(0);
+  const [isActive, setIsActive] = useState<number>(0);
 
   return (
     <>

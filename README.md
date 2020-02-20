@@ -44,3 +44,4 @@
 - update assignments automatically from context
 - use PATCH instead of PUT
 - logging
+- check useRef, useReducer, dispatch

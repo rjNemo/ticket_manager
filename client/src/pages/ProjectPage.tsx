@@ -18,7 +18,9 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     tickets,
     ticketsDone,
     ticketsTotalCount,
-    remainingDays
+    remainingDays,
+    files,
+    activities
   } = viewModel;
   const tabNames: string[] = ["Tickets", "Files", "Activity"];
   return (
@@ -38,7 +40,9 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
         <TabRouter
           tabNames={tabNames}
           tickets={tickets}
+          files={files}
           remainingDays={remainingDays}
+          activities={activities}
         />
       </div>
     </div>
