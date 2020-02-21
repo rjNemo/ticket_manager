@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
 
 namespace TicketManager.Models
 {
-    public class History
+    public class Activity
     {
         public int Id { get; set; }
         public string Description { get; set; }

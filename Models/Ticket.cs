@@ -38,7 +38,7 @@ namespace TicketManager.Models
         // public int ProjectId { get; set; }
         public List<Note> Notes = new List<Note>();
 
-        public List<History> Edits = new List<History>();
+        public List<Activity> Activities = new List<Activity>();
 
         public List<File> Files = new List<File>();
 

@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
 using TicketManager.Models;
+using TicketManager.DTO;
 
 namespace TicketManager.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    [Authorize]
+    // [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -36,6 +38,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<Project>> GetProjects()
         {
+
             return await _projects.List();
         }
 
@@ -53,11 +56,14 @@ namespace TicketManager.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<ProjectDTO>> GetProject(int id)
         {
             Project project = await _projects.Get(id);
-            if (project == null) { return NotFound(); }
-            return project;
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return new ProjectDTO(project);
         }
 
         /// <summary>

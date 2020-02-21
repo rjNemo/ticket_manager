@@ -42,7 +42,7 @@ namespace TicketManager.Models
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
         [Display(Name = "Activity")]
-        public List<History> Edits { get; set; } = new List<History>();
+        public List<Activity> Activities { get; set; } = new List<Activity>();
 
         // Methods
         public List<Project> GetProjects()

@@ -11,18 +11,18 @@ namespace TicketManager.Models
         string Description { get; set; }
         DateTime CreatedAt { get; }
         DateTime PlannedEnding { get; set; }
-        List<History> Edits { get; set; }
+        List<Activity> Activities { get; set; }
 
         public virtual void AddLogEntry(string description)//, User user)
         {
-            History Edit = new History()
+            Activity Activity = new Activity()
             {
                 Description = description,
                 ActivityType = ActivityType.Undefined,
                 // User = user,
                 UpdateDate = DateTime.Now
             };
-            Edits.Add(Edit);
+            Activities.Add(Activity);
         }
     }
 }
