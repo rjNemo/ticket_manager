@@ -7,10 +7,13 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  progression: number;
-  tickets: Ticket[];
-  users: User[];
+  createdAt: string;
   plannedEnding: string;
+  progression: number;
+  status: string;
+  manager: User;
+  users: User[];
+  tickets: Ticket[];
   files: AppFile[];
   activities: Activity[];
 }

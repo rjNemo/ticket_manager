@@ -26,7 +26,6 @@ namespace TicketManager.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime PlannedEnding { get; set; }
 
-        // private decimal _progression;
         [Display(Name = "Progress")]
         public decimal Progression
         {
@@ -67,7 +66,7 @@ namespace TicketManager.Models
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
 
-        public List<History> Edits { get; set; } = new List<History>();
+        public List<Activity> Activities { get; set; } = new List<Activity>();
 
         public List<File> Files { get; set; } = new List<File>();
 
