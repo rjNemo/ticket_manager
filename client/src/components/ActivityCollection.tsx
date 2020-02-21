@@ -3,17 +3,27 @@ import { Activity } from "../types/Activity";
 
 type IProps = {
   activities: Activity[];
+  filterText: string;
 };
 
-export const ActivityCollection: FC<IProps> = ({ activities }) => {
+export const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
   return (
     <>
       <ul className="collection">
-        {activities.map((activity: Activity) => (
-          <li key={activity.id} className="collection-item avatar">
-            <ActivityEntry activity={activity} />
-          </li>
-        ))}
+        {activities
+          .filter(
+            a =>
+              a.description.toLowerCase().includes(filterText.toLowerCase()) ||
+              a.user.firstName
+                .toLowerCase()
+                .includes(filterText.toLowerCase()) ||
+              a.ticket.title.toLowerCase().includes(filterText.toLowerCase())
+          )
+          .map((activity: Activity) => (
+            <li key={activity.id} className="collection-item avatar">
+              <ActivityEntry activity={activity} />
+            </li>
+          ))}
       </ul>
     </>
   );

@@ -91,7 +91,7 @@ export const ProjectController: FC = () => {
       name: "Business Model Canvas",
       description: "Path to 1B$",
       size: 2100,
-      format: "pdf"
+      format: "png"
     }
   ];
 

@@ -17,7 +17,7 @@ export const history = creacteHistory.createBrowserHistory();
 export const AppRouter = () => {
   return (
     <Router history={history}>
-      <div>
+      <div className="grey lighten-4">
         <Switch>
           {/* <Route path="/">
             <HomeController />

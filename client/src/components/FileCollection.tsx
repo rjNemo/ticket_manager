@@ -3,15 +3,22 @@ import { AppFile } from "../types/AppFile";
 
 type IProps = {
   files: AppFile[];
+  filterText: string;
 };
 
-export const FileCollection: FC<IProps> = ({ files }) => {
+export const FileCollection: FC<IProps> = ({ files, filterText }) => {
   return (
     <>
       <ul className="collection">
-        {files.map((file: AppFile) => (
-          <FileEntry file={file} key={file.id} />
-        ))}
+        {files
+          .filter(
+            f =>
+              f.name.toLowerCase().includes(filterText.toLowerCase()) ||
+              f.format.toLowerCase().includes(filterText.toLowerCase())
+          )
+          .map((file: AppFile) => (
+            <FileEntry file={file} key={file.id} />
+          ))}
       </ul>
     </>
   );
