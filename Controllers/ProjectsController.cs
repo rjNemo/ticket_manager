@@ -50,6 +50,7 @@ namespace TicketManager.Controllers
         ///     GET: api/Projects/2
         ///
         /// </remarks>
+        /// <param name="id">Identifier of the ressource</param> 
         /// <response code="200">Returns a specific project</response> 
         /// <response code="404">If the required project is null</response> 
         [HttpGet("{id}")]
