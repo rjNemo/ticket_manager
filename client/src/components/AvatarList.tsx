@@ -6,7 +6,9 @@ interface AvatarListProps {
 }
 
 export const AvatarList: FC<AvatarListProps> = ({ users }) => {
-  return (
+  return users === undefined ? (
+    <></>
+  ) : (
     <>
       {users.map((user: User, i: number) => (
         <img

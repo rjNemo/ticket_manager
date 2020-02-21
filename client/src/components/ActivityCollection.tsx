@@ -7,7 +7,9 @@ type IProps = {
 };
 
 export const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
-  return (
+  return activities === undefined ? (
+    <></>
+  ) : (
     <>
       <ul className="collection">
         {activities

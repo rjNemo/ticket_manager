@@ -1,3 +1,3 @@
 export class Constants {
-  static getProjectURI: string = "/api/projects";
+  static getProjectURI: string = "/api/v1/projects";
 }
