@@ -1,31 +1,42 @@
 import React, { FC, useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { ProjectPage } from "../pages/ProjectPage";
 import ProjectVM from "../VM/ProjectVM";
-import { Constants } from "../utils/Constants";
 import { Project } from "../types/Project";
 import { Preloader } from "../components/Preloader";
+import { Constants } from "../utils/Constants";
+import { HttpResponse, get } from "../utils/http";
 
 export const ProjectController: FC = () => {
   const [project, setProject] = useState({} as Project);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
   const { id } = useParams();
 
-  const getProject: (id: string) => void = async (id: string) => {
-    await fetch(`${Constants.getProjectURI}/${id}`)
-      .then((res: Response) => res.json())
-      .catch(err => console.log(err))
-      .then(data => setProject(data))
-      .finally(() => setIsLoading(false));
-  };
+  async function httpGet(id: string): Promise<void> {
+    try {
+      const response: HttpResponse<Project> = await get<Project>(
+        `${Constants.getProjectURI}/${id}`
+      );
+      if (response.parsedBody !== undefined) {
+        setProject(response.parsedBody);
+        setIsLoading(false);
+      }
+    } catch (ex) {
+      setHasError(true);
+    }
+  }
 
   useEffect(() => {
     if (id !== undefined) {
-      getProject(id);
+      httpGet(id);
     }
   }, [id]);
 
   const viewModel = new ProjectVM(project);
 
+  if (hasError) {
+    return <Redirect to="/error" />;
+  }
   return isLoading ? <Preloader /> : <ProjectPage viewModel={viewModel} />;
 };

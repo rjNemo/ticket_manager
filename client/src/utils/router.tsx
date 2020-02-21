@@ -10,6 +10,7 @@ import * as creacteHistory from "history";
 // import { TicketPage } from "../pages/TicketPage";
 // import { HomeController } from "../controllers/HomeController";
 import { ProjectController } from "../controllers/ProjectController";
+import { ErrorPage } from "../pages/ErrorPage";
 // import { UserController } from "../controllers/UserController";
 // import { TicketController } from "../controllers/TicketController";
 
@@ -33,8 +34,12 @@ export const AppRouter = () => {
             <TicketController />
           </Route> */}
 
+          <Route path="/error">
+            <ErrorPage error="" />
+          </Route>
+
           <Route path="*">
-            <Redirect to="/404" />
+            <Redirect to="/error" />
           </Route>
         </Switch>
       </div>
