@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { ProgressBar } from "../components/ProgressBar";
-import ProjectVM from "../viewModels/ProjectVM";
+import ProjectVM from "../VM/ProjectVM";
 import { TabRouter } from "../components/TabRouter";
 import { FloatingButton } from "../components/FloatingButton";
 

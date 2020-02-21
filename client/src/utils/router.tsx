@@ -2,7 +2,8 @@ import React from "react";
 import {
   Router,
   Route,
-  Switch
+  Switch,
+  Redirect
   //Link, NavLink
 } from "react-router-dom";
 import * as creacteHistory from "history";
@@ -31,6 +32,10 @@ export const AppRouter = () => {
           {/* <Route path="/tickets/:id">
             <TicketController />
           </Route> */}
+
+          <Route path="*">
+            <Redirect to="/404" />
+          </Route>
         </Switch>
       </div>
     </Router>
