@@ -15,7 +15,7 @@ namespace TicketManager.DTO
             Progression = project.Progression;
             Status = project.Status.ToString();
             Manager = project.Manager;
-            AppUsers = project.GetMembers();
+            Users = project.GetMembers();
             Tickets = project.Tickets;
             Activities = project.Activities;
             Files = project.Files;
@@ -36,7 +36,7 @@ namespace TicketManager.DTO
         public string Status { get; set; }
 
         public AppUser Manager { get; set; }
-        public List<AppUser> AppUsers { get; set; } = new List<AppUser>();
+        public List<AppUser> Users { get; set; } = new List<AppUser>();
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
 
