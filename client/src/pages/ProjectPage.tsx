@@ -5,6 +5,7 @@ import { ProgressBar } from "../components/ProgressBar";
 import ProjectVM from "../VM/ProjectVM";
 import { TabRouter } from "../components/TabRouter";
 import { FloatingButton } from "../components/FloatingButton";
+import { Modal } from "../components/Modal";
 
 interface IProps {
   viewModel: ProjectVM;
@@ -23,6 +24,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     activities
   } = viewModel;
   const tabNames: string[] = ["Tickets", "Files", "Activity"];
+
   return (
     <div className="section">
       <div className="container">

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, MouseEvent } from "react";
 
 interface IProps {
   icon?: string;
@@ -6,18 +6,20 @@ interface IProps {
   shape?: string;
   color?: string;
   text?: string;
+  onClick?: (e: MouseEvent) => void;
 }
 
 export const Button: FC<IProps> = ({
   size = "small",
   shape = "",
   color,
-  text,
+  onClick,
   children
 }) => {
   return (
     <button
       className={`waves-effect waves-light btn-${size} ${shape} ${color}`}
+      onClick={onClick}
     >
       {children}
     </button>

@@ -15,38 +15,24 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   };
   const archiveTicket = () => {};
   const validateTicket = () => {};
-
+  const onClick: (e: MouseEvent) => void = (e: MouseEvent) => {
+    e.preventDefault();
+  };
   const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     setFilterText(e.target.value);
   };
 
-  // const useFilter = (init: string) => {
-  //   const [filterText, setFilterText] = useState<string>(init);
-  //   // const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-  //   //   e: ChangeEvent<HTMLInputElement>
-  //   // ) => {
-  //   //   setFilterText(e.target.value);
-  //   // };
-  //   return {
-  //     filterText,
-  //     setFilterText,
-  //     bind: {
-  //       filterText,
-  //       handleChange: (e: ChangeEvent<HTMLInputElement>) => {
-  //         setFilterText(e.target.value);
-  //       }
-  //     }
-  //   };
-  // };
-  // const [filterText, handleChange] = useFilter("");
-  // const [filterText, handleChange] = useFilter("");
   return (
     <>
       <div className="row valign-wrapper">
         <h3>Tickets</h3>
-        <FloatingButton color=" blue-grey lighten-4" size="small" />
+        <FloatingButton
+          color=" blue-grey lighten-4"
+          size="small"
+          onClick={onClick}
+        />
         <FilterBar
           filterText={filterText}
           handleChange={handleChange}

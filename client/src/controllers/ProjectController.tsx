@@ -19,7 +19,7 @@ export const ProjectController: FC = () => {
   async function httpGet(id: string): Promise<void> {
     try {
       const response: HttpResponse<Project> = await get<Project>(
-        `${Constants.getProjectURI}/${id}`
+        `${Constants.projectsURI}/${id}`
       );
       if (response.parsedBody !== undefined) {
         setProject(response.parsedBody);
