@@ -1,8 +1,4 @@
-import { Redirect } from "react-router-dom";
-
-export interface HttpResponse<T> extends Response {
-  parsedBody?: T;
-}
+import { HttpResponse } from "../types/HttpResponse";
 
 export async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
   const response: HttpResponse<T> = await fetch(request);
@@ -10,7 +6,7 @@ export async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
     response.parsedBody = await response.json();
   } catch (ex) {}
   if (!response.ok) {
-    throw new Error(response.statusText);
+    throw response.statusText;
   }
   return response;
 }

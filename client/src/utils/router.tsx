@@ -2,15 +2,15 @@ import React from "react";
 import {
   Router,
   Route,
-  Switch,
-  Redirect
+  Switch
+  // Redirect
   //Link, NavLink
 } from "react-router-dom";
 import * as creacteHistory from "history";
 // import { TicketPage } from "../pages/TicketPage";
 // import { HomeController } from "../controllers/HomeController";
 import { ProjectController } from "../controllers/ProjectController";
-import { ErrorPage } from "../pages/ErrorPage";
+import { NotFoundPage } from "../pages/NotFoundPage";
 // import { UserController } from "../controllers/UserController";
 // import { TicketController } from "../controllers/TicketController";
 
@@ -34,13 +34,13 @@ export const AppRouter = () => {
             <TicketController />
           </Route> */}
 
-          <Route path="/error">
-            <ErrorPage error="" />
+          <Route path="/404">
+            <NotFoundPage />
           </Route>
 
-          <Route path="*">
-            <Redirect to="/error" />
-          </Route>
+          {/* <Route path="*">
+              <Redirect to="/error" />
+            </Route> */}
         </Switch>
       </div>
     </Router>
