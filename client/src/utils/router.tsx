@@ -11,6 +11,7 @@ import * as creacteHistory from "history";
 // import { HomeController } from "../controllers/HomeController";
 import { ProjectController } from "../controllers/ProjectController";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { TestPage } from "../pages/TestPage";
 // import { UserController } from "../controllers/UserController";
 // import { TicketController } from "../controllers/TicketController";
 
@@ -21,6 +22,10 @@ export const AppRouter = () => {
     <Router history={history}>
       <div className="grey lighten-4">
         <Switch>
+          <Route exact path="/">
+            <TestPage />
+          </Route>
+
           {/* <Route path="/">
             <HomeController />
           </Route>

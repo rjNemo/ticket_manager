@@ -13,7 +13,7 @@ export const FilterBar: FC<IProps> = ({
   clearFilterText
 }) => {
   const { url } = useRouteMatch();
-  const placeholder: string = url.split("/")[3];
+  const placeholder: string = url.split("/")[3] || "users";
   return (
     <>
       <div className="nav-wrapper">

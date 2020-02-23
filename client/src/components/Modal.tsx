@@ -1,17 +1,24 @@
-import React, { FC } from "react";
+import React, { FC, useState, CSSProperties } from "react";
 
-export const Modal: FC = () => {
+interface IProps {
+  handleClose: () => void;
+  show: boolean;
+}
+export const Modal: FC<IProps> = ({ handleClose, show, children }) => {
+  const showHideStyle: CSSProperties = show
+    ? { display: "block", zIndex: 10 }
+    : { display: "none", zIndex: 10 };
   return (
-    <div id="modal1" className="modal">
-      <div className="modal-content">
-        <h4>Modal Header</h4>
-        <p>A bunch of text</p>
-      </div>
-      <div className="modal-footer">
-        <a href="#!" className="modal-close waves-effect waves-green btn-flat">
-          Agree
-        </a>
-      </div>
+    <div className="modal" style={showHideStyle}>
+      <div className="modal-content">{children}</div>
+      {/* <div className="modal-footer">
+        <button
+          className="modal-close waves-effect waves-green btn-flat"
+          onClick={handleClose}
+        >
+          close
+        </button>
+      </div> */}
     </div>
   );
 };

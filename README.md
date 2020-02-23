@@ -33,15 +33,16 @@
 
 ## TO DO
 
-- Write API tests using Postman: request + test, environment variables, mock server
-- Annotate API request in controllers
-- Annotate Properties in Models
-- Write backend tests
-- Have a Look at typeahead component
-- Ensure Tickets Edits belong to Project Edits
-- Ensure Tickets Files belong to Project Files
-- Async model methods ?
-- update assignments automatically from context
-- use PATCH instead of PUT
-- logging
-- check useRef, useReducer, dispatch
+- [ ] Write API tests using Postman: request + test, environment variables, mock server
+- [ ] Annotate API request in controllers
+- [ ] Annotate Properties in Models
+- [ ] Write backend tests
+- [ ] Have a Look at typeahead component
+- [ ] Ensure Tickets Edits belong to Project Edits
+- [ ] Ensure Tickets Files belong to Project Files
+- [ ] Async model methods ?
+- [ ] update assignments automatically from context
+- [ ] use PATCH instead of PUT
+- [ ] logging
+- [ ] check useRef, useReducer, dispatch
+- [ ] error page redirect when offline.

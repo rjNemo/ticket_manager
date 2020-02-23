@@ -1,15 +1,16 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
+import ProjectVM from "../VM/ProjectVM";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { ProgressBar } from "../components/ProgressBar";
-import ProjectVM from "../VM/ProjectVM";
 import { TabRouter } from "../components/TabRouter";
 import { FloatingButton } from "../components/FloatingButton";
-import { Modal } from "../components/Modal";
+import { UsersModal } from "../components/UsersModal";
 
 interface IProps {
   viewModel: ProjectVM;
 }
+
 export const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const {
     title,
@@ -23,7 +24,9 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     files,
     activities
   } = viewModel;
+
   const tabNames: string[] = ["Tickets", "Files", "Activity"];
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
     <div className="section">
@@ -31,7 +34,17 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
         <Header title={title} description={description} />
         <div className="row valign-wrapper">
           <AvatarList users={users} />
-          <FloatingButton icon="add" color="grey" size="small" />
+          <FloatingButton
+            icon="add"
+            color="grey"
+            size="small"
+            onClick={() => setShowModal(true)}
+          />
+          <UsersModal
+            show={showModal}
+            users={users}
+            handleClose={() => setShowModal(false)}
+          />
         </div>
         <ProgressBar
           value={value}
