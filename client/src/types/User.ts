@@ -1,4 +1,6 @@
 export interface User {
   id: string;
-  picture: File;
+  picture: string;
+  firstName: string;
+  fullName?: string;
 }

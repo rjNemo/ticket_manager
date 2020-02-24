@@ -1,3 +1,10 @@
+import { User } from "./User";
+import { Ticket } from "./Ticket";
+
 export interface Activity {
-  Id: number;
+  id: number;
+  description: string;
+  date: Date;
+  user: User;
+  ticket: Ticket;
 }

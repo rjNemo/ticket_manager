@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace TicketManager.Controllers
 {
-    [Authorize]
-    [Route("api/v1/[controller]")]
+    // [Authorize]
+    [Route("api/v1/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
