@@ -6,6 +6,7 @@ import { FilterBar } from "./FilterBar";
 import { HttpResponse } from "../types/HttpResponse";
 import { get } from "../utils/http";
 import { Constants } from "../utils/Constants";
+import { UsersModalEntry } from "./UsersModalEntry";
 
 interface IProps {
   show: boolean;
@@ -15,12 +16,13 @@ interface IProps {
 
 export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
   const [filterText, setFilterText] = useState<string>("");
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [isChecked, setIsChecked] = useState(true);
   const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     setFilterText(e.target.value);
   };
-  const [allUsers, setAllUsers] = useState();
 
   async function httpGet(): Promise<void> {
     try {
@@ -28,8 +30,7 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
         `${Constants.usersURI}`
       );
       if (response.parsedBody !== undefined) {
-        setAllUsers(response.parsedBody);
-        // setIsLoading(false);
+        setAllUsers((response.parsedBody as unknown) as User[]);
       }
     } catch (ex) {
       // setHasError(true);
@@ -72,28 +73,16 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
       {/* <div className="code">{allUsers}</div> */}
       <form>
         <ul>
-          {users.map((u: User) => (
+          {allUsers.map((u: User) => (
             <li key={u.id}>
-              <div className="row">
-                <input
-                  id={u.id}
-                  type="checkbox"
-                  name="active"
-                  value="true"
-                  onChange={() => false}
-                  // checked
-                />
-                <span>
-                  {u.fullName}
-                  <img
-                    className="circle"
-                    src={u.picture}
-                    width="32vh"
-                    height="32vh"
-                    alt={u.fullName}
-                  />
-                </span>
-              </div>
+              {console.log(isChecked)}
+              <UsersModalEntry
+                user={u}
+                isChecked={isChecked}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                  setIsChecked(!isChecked);
+                }}
+              />
             </li>
           ))}
         </ul>
