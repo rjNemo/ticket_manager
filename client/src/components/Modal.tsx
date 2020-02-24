@@ -11,14 +11,14 @@ export const Modal: FC<IProps> = ({ handleClose, show, children }) => {
   return (
     <div className="modal" style={showHideStyle}>
       <div className="modal-content">{children}</div>
-      {/* <div className="modal-footer">
+      <div className="modal-footer">
         <button
-          className="modal-close waves-effect waves-green btn-flat"
-          onClick={handleClose}
+          type="submit"
+          className="modal-close waves-effect waves-green btn"
         >
-          close
+          Done
         </button>
-      </div> */}
+      </div>
     </div>
   );
 };

@@ -6,6 +6,14 @@ interface IProps {
 }
 
 export const ErrorController: FC<IProps> = ({ error }) => {
-  if (error === "Not Found") return <Redirect to="/404" />;
-  return <></>;
+  switch (error) {
+    case "Bad Request":
+      return <Redirect to="/400" />;
+
+    case "Not Found":
+      return <Redirect to="/404" />;
+
+    default:
+      return <Redirect to="/404" />;
+  }
 };

@@ -13,7 +13,7 @@ export const ProjectController: FC = () => {
   const [project, setProject] = useState<Project>({} as Project);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const [error, setError] = useState();
+  const [error, setError] = useState("");
   const { id } = useParams();
 
   async function httpGet(id: string): Promise<void> {
@@ -34,6 +34,9 @@ export const ProjectController: FC = () => {
   useEffect(() => {
     if (id !== undefined) {
       httpGet(id);
+    } else {
+      setHasError(true);
+      setError("Bad Request");
     }
   }, [id]);
 

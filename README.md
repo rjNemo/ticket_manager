@@ -46,3 +46,4 @@
 - [ ] logging
 - [ ] check useRef, useReducer, dispatch
 - [ ] error page redirect when offline.
+- [ ] ticket/files/activities list placeholders when empty

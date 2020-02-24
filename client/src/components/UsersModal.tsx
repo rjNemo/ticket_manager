@@ -1,8 +1,11 @@
-import React, { FC, useState, ChangeEvent } from "react";
+import React, { FC, useState, ChangeEvent, useEffect } from "react";
 import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
 import { FilterBar } from "./FilterBar";
+import { HttpResponse } from "../types/HttpResponse";
+import { get } from "../utils/http";
+import { Constants } from "../utils/Constants";
 
 interface IProps {
   show: boolean;
@@ -17,6 +20,32 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
   ) => {
     setFilterText(e.target.value);
   };
+  const [allUsers, setAllUsers] = useState();
+
+  async function httpGet(): Promise<void> {
+    try {
+      const response: HttpResponse<User> = await get<User>(
+        `${Constants.usersURI}`
+      );
+      if (response.parsedBody !== undefined) {
+        setAllUsers(response.parsedBody);
+        // setIsLoading(false);
+      }
+    } catch (ex) {
+      // setHasError(true);
+      // setError(ex);
+    }
+  }
+
+  useEffect(() => {
+    // if (id !== undefined) {
+    httpGet();
+    // } else {
+    // setHasError(true);
+    // setError("Bad Request");
+    // }
+  }, []);
+
   return (
     <Modal show={show} handleClose={handleClose}>
       <div className="row valign-wrapper blue">
@@ -40,6 +69,7 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
           handleChange={handleChange}
         />
       </div>
+      {/* <div className="code">{allUsers}</div> */}
       <form>
         <ul>
           {users.map((u: User) => (

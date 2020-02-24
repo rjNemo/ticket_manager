@@ -8,4 +8,3 @@ app.db*
 app.db
 client/node_modules
 client/src/pages/TestPage.tsx
-Scripts/
