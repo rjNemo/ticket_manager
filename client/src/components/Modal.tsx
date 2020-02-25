@@ -1,4 +1,4 @@
-import React, { FC, useState, CSSProperties } from "react";
+import React, { FC, CSSProperties } from "react";
 
 interface IProps {
   handleClose: () => void;
@@ -11,14 +11,6 @@ export const Modal: FC<IProps> = ({ handleClose, show, children }) => {
   return (
     <div className="modal" style={showHideStyle}>
       <div className="modal-content">{children}</div>
-      <div className="modal-footer">
-        <button
-          type="submit"
-          className="modal-close waves-effect waves-green btn"
-        >
-          Done
-        </button>
-      </div>
     </div>
   );
 };
