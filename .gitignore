@@ -6,6 +6,9 @@ Migrations/
 app.db*
 .DS_Store
 app.db
+Data/Interfaces
+Data/UnitOfWork.cs
+Data/*Repository.cs
 
 # client
 client/src/pages/TestPage.tsx

@@ -18,10 +18,11 @@ namespace TicketManager.Controllers
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private IProjectRepository _projects;
-        public ProjectsController(IProjectRepository context)
+        private readonly AppDbContext _context;
+
+        public ProjectsController(AppDbContext context)
         {
-            _projects = context;
+            _context = context;
         }
 
         /// <summary>
@@ -36,10 +37,18 @@ namespace TicketManager.Controllers
         /// <response code="200">Returns a list of projects</response> 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<Project>> GetProjects()
+        public async Task<IEnumerable<ProjectDTO>> GetProjects()
         {
-
-            return await _projects.List();
+            return await _context.Projects
+                .Include(p => p.Assignments)
+                    .ThenInclude(a => a.User)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .Include(p => p.Activities)
+                .AsNoTracking()
+                .Select(p => new ProjectDTO(p))
+                .ToListAsync();
         }
 
         /// <summary>
@@ -58,12 +67,22 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ProjectDTO>> GetProject(int id)
         {
-            Project project = await _projects.Get(id);
+            var project = await _context.Projects
+                .Include(p => p.Assignments)
+                        .ThenInclude(a => a.User)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .Include(p => p.Activities)
+                .AsNoTracking()
+                .Select(p => new ProjectDTO(p))
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (project == null)
             {
                 return NotFound();
             }
-            return new ProjectDTO(project);
+            return project;
         }
 
         /// <summary>
@@ -90,15 +109,25 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> PutProject(int id, Project project)
         {
-            if (id != project.Id) { return BadRequest(); }
+            if (id != project.Id)
+            {
+                return BadRequest();
+            }
+            _context.Entry(project).State = EntityState.Modified;
             try
             {
-                await _projects.Update(project);
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!_projects.Exists(id)) { return NotFound(); }
-                else { throw; }
+                if (!ProjectExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
             return NoContent();
         }
@@ -123,11 +152,16 @@ namespace TicketManager.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Project>> PostProject(Project project)
+        public async Task<ActionResult<ProjectDTO>> PostProject(Project project)
         {
-            if (!ModelState.IsValid) { return BadRequest(); }
-            await _projects.Add(project);
-            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            _context.Projects.Add(project);
+            await _context.SaveChangesAsync();
+            var dto = new ProjectDTO(project);
+            return CreatedAtAction("GetProject", new { id = project.Id }, dto);
         }
 
         /// <summary>
@@ -145,13 +179,15 @@ namespace TicketManager.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProject(int id)
         {
-            var project = await _projects.Get(id);
+            var project = await _context.Projects.FindAsync(id);
             if (project == null)
             {
                 return NotFound();
             }
-            await _projects.Delete(project);
-            return Ok();
+            _context.Projects.Remove(project);
+            await _context.SaveChangesAsync();
+            var dto = new ProjectDTO(project);
+            return Ok(dto);
         }
 
         /// <summary>
@@ -169,9 +205,20 @@ namespace TicketManager.Controllers
         [HttpGet("{id}/members")]
         public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
         {
-            var project = await _projects.Get(id);
+            Project project = await _context.Projects
+                .Include(p => p.Assignments)
+                        .ThenInclude(a => a.User)
+                .Include(p => p.Tickets)
+                .Include(p => p.Manager)
+                .Include(p => p.Files)
+                .Include(p => p.Activities)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (project == null)
-            { return NotFound(); }
+            {
+                return NotFound();
+            }
             return project.GetMembers();
         }
 
@@ -198,15 +245,21 @@ namespace TicketManager.Controllers
         [HttpPut("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
-            Project project = await _projects.Get(id);
+            Project project = await _context.Projects
+                .Include(p => p.Assignments)
+                .FirstOrDefaultAsync(p => p.Id == id);
+
             if (project == null)
             {
                 return NotFound();
             }
+
             project.SetMembers(projectMembers);
+            _context.Entry(project).State = EntityState.Modified;
             try
             {
-                await _projects.Update(project);
+
+                await _context.SaveChangesAsync();
             }
             catch (DbUpdateException /* ex */)
             {
@@ -218,86 +271,9 @@ namespace TicketManager.Controllers
             return NoContent();
         }
 
-        // // /// <summary>
-        // // /// Assign a user to a project. 
-        // // /// </summary>
-        // // /// <remarks>
-        // // /// Sample request:
-        // // ///
-        // // ///     POST: api/v1/Projects/addmembers
-        // // ///     [{
-        // // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
-        // // ///         "firstName": "Thomas", 
-        // // ///         "lastName": "Price", 
-        // // ///         "presentation": "New Team?!",
-        // // ///         "email": "tp@mail.com",
-        // // ///         "phone": "0198237645"   
-        // // ///     }]
-        // // ///
-        // // /// </remarks>
-        // // /// <response code="204">Returns the created project</response>  
-        // // [ProducesResponseType(StatusCodes.Status204NoContent)]
-        // // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // // [HttpPut("{id}/addMembers")]
-        // // public async Task<ActionResult<Project>> AddMembersToProject(int id, List<AppUser> usersToAdd)
-        // // {
-        // //     if (usersToAdd == null)
-        // //     {
-        // //         return BadRequest();
-        // //     }
-        // //     Project project = await GetProjectByIdAsync(id);
-        // //     project.AddMembers(usersToAdd);
-        // //     try
-        // //     {
-        // //         await _context.SaveChangesAsync();
-        // //     }
-        // //     catch (DbUpdateException /* ex */)
-        // //     {
-        // //         //Log the error (uncomment ex variable name and write a log.)
-        // //         ModelState.AddModelError("", "Unable to save changes. " +
-        // //             "Try again, and if the problem persists, " +
-        // //             "see your system administrator.");
-        // //     }
-        // //     return NoContent();
-        // // }
-
-        // // /// <summary>
-        // // /// Remove a user to a project. 
-        // // /// </summary>
-        // // /// <remarks>
-        // // /// Sample request:
-        // // ///
-        // // ///     PUT: api/v1/Projects/removemembers
-        // // ///     [{
-        // // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
-        // // ///         "firstName": "Thomas", 
-        // // ///         "lastName": "Price", 
-        // // ///         "presentation": "New Team?!",
-        // // ///         "email": "tp@mail.com",
-        // // ///         "phone": "0198237645"   
-        // // ///     }]
-        // // ///
-        // // /// </remarks>
-        // // /// <response code="204">Returns the created project</response>  
-        // // [ProducesResponseType(StatusCodes.Status204NoContent)]
-        // // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // // [HttpPut("{id}/removeMembers")]
-        // // public async Task<ActionResult<Project>> RemoveMembersFromProject(int id, List<AppUser> usersToRemove)
-        // // {
-        // //     Project project = await GetProjectByIdAsync(id);
-        // //     project.RemoveMembers(usersToRemove);
-        // //     try
-        // //     {
-        // //         await _context.SaveChangesAsync();
-        // //     }
-        // //     catch (DbUpdateException /* ex */)
-        // //     {
-        // //         //Log the error (uncomment ex variable name and write a log.)
-        // //         ModelState.AddModelError("", "Unable to save changes. " +
-        // //             "Try again, and if the problem persists, " +
-        // //             "see your system administrator.");
-        // //     }
-        // //     return NoContent();
-        // // }
+        private bool ProjectExists(int id)
+        {
+            return _context.Projects.Any(e => e.Id == id);
+        }
     }
 }
