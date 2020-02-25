@@ -1,11 +1,13 @@
-import React, { FC, useState, ChangeEvent, useEffect } from "react";
+import React, { FC, useState, ChangeEvent, useEffect, FormEvent } from "react";
 import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
 import { FilterBar } from "./FilterBar";
 import { HttpResponse } from "../types/HttpResponse";
-import { get } from "../utils/http";
+import { get, put } from "../utils/http";
 import { Constants } from "../utils/Constants";
+import { UsersModalEntry } from "./UsersModalEntry";
+import { useParams } from "react-router-dom";
 
 interface IProps {
   show: boolean;
@@ -15,12 +17,27 @@ interface IProps {
 
 export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
   const [filterText, setFilterText] = useState<string>("");
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [members, setMembers] = useState<User[]>(users);
+  const { id } = useParams();
+
   const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
     setFilterText(e.target.value);
   };
-  const [allUsers, setAllUsers] = useState();
+
+  const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
+    e: FormEvent
+  ) => {
+    e.preventDefault();
+
+    const response: HttpResponse<User[]> = await put<User[]>(
+      `${Constants.projectsURI}/${id}/members`,
+      members
+    );
+    console.log(response);
+  };
 
   async function httpGet(): Promise<void> {
     try {
@@ -28,8 +45,7 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
         `${Constants.usersURI}`
       );
       if (response.parsedBody !== undefined) {
-        setAllUsers(response.parsedBody);
-        // setIsLoading(false);
+        setAllUsers((response.parsedBody as unknown) as User[]);
       }
     } catch (ex) {
       // setHasError(true);
@@ -69,34 +85,26 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
           handleChange={handleChange}
         />
       </div>
-      {/* <div className="code">{allUsers}</div> */}
-      <form>
+
+      <form onSubmit={handleSubmit}>
         <ul>
-          {users.map((u: User) => (
+          {allUsers.map((u: User) => (
             <li key={u.id}>
-              <div className="row">
-                <input
-                  id={u.id}
-                  type="checkbox"
-                  name="active"
-                  value="true"
-                  onChange={() => false}
-                  // checked
-                />
-                <span>
-                  {u.fullName}
-                  <img
-                    className="circle"
-                    src={u.picture}
-                    width="32vh"
-                    height="32vh"
-                    alt={u.fullName}
-                  />
-                </span>
-              </div>
+              <UsersModalEntry
+                user={u}
+                members={members}
+                setMembers={setMembers}
+              />
             </li>
           ))}
         </ul>
+        <div className="modal-footer">
+          <input
+            type="submit"
+            className="modal-close waves-effect waves-green btn"
+            value="Done"
+          />
+        </div>
       </form>
     </Modal>
   );

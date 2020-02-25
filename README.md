@@ -47,3 +47,4 @@
 - [ ] check useRef, useReducer, dispatch
 - [ ] error page redirect when offline.
 - [ ] ticket/files/activities list placeholders when empty
+- [ ] think about public/private DTO's constructor, getters and setters

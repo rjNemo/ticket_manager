@@ -13,7 +13,7 @@ export async function http<T>(request: RequestInfo): Promise<HttpResponse<T>> {
 
 export async function get<T>(
   path: string,
-  args: RequestInit = { method: "get" }
+  args: RequestInit = { method: "get", headers: headers }
 ): Promise<HttpResponse<T>> {
   return await http<T>(new Request(path, args));
 }
@@ -21,7 +21,11 @@ export async function get<T>(
 export async function post<T>(
   path: string,
   body: any,
-  args: RequestInit = { method: "post", body: JSON.stringify(body) }
+  args: RequestInit = {
+    method: "post",
+    headers: headers,
+    body: JSON.stringify(body)
+  }
 ): Promise<HttpResponse<T>> {
   return await http<T>(new Request(path, args));
 }
@@ -29,7 +33,16 @@ export async function post<T>(
 export async function put<T>(
   path: string,
   body: any,
-  args: RequestInit = { method: "put", body: JSON.stringify(body) }
+  args: RequestInit = {
+    method: "put",
+    headers: headers,
+    body: JSON.stringify(body)
+  }
 ): Promise<HttpResponse<T>> {
   return await http<T>(new Request(path, args));
 }
+
+const headers: Headers = new Headers({
+  Accept: "application/json",
+  "Content-Type": "application/json"
+});

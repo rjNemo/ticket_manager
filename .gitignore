@@ -6,5 +6,29 @@ Migrations/
 app.db*
 .DS_Store
 app.db
-client/node_modules
+Data/Interfaces
+Data/UnitOfWork.cs
+Data/*Repository.cs
+
+# client
 client/src/pages/TestPage.tsx
+client/react-app-env.d.ts
+client/node_modules
+client/.pnp
+client/.pnp.js
+
+# testing
+client/coverage
+
+# production
+client/build
+
+# misc
+client/.DS_Store
+client/.env.local
+client/.env.development.local
+client/.env.test.local
+client/.env.production.local
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*

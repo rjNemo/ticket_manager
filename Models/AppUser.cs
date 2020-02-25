@@ -36,8 +36,8 @@ namespace TicketManager.Models
         [Display(Name = "Member since"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
         public DateTime Created_at { get; private set; } = DateTime.Now;
 
-        // [Display(Name = "Avatar")]
-        // public byte[] Picture { get; set; }
+        [Display(Name = "Avatar")]
+        public string Picture { get; set; }
 
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
