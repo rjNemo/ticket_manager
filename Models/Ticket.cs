@@ -29,7 +29,7 @@ namespace TicketManager.Models
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
 
-        [Display(Name = "Created By")]
+        // [Display(Name = "Created By")]
         // public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
 
@@ -38,7 +38,7 @@ namespace TicketManager.Models
         // public int ProjectId { get; set; }
         public List<Note> Notes = new List<Note>();
 
-        public List<History> Edits = new List<History>();
+        public List<Activity> Activities = new List<Activity>();
 
         public List<File> Files = new List<File>();
 

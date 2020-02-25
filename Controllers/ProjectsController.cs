@@ -1,53 +1,54 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
 using TicketManager.Models;
-
+using TicketManager.DTO;
 
 namespace TicketManager.Controllers
 {
+    // [Authorize(Roles = "Admin")]
+    // [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ProjectsController : ControllerBase
     {
-        private readonly IProjectRepository _projectRepo;
-
-        public ProjectsController(IProjectRepository projectRepo)
+        private IProjectRepository _projects;
+        public ProjectsController(IProjectRepository context)
         {
-            _projectRepo = projectRepo;
+            _projects = context;
         }
 
         /// <summary>
-        /// Returns all existing projects. 
+        /// Returns all projects stored in the database. 
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET: api/Projects
+        ///     GET: api/v1/Projects
         ///
         /// </remarks>
-        /// <response code="200">Returns all existing projects</response> 
+        /// <response code="200">Returns a list of projects</response> 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<Project>> GetProjects()
         {
-            return await _projectRepo.List();
+
+            return await _projects.List();
         }
 
         /// <summary>
-        /// Returns a specific project. 
+        /// Locate a specific project stored in the database by its Id 
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///
-        ///     GET: api/Projects/2
+        ///     GET: api/v1/Projects/2
         ///
         /// </remarks>
         /// <param name="id">Identifier of the ressource</param> 
@@ -56,177 +57,167 @@ namespace TicketManager.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Project>> GetProject(int id)
+        public async Task<ActionResult<ProjectDTO>> GetProject(int id)
         {
-            Project project = await _projectRepo.Get(id);
-            if (project == null) { return NotFound(); }
-            return project;
+            Project project = await _projects.Get(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            return new ProjectDTO(project);
         }
 
-        // /// <summary>
-        // /// Updates a specific project. 
-        // /// </summary>
-        // /// <remarks>
-        // /// Sample request:
-        // ///
-        // ///     PUT: api/Projects/3
-        // ///     {
-        // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
-        // ///         "firstName": "Thomas", 
-        // ///         "lastName": "Price", 
-        // ///         "presentation": "New Team?!",
-        // ///         "email": "tp@mail.com",
-        // ///         "phone": "0198237645"   
-        // ///     }
-        // ///
-        // /// </remarks>
-        // /// <response code="200">Returns the modified project</response> 
-        // /// <response code="204">Request was succesful but no content is changed</response> 
-        // /// <response code="404">If the required project is null</response> 
-        // [HttpPut("{id}")]
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status204NoContent)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // public async Task<IActionResult> PutProject(int id, Project project)
-        // {
-        //     if (id != project.Id) { return BadRequest(); }
+        /// <summary>
+        /// Updates the specific project with Id. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT: api/v1/Projects/3
+        ///     {
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="204">Request was succesful but no content is changed</response> 
+        /// <response code="404">If the required project is null</response> 
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> PutProject(int id, Project project)
+        {
+            if (id != project.Id) { return BadRequest(); }
+            try
+            {
+                await _projects.Update(project);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_projects.Exists(id)) { return NotFound(); }
+                else { throw; }
+            }
+            return NoContent();
+        }
 
-        //     try
-        //     {
-        //         await _projectRepo.Update(project);
-        //     }
-        //     catch (DbUpdateConcurrencyException)
-        //     {
-        //         if (!_projectRepo.Exists(id))
-        //         {
-        //             return NotFound();
-        //         }
-        //         else
-        //         {
-        //             throw;
-        //         }
-        //     }
+        /// <summary>
+        /// Creates a  project. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     POST: api/v1/Projects/
+        ///     {
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        ///
+        /// </remarks>
+        /// <response code="201">Returns the created project</response>  
+        [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Project>> PostProject(Project project)
+        {
+            if (!ModelState.IsValid) { return BadRequest(); }
+            await _projects.Add(project);
+            return CreatedAtAction("GetProject", new { id = project.Id }, project);
+        }
 
-        //     return NoContent();
-        // }
+        /// <summary>
+        /// Deletes the project identified by its Id 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     DELETE: api/v1/Projects/5
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the deleted project</response>  
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProject(int id)
+        {
+            var project = await _projects.Get(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            await _projects.Delete(project);
+            return Ok();
+        }
 
-        // /// <summary>
-        // /// Creates a  project. 
-        // /// </summary>
-        // /// <remarks>
-        // /// Sample request:
-        // ///
-        // ///     POST: api/Projects/
-        // ///     {
-        // ///         "firstName": "Thomas", 
-        // ///         "lastName": "Price", 
-        // ///         "presentation": "New Team?!",
-        // ///         "email": "tp@mail.com",
-        // ///         "phone": "0198237645"   
-        // ///     }
-        // ///
-        // /// </remarks>
-        // /// <response code="201">Returns the created project</response>  
-        // [HttpPost]
-        // [ProducesResponseType(StatusCodes.Status201Created)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // public async Task<ActionResult<Project>> PostProject(Project project)
-        // {
-        //     if (!ModelState.IsValid) { return BadRequest(); }
-        //     await _projectRepo.AddAsync(project);
+        /// <summary>
+        /// Gets a project members. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     GET: api/v1/Projects/5/Members
+        ///
+        /// </remarks>
+        /// <response code="200">Returns the project members as a list of users.</response>  
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpGet("{id}/members")]
+        public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
+        {
+            var project = await _projects.Get(id);
+            if (project == null)
+            { return NotFound(); }
+            return project.GetMembers();
+        }
 
-        //     return CreatedAtAction("GetProject", new { id = project.Id }, project);
-        // }
-
-
-
-
-        // /// <summary>
-        // /// Deletes a  project. 
-        // /// </summary>
-        // /// <remarks>
-        // /// Sample request:
-        // ///
-        // ///     DELETE: api/Projects/5
-        // ///
-        // /// </remarks>
-        // /// <response code="200">Returns the deleted project</response>  
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [HttpDelete("{id}")]
-        // public async Task<ActionResult<Project>> DeleteProject(int id)
-        // {
-        //     var project = await _projectRepo.GetByIdAsync(id);
-        //     if (project == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     await _projectRepo.DeleteAsync(id);
-        //     return project;
-        // }
-
-        // /// <summary>
-        // /// Gets a project members. 
-        // /// </summary>
-        // /// <remarks>
-        // /// Sample request:
-        // ///
-        // ///     GET: api/Projects/5/Members
-        // ///
-        // /// </remarks>
-        // /// <response code="200">Returns the project members</response>  
-        // [ProducesResponseType(StatusCodes.Status200OK)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [HttpGet("{id}/members")]
-        // public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
-        // {
-        //     Project project = await _projectRepo.GetByIdAsync(id);
-        //     if (project == null)
-        //     { return NotFound(); }
-        //     return project.GetMembers();
-        // }
-
-        // /// <summary>
-        // /// Updates a project members. 
-        // /// </summary>
-        // /// <remarks>
-        // /// Sample request:
-        // ///
-        // ///     PUT: api/Projects/5/Members
-        // ///     {
-        // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
-        // ///         "firstName": "Thomas", 
-        // ///         "lastName": "Price", 
-        // ///         "presentation": "New Team?!",
-        // ///         "email": "tp@mail.com",
-        // ///         "phone": "0198237645"   
-        // ///     }
-        // /// </remarks>
-        // /// <response code="204">No content</response>  
-        // [ProducesResponseType(StatusCodes.Status204NoContent)]
-        // [ProducesResponseType(StatusCodes.Status404NotFound)]
-        // [HttpPut("{id}/members")]
-        // public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
-        // {
-        //     Project project = await _projectRepo.GetByIdAsync(id);
-        //     if (project == null)
-        //     {
-        //         return NotFound();
-        //     }
-        //     project.SetMembers(projectMembers);
-        //     try
-        //     {
-        //         await _projectRepo.UpdateAsync(project);
-        //     }
-        //     catch (DbUpdateException /* ex */)
-        //     {
-        //         //Log the error (uncomment ex variable name and write a log.)
-        //         ModelState.AddModelError("", "Unable to save changes. " +
-        //             "Try again, and if the problem persists, " +
-        //             "see your system administrator.");
-        //     }
-        //     return NoContent();
-        // }
+        /// <summary>
+        /// Updates a project members. 
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     PUT: api/v1/Projects/5/Members
+        ///     {
+        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
+        ///         "firstName": "Thomas", 
+        ///         "lastName": "Price", 
+        ///         "presentation": "New Team?!",
+        ///         "email": "tp@mail.com",
+        ///         "phone": "0198237645"   
+        ///     }
+        /// </remarks>
+        /// <response code="204">No content</response>  
+        /// <response code="404">Not Found</response>  
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [HttpPut("{id}/members")]
+        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
+        {
+            Project project = await _projects.Get(id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+            project.SetMembers(projectMembers);
+            try
+            {
+                await _projects.Update(project);
+            }
+            catch (DbUpdateException /* ex */)
+            {
+                //Log the error (uncomment ex variable name and write a log.)
+                ModelState.AddModelError("", "Unable to save changes. " +
+                    "Try again, and if the problem persists, " +
+                    "see your system administrator.");
+            }
+            return NoContent();
+        }
 
         // // /// <summary>
         // // /// Assign a user to a project. 
@@ -234,7 +225,7 @@ namespace TicketManager.Controllers
         // // /// <remarks>
         // // /// Sample request:
         // // ///
-        // // ///     POST: api/Projects/addmembers
+        // // ///     POST: api/v1/Projects/addmembers
         // // ///     [{
         // // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
         // // ///         "firstName": "Thomas", 
@@ -277,7 +268,7 @@ namespace TicketManager.Controllers
         // // /// <remarks>
         // // /// Sample request:
         // // ///
-        // // ///     PUT: api/Projects/removemembers
+        // // ///     PUT: api/v1/Projects/removemembers
         // // ///     [{
         // // ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
         // // ///         "firstName": "Thomas", 
@@ -309,9 +300,5 @@ namespace TicketManager.Controllers
         // //     }
         // //     return NoContent();
         // // }
-
-
-
-
     }
 }

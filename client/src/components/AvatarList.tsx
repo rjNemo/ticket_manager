@@ -1,15 +1,24 @@
 import React, { FC } from "react";
-import { FloatingButton } from "./FloatingButton";
+import { User } from "../types/User";
 
 interface AvatarListProps {
-  avatars: string[];
+  users: User[];
 }
 
-export const AvatarList: FC<AvatarListProps> = ({ avatars }) => {
-  return (
+export const AvatarList: FC<AvatarListProps> = ({ users }) => {
+  return users === undefined ? (
+    <></>
+  ) : (
     <>
-      {avatars.map((avatar: string) => (
-        <img className="circle" src={avatar} width="32vh" height="32vh" />
+      {users.map((user: User, i: number) => (
+        <img
+          key={i}
+          className="circle"
+          src={user.picture}
+          width="32vh"
+          height="32vh"
+          alt={user.fullName}
+        />
       ))}
     </>
   );

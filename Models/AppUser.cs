@@ -38,12 +38,11 @@ namespace TicketManager.Models
 
         // [Display(Name = "Avatar")]
         // public byte[] Picture { get; set; }
-        // public Role Role { get; set; }
 
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
         [Display(Name = "Activity")]
-        public List<History> Edits { get; set; } = new List<History>();
+        public List<Activity> Activities { get; set; } = new List<Activity>();
 
         // Methods
         public List<Project> GetProjects()
@@ -53,7 +52,7 @@ namespace TicketManager.Models
 
         public List<Ticket> GetTickets()
         {
-            List<Ticket> tickets = new List<Ticket>();
+            var tickets = new List<Ticket>();
             GetProjects().ForEach(p => tickets.Concat(p.Tickets));
             return tickets;
         }

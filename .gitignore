@@ -7,4 +7,4 @@ app.db*
 .DS_Store
 app.db
 client/node_modules
-Scripts/
+client/src/pages/TestPage.tsx

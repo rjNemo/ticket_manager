@@ -33,15 +33,17 @@
 
 ## TO DO
 
-- Write API tests using Postman: request + test, environment variables, mock server
-- Annotate API request in controllers
-- Annotate Properties in Models
-- Write backend tests
-- Have a Look at typeahead component
-- Ensure Tickets Edits belong to Project Edits
-- Ensure Tickets Files belong to Project Files
-- Async model methods ?
-- setMembers & removeMembers from project api not working
-- Write a query class to refactor code and optimize perf on get queries (AsNoTracking)
-- repository + strategy to decouple controllers from DbContext. Easier testing
-- update assignments automatically from context
+- [ ] Write API tests using Postman: request + test, environment variables, mock server
+- [ ] Annotate API request in controllers
+- [ ] Annotate Properties in Models
+- [ ] Write backend tests
+- [ ] Have a Look at typeahead component
+- [ ] Ensure Tickets Edits belong to Project Edits
+- [ ] Ensure Tickets Files belong to Project Files
+- [ ] Async model methods ?
+- [ ] update assignments automatically from context
+- [ ] use PATCH instead of PUT
+- [ ] logging
+- [ ] check useRef, useReducer, dispatch
+- [ ] error page redirect when offline.
+- [ ] ticket/files/activities list placeholders when empty

@@ -15,8 +15,7 @@ namespace TicketManager.Data
                 .Include(p => p.Assignments).ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
-                .Include(p => p.Files)
-                .AsNoTracking();
+                .Include(p => p.Files);
         }
 
         public override async Task<Project> Get(int id)
@@ -30,7 +29,9 @@ namespace TicketManager.Data
         }
 
         public bool Exists(int id)
-        { return _dbSet.Any(e => e.Id == id); }
+        {
+            return _dbSet.Any(e => e.Id == id);
+        }
 
         public async Task<IEnumerable<AppUser>> GetMembers(int id)
         {

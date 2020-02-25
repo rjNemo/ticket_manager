@@ -17,16 +17,18 @@ namespace TicketManager.Data
             _dbSet = _context.Set<T>();
         }
 
-        public void Add(T entity)
+        public async Task<int> Add(T entity)
         {
             _dbSet.Add(entity);
+            return await _context.SaveChangesAsync();
         }
 
-        public void Delete(T entity)
+        public async Task<int> Delete(T entity)
         {
             if (_context.Entry(entity).State == EntityState.Detached)
             { _dbSet.Attach(entity); }
             _dbSet.Remove(entity);
+            return await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> Find(int id, Expression<Func<T, bool>> expr)
@@ -43,10 +45,11 @@ namespace TicketManager.Data
             return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public void Update(T entity)
+        public async Task<int> Update(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
+            return await _context.SaveChangesAsync();
         }
     }
 }
