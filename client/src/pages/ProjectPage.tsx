@@ -16,6 +16,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     title,
     description,
     users,
+    allUsers,
     value,
     tickets,
     ticketsDone,
@@ -43,6 +44,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           <UsersModal
             show={showModal}
             users={users}
+            allUsers={allUsers}
             handleClose={() => setShowModal(false)}
           />
         </div>

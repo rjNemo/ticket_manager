@@ -12,17 +12,19 @@ export default class ProjectVM {
   public value: number;
   public tickets: Ticket[];
   public users: User[];
+  public allUsers: User[];
   public ticketsTotalCount: number;
   public ticketsDone: number;
   public remainingDays: number;
   public files: AppFile[];
   public activities: Activity[];
 
-  public constructor(project: Project) {
+  public constructor(project: Project, allUsers: User[]) {
     this.id = project.id;
     this.title = project.title;
     this.description = project.description;
     this.users = project.users;
+    this.allUsers = allUsers;
     this.value = project.progression;
     this.tickets = project.tickets;
     this.ticketsTotalCount =

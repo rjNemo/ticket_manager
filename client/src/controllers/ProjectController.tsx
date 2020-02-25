@@ -8,15 +8,17 @@ import { HttpResponse } from "../types/HttpResponse";
 import { Preloader } from "../components/Preloader";
 import { Constants } from "../utils/Constants";
 import { get } from "../utils/http";
+import { User } from "../types/User";
 
 export const ProjectController: FC = () => {
   const [project, setProject] = useState<Project>({} as Project);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
   const { id } = useParams();
 
-  async function httpGet(id: string): Promise<void> {
+  async function httpGetProjects(id: string): Promise<void> {
     try {
       const response: HttpResponse<Project> = await get<Project>(
         `${Constants.projectsURI}/${id}`
@@ -31,9 +33,24 @@ export const ProjectController: FC = () => {
     }
   }
 
+  async function httpGetAllUsers(): Promise<void> {
+    try {
+      const response: HttpResponse<User> = await get<User>(
+        `${Constants.usersURI}`
+      );
+      if (response.parsedBody !== undefined) {
+        setAllUsers((response.parsedBody as unknown) as User[]);
+      }
+    } catch (ex) {
+      // setHasError(true);
+      // setError(ex);
+    }
+  }
+
   useEffect(() => {
     if (id !== undefined) {
-      httpGet(id);
+      httpGetProjects(id);
+      httpGetAllUsers();
     } else {
       setHasError(true);
       setError("Bad Request");
@@ -43,6 +60,6 @@ export const ProjectController: FC = () => {
   if (hasError) {
     return <ErrorController error={error} />;
   }
-  const viewModel = new ProjectVM(project);
+  const viewModel = new ProjectVM(project, allUsers);
   return isLoading ? <Preloader /> : <ProjectPage viewModel={viewModel} />;
 };

@@ -8,16 +8,22 @@ import { get, put } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
+import _ from "underscore";
 
 interface IProps {
   show: boolean;
   handleClose: () => void;
   users: User[];
+  allUsers: User[];
 }
 
-export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
+export const UsersModal: FC<IProps> = ({
+  show,
+  handleClose,
+  users,
+  allUsers
+}) => {
   const [filterText, setFilterText] = useState<string>("");
-  const [allUsers, setAllUsers] = useState<User[]>([]);
   const [members, setMembers] = useState<User[]>(users);
   const { id } = useParams();
 
@@ -38,29 +44,6 @@ export const UsersModal: FC<IProps> = ({ show, handleClose, users }) => {
     );
     console.log(response);
   };
-
-  async function httpGet(): Promise<void> {
-    try {
-      const response: HttpResponse<User> = await get<User>(
-        `${Constants.usersURI}`
-      );
-      if (response.parsedBody !== undefined) {
-        setAllUsers((response.parsedBody as unknown) as User[]);
-      }
-    } catch (ex) {
-      // setHasError(true);
-      // setError(ex);
-    }
-  }
-
-  useEffect(() => {
-    // if (id !== undefined) {
-    httpGet();
-    // } else {
-    // setHasError(true);
-    // setError("Bad Request");
-    // }
-  }, []);
 
   return (
     <Modal show={show} handleClose={handleClose}>
