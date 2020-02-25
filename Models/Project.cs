@@ -95,6 +95,10 @@ namespace TicketManager.Models
         public void RemoveMembers(List<AppUser> membersToRemove)
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
+
+            // membersToRemove.ForEach(
+            //     m => m.Assignments.RemoveAll(a => (a.Project == this))
+            // );
         }
 
         public void SetMembers(List<AppUser> projectMembers)

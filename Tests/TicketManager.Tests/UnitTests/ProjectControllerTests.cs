@@ -6,7 +6,7 @@ using Moq;
 using TicketManager.Controllers;
 using TicketManager.Data;
 using TicketManager.Models;
-
+using TicketManager.DTO;
 
 namespace TicketManager.Tests
 {
@@ -28,6 +28,22 @@ namespace TicketManager.Tests
             var viewResult = Assert.IsAssignableFrom<IEnumerable<Project>>(result);
         }
 
+        [Fact]
+        public async Task Get1_ReturnsProject1()
+        {
+            // Arrange
+            var mockRepo = new Mock<IProjectRepository>();
+            mockRepo.Setup(r => r.Get(1));
+            // .ReturnsAsync(GetProjectDTO());
+            var controller = new ProjectsController(mockRepo.Object);
+
+            // Act
+            var result = await controller.GetProject(1);
+
+            // Assert
+            var viewResult = Assert.IsAssignableFrom<Project>(result);
+        }
+
         private List<Project> GetTestProjects()
         {
             var projects = new List<Project>();
@@ -44,6 +60,20 @@ namespace TicketManager.Tests
                 Title = "Test Two"
             });
             return projects;
+        }
+
+        private ProjectDTO GetProjectDTO()
+        {
+            var project = new Project()
+            {
+                Id = 1,
+                PlannedEnding = new DateTime(2016, 7, 2),
+                Title = "Test One",
+                Description = "Lorem Ipsum",
+                Status = Status.InProgress
+            };
+
+            return new ProjectDTO(project);
         }
 
 

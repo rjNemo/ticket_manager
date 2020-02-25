@@ -15,7 +15,9 @@ namespace TicketManager.Data
                 .Include(p => p.Assignments).ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
-                .Include(p => p.Files);
+                .Include(p => p.Files)
+                // .AsNoTracking()
+                ;
         }
 
         public override async Task<Project> Get(int id)

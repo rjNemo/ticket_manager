@@ -38,7 +38,6 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IEnumerable<Project>> GetProjects()
         {
-
             return await _projects.List();
         }
 
@@ -196,7 +195,7 @@ namespace TicketManager.Controllers
         /// <response code="404">Not Found</response>  
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPut("{id}/members")]
+        [HttpPatch("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await _projects.Get(id);
