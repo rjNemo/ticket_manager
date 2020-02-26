@@ -9,6 +9,8 @@ Data/UnitOfWork.cs
 Data/*Repository.cs
 Migrations/
 Properties/
+Tests/TicketManager.Tests/UnitTests/ControllersTests/ControllerTests.cs
+Tests/TicketManager.Tests/UnitTests/ControllersTests/SeedDb.cs
 
 # client
 client/src/pages/TestPage.tsx

@@ -50,6 +50,13 @@ namespace TicketManager.Tests
             Ticket t5 = new Ticket();
             Ticket t6 = new Ticket();
 
+            p1.Tickets.Add(t1);
+            p2.Tickets.Add(t2);
+            p2.Tickets.Add(t3);
+            p3.Tickets.Add(t4);
+            p3.Tickets.Add(t5);
+            p3.Tickets.Add(t6);
+
             Assignment a1 = new Assignment()
             {
                 User = user,
@@ -68,13 +75,6 @@ namespace TicketManager.Tests
                 Project = p3
             };
             user.Assignments.Add(a3);
-
-            p1.Tickets.Add(t1);
-            p2.Tickets.Add(t2);
-            p2.Tickets.Add(t3);
-            p3.Tickets.Add(t4);
-            p3.Tickets.Add(t5);
-            p3.Tickets.Add(t6);
 
             var res = user.GetTickets().Count;
             Assert.Equal(6, res);
