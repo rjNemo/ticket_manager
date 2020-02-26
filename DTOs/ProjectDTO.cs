@@ -36,6 +36,7 @@ namespace TicketManager.DTO
         public string Status { get; set; }
 
         public AppUser Manager { get; set; }
+
         public List<AppUser> Users { get; set; } = new List<AppUser>();
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();

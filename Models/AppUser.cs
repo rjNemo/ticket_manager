@@ -37,7 +37,7 @@ namespace TicketManager.Models
         public DateTime Created_at { get; private set; } = DateTime.Now;
 
         [Display(Name = "Avatar")]
-        public byte[] Picture { get; set; }
+        public string Picture { get; set; }
 
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
