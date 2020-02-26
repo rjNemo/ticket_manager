@@ -47,7 +47,7 @@ namespace TicketManager.Models
         {
             return Project.Assignments.Select(a => a.User).ToList();
         }
-        public void GetLastUpdateTime() { throw new NotImplementedException("Not Implemented"); }
+        public void GetLastUpdateTime() { throw new NotImplementedException("Not Implemented Yet."); }
         public void Close()
         {
             Status = Status.Done;
