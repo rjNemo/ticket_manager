@@ -37,7 +37,7 @@ namespace TicketManager.Controllers
         /// <response code="200">Returns a list of projects</response> 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<ProjectDTO>> GetProjects()
+        public async Task<List<ProjectDTO>> GetProjects()
         {
             return await _context.Projects
                 .Include(p => p.Assignments)
