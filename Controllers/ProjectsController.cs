@@ -41,7 +41,7 @@ namespace TicketManager.Controllers
         {
             return await _context.Projects
                 .Include(p => p.Assignments)
-                    .ThenInclude(a => a.User)
+                .ThenInclude(a => a.User)
                 .Include(p => p.Tickets)
                 .Include(p => p.Manager)
                 .Include(p => p.Files)
@@ -76,14 +76,13 @@ namespace TicketManager.Controllers
                 .Include(p => p.Files)
                 .Include(p => p.Activities)
                 .AsNoTracking()
-                .Select(p => new ProjectDTO(p))
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)
             {
                 return NotFound();
             }
-            return project;
+            return new ProjectDTO(project);
         }
 
         /// <summary>
@@ -247,7 +246,7 @@ namespace TicketManager.Controllers
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await _context.Projects
-                .Include(p => p.Assignments)
+                // .Include(p => p.Assignments)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)

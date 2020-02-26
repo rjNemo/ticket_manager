@@ -7,8 +7,8 @@ export interface Project {
   id: number;
   title: string;
   description: string;
-  createdAt: string;
-  plannedEnding: string;
+  creationDate: string;
+  endingDate: string;
   progression: number;
   status: string;
   manager: User;

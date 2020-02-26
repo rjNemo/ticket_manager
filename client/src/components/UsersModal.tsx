@@ -4,7 +4,7 @@ import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
 import { FilterBar } from "./FilterBar";
 import { HttpResponse } from "../types/HttpResponse";
-import { get, put } from "../utils/http";
+import { get, put, patch } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
@@ -38,12 +38,13 @@ export const UsersModal: FC<IProps> = ({
   ) => {
     e.preventDefault();
 
-    const response: HttpResponse<User[]> = await put<User[]>(
+    const response: HttpResponse<User[]> = await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
       members
     );
     console.log(response);
   };
+  console.log(allUsers);
 
   return (
     <Modal show={show} handleClose={handleClose}>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using TicketManager.Models;
 
 namespace TicketManager.DTO
@@ -15,11 +16,11 @@ namespace TicketManager.DTO
             Presentation = user.Presentation;
             Email = user.Email;
             Phone = user.Phone;
-            Created_at = user.Created_at;
+            CreationDate = user.CreationDate;
             Picture = user.Picture;
             Activities = user.Activities;
-            Projects = user.GetProjects();
-            Tickets = user.GetTickets();
+            Projects = user.GetProjects().Select(u => new ProjectDTO(u)).ToList();
+            Tickets = user.GetTickets().Select(u => new TicketDTO(u)).ToList();
         }
 
         public Guid Id { get; set; }
@@ -39,14 +40,14 @@ namespace TicketManager.DTO
         public string Phone { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime Created_at { get; private set; } = DateTime.Now;
+        public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         public string Picture { get; set; }
 
         public List<Activity> Activities { get; set; } = new List<Activity>();
 
-        public List<Project> Projects { get; set; } = new List<Project>();
+        public List<ProjectDTO> Projects { get; set; } = new List<ProjectDTO>();
 
-        public List<Ticket> Tickets { get; set; } = new List<Ticket>();
+        public List<TicketDTO> Tickets { get; set; } = new List<TicketDTO>();
     }
 }

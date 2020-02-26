@@ -128,13 +128,13 @@ namespace TicketManager.Tests
                             Id = 1,
                             Title = "Top Secret Project",
                             Description = "Shht Don't Ask don't tell",
-                            PlannedEnding = new DateTime(2020, 7, 21)
+                            EndingDate = new DateTime(2020, 7, 21)
                         }
                     );
 
                     // Should Update
                     Assert.Equal("Top Secret Project", context.Projects.Find(1).Title);
-                    Assert.Equal(new DateTime(2020, 7, 21), context.Projects.Find(1).PlannedEnding);
+                    Assert.Equal(new DateTime(2020, 7, 21), context.Projects.Find(1).EndingDate);
                     Assert.IsType<NoContentResult>(result);
 
 
@@ -144,13 +144,13 @@ namespace TicketManager.Tests
                             Id = 1,
                             Title = "Top Secret Project",
                             Description = "Shht Don't Ask don't tell",
-                            PlannedEnding = new DateTime(2020, 7, 21)
+                            EndingDate = new DateTime(2020, 7, 21)
                         }
                     );
 
                     // Should Return BadRequest
                     Assert.NotEqual("Top Secret Project", context.Projects.Find(2).Title);
-                    Assert.NotEqual(new DateTime(2020, 7, 21), context.Projects.Find(2).CreatedAt);
+                    Assert.NotEqual(new DateTime(2020, 7, 21), context.Projects.Find(2).CreationDate);
                     Assert.IsType<BadRequestResult>(result);
 
                     // Delete updated project
@@ -163,14 +163,14 @@ namespace TicketManager.Tests
                             Id = 1,
                             Title = "Top Secret Project",
                             Description = "Shht Don't Ask don't tell",
-                            PlannedEnding = new DateTime(2020, 7, 21)
+                            EndingDate = new DateTime(2020, 7, 21)
                         }
                     );
 
                     // Should Throw
                     Assert.IsType<NotFoundResult>(result);
                     Assert.Equal("Top Secret Project", context.Projects.Find(1).Title);
-                    Assert.Equal(new DateTime(2020, 7, 21), context.Projects.Find(1).PlannedEnding);
+                    Assert.Equal(new DateTime(2020, 7, 21), context.Projects.Find(1).EndingDate);
                 }
             }
 
@@ -209,7 +209,7 @@ namespace TicketManager.Tests
                     {
                         Title = "The Third",
                         Description = "Thrice in a row",
-                        PlannedEnding = DateTime.Now
+                        EndingDate = DateTime.Now
                     };
 
                     var controller = new ProjectsController(context);
@@ -237,14 +237,14 @@ namespace TicketManager.Tests
                         Id = 1,
                         Title = "Secret Project",
                         Description = "Shht Don't Ask don't tell",
-                        PlannedEnding = new DateTime(2021, 7, 21)
+                        EndingDate = new DateTime(2021, 7, 21)
                     },
                     new Project()
                     {
                         Id = 2,
                         Title = "Public Project",
                         Description = "It's quite obvious, isn't it?!",
-                        PlannedEnding = new DateTime(2036, 6, 16)
+                        EndingDate = new DateTime(2036, 6, 16)
                     });
                 context.SaveChanges();
             }

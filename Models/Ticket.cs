@@ -18,11 +18,11 @@ namespace TicketManager.Models
 
         [DataType(DataType.Date)]
         [Display(Name = "Creation Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         [DataType(DataType.Date)]
         [Display(Name = "Estimated Ending Date"), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")]
-        public DateTime PlannedEnding { get; set; }
+        public DateTime EndingDate { get; set; }
 
         public Status Status { get; set; } = Status.ToDo;
         public Impact Impact { get; set; } = Impact.Undefined;

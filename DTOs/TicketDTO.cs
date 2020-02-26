@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using TicketManager.Models;
 
 namespace TicketManager.DTO
@@ -12,19 +13,20 @@ namespace TicketManager.DTO
             Id = ticket.Id;
             Title = ticket.Title;
             Description = ticket.Description;
-            CreatedAt = ticket.CreatedAt;
-            PlannedEnding = ticket.PlannedEnding;
+            CreationDate = ticket.CreationDate;
+            EndingDate = ticket.EndingDate;
             Status = ticket.Status.ToString();
             Impact = ticket.Impact.ToString();
             Difficulty = ticket.Difficulty.ToString();
             Category = ticket.Category.ToString();
             CreatorId = ticket.CreatorId;
-            Project = ticket.Project;
+            Project = new ProjectDTO(ticket.Project);
             Notes = ticket.Notes;
             Activities = ticket.Activities;
             Files = ticket.Files;
-            Users = ticket.GetAssignees();
+            Users = ticket.GetAssignees().Select(u => new AppUserDTO(u)).ToList();
         }
+
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -32,10 +34,10 @@ namespace TicketManager.DTO
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime CreatedAt { get; private set; }
+        public DateTime CreationDate { get; private set; }
 
         [DataType(DataType.Date)]
-        public DateTime PlannedEnding { get; set; }
+        public DateTime EndingDate { get; set; }
 
         public string Status { get; set; }
 
@@ -47,7 +49,7 @@ namespace TicketManager.DTO
 
         public Guid CreatorId { get; set; }
 
-        public Project Project { get; set; }
+        public ProjectDTO Project { get; set; }
 
         public List<Note> Notes { get; set; } = new List<Note>();
 
@@ -55,6 +57,6 @@ namespace TicketManager.DTO
 
         public List<File> Files { get; set; } = new List<File>();
 
-        public List<AppUser> Users { get; set; } = new List<AppUser>();
+        public List<AppUserDTO> Users { get; set; } = new List<AppUserDTO>();
     }
 }

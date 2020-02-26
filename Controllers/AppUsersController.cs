@@ -70,14 +70,13 @@ namespace TicketManager.Controllers
                     .ThenInclude(a => a.Project)
                 .Include(u => u.Activities)
                 .AsNoTracking()
-                .Select(u => new AppUserDTO(u))
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             if (user == null)
             {
                 return NotFound();
             }
-            return user;
+            return new AppUserDTO(user);
         }
 
         /// <summary>

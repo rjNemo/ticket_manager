@@ -42,6 +42,18 @@ export async function put<T>(
   return await http<T>(new Request(path, args));
 }
 
+export async function patch<T>(
+  path: string,
+  body: any,
+  args: RequestInit = {
+    method: "patch",
+    headers: headers,
+    body: JSON.stringify(body)
+  }
+): Promise<HttpResponse<T>> {
+  return await http<T>(new Request(path, args));
+}
+
 const headers: Headers = new Headers({
   Accept: "application/json",
   "Content-Type": "application/json"

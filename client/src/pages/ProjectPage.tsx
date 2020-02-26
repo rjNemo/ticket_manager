@@ -17,7 +17,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     description,
     users,
     allUsers,
-    value,
+    progression,
     tickets,
     ticketsDone,
     ticketsTotalCount,
@@ -49,7 +49,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           />
         </div>
         <ProgressBar
-          value={value}
+          value={progression}
           tasksDone={ticketsDone}
           tasksTotalCount={ticketsTotalCount}
           remainingDays={remainingDays}

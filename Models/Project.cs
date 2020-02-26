@@ -20,11 +20,11 @@ namespace TicketManager.Models
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
-        public DateTime CreatedAt { get; private set; } = DateTime.Now;
+        public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime PlannedEnding { get; set; }
+        public DateTime EndingDate { get; set; }
 
         [Display(Name = "Progress")]
         public decimal Progression

@@ -9,32 +9,40 @@ export default class ProjectVM {
   public id: number;
   public title: string;
   public description: string;
-  public value: number;
-  public tickets: Ticket[];
+  public creationDate: string;
+  public endingDate: string;
+  public progression: number;
+  public status: string;
+  public manager: User;
   public users: User[];
+  public tickets: Ticket[];
+  public files: AppFile[];
+  public activities: Activity[];
   public allUsers: User[];
   public ticketsTotalCount: number;
   public ticketsDone: number;
   public remainingDays: number;
-  public files: AppFile[];
-  public activities: Activity[];
 
   public constructor(project: Project, allUsers: User[]) {
     this.id = project.id;
     this.title = project.title;
     this.description = project.description;
+    this.creationDate = project.creationDate;
+    this.endingDate = project.endingDate;
+    this.progression = project.progression;
+    this.status = project.status;
+    this.manager = project.manager;
     this.users = project.users;
-    this.allUsers = allUsers;
-    this.value = project.progression;
     this.tickets = project.tickets;
+    this.files = project.files;
+    this.activities = project.activities;
+    this.allUsers = allUsers;
     this.ticketsTotalCount =
       this.tickets === undefined ? 0 : this.tickets.length;
     this.ticketsDone =
       this.tickets === undefined
         ? 0
         : this.tickets.filter(t => t.status === "Done").length;
-    this.files = project.files;
-    this.activities = project.activities;
-    this.remainingDays = getRemainingdays(project.plannedEnding);
+    this.remainingDays = getRemainingdays(project.endingDate);
   }
 }

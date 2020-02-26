@@ -37,9 +37,6 @@ namespace TicketManager
                     options.EnableSensitiveDataLogging(true); //Remove in production.
                 }
                 );
-            // services.AddScoped<IProjectRepository, ProjectRepository>();
-            // services.AddScoped<IAppUserRepository, AppUserRepository>();
-            // services.AddScoped<ITicketRepository, TicketRepository>();
 
             services.AddAuthentication(options =>
             {
@@ -49,16 +46,14 @@ namespace TicketManager
             {
                 options.Authority = "https://dev-fyjrvohx.auth0.com/";
                 options.Audience = "https://localhost:5001/api/V1/";
-                //options.Authority = $"https://{Configuration["Auth0:Domain"]}/";
-                //options.Audience = Configuration["Auth0:Audience"];
             });
 
             services.AddControllers()
-                .AddNewtonsoftJson(options =>
-                    {
-                        options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
-                    }
-                );
+            .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
+                }
+            );
 
             services.AddSpaStaticFiles(configuration =>
             {
