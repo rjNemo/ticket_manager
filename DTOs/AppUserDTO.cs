@@ -48,6 +48,5 @@ namespace TicketManager.DTO
         public List<Project> Projects { get; set; } = new List<Project>();
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
-
     }
 }

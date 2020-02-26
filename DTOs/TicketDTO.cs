@@ -38,14 +38,23 @@ namespace TicketManager.DTO
         public DateTime PlannedEnding { get; set; }
 
         public string Status { get; set; }
+
         public string Impact { get; set; }
+
         public string Difficulty { get; set; }
+
         public string Category { get; set; }
+
         public Guid CreatorId { get; set; }
+
         public Project Project { get; set; }
+
         public List<Note> Notes { get; set; } = new List<Note>();
+
         public List<Activity> Activities { get; set; } = new List<Activity>();
+
         public List<File> Files { get; set; } = new List<File>();
+
         public List<AppUser> Users { get; set; } = new List<AppUser>();
     }
 }

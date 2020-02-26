@@ -37,7 +37,7 @@ namespace TicketManager.Controllers
         /// <response code="200">Returns a list of projects</response> 
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IEnumerable<ProjectDTO>> GetProjects()
+        public async Task<List<ProjectDTO>> GetProjects()
         {
             return await _context.Projects
                 .Include(p => p.Assignments)
@@ -60,7 +60,8 @@ namespace TicketManager.Controllers
         ///     GET: api/v1/Projects/2
         ///
         /// </remarks>
-        /// <response code="200">Returns a project object</response> 
+        /// <param name="id">Identifier of the ressource</param> 
+        /// <response code="200">Returns a specific project</response> 
         /// <response code="404">If the required project is null</response> 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -242,7 +243,7 @@ namespace TicketManager.Controllers
         /// <response code="404">Not Found</response>  
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [HttpPut("{id}/members")]
+        [HttpPatch("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await _context.Projects
