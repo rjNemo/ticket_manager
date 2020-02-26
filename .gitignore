@@ -1,14 +1,14 @@
-bin/
-obj/
 .vs/
 .vscode/
-Migrations/
-app.db*
 .DS_Store
-app.db
+bin/
+obj/
+app.db*
 Data/Interfaces
 Data/UnitOfWork.cs
 Data/*Repository.cs
+Migrations/
+Properties/
 
 # client
 client/src/pages/TestPage.tsx

@@ -41,9 +41,9 @@ namespace TicketManager
                     options.EnableSensitiveDataLogging(true); //Remove in production.
                 }
                 );
-            services.AddScoped<IProjectRepository, ProjectRepository>();
-            services.AddScoped<IAppUserRepository, AppUserRepository>();
-            services.AddScoped<ITicketRepository, TicketRepository>();
+            // services.AddScoped<IProjectRepository, ProjectRepository>();
+            // services.AddScoped<IAppUserRepository, AppUserRepository>();
+            // services.AddScoped<ITicketRepository, TicketRepository>();
 
             services.AddAuthentication(options =>
             {
