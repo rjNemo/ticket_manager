@@ -6,6 +6,7 @@ import { FilterBar } from "./FilterBar";
 import { put } from "../utils/http";
 import { HttpResponse } from "../types/HttpResponse";
 import { Constants } from "../utils/Constants";
+import { NewTicketModal } from "./NewTicketModal";
 
 type TicketListProps = {
   tickets: Ticket[];
@@ -20,6 +21,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
 
   const onClick: (e: MouseEvent) => void = (e: MouseEvent) => {
     e.preventDefault();
+    setShowNew(true);
   };
   const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
     e: ChangeEvent<HTMLInputElement>
@@ -27,9 +29,17 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
     setFilterText(e.target.value);
   };
 
+  const [showNew, setShowNew] = useState(false);
+
   return (
     <>
       <div className="row valign-wrapper">
+        <NewTicketModal
+          handleClose={() => {
+            setShowNew(false);
+          }}
+          show={showNew}
+        />
         <h3>Tickets</h3>
         <FloatingButton
           color=" blue-grey lighten-4"

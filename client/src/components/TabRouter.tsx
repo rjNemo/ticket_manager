@@ -24,10 +24,10 @@ export const TabRouter: FC<IProps> = ({
   activities
 }) => {
   const { url } = useRouteMatch();
+
   return (
     <>
       <div className="row">
-        <NewTicketModal handleClose={() => {}} show={true} />
         <TabRouterHeader tabNames={tabNames} />
 
         <Redirect from={url} to={`${url}/tickets`} />
