@@ -50,3 +50,4 @@
 - [ ] think about public/private DTO's constructor, getters and setters
 - [x] write dtos without circular dependencies
 - [ ] use dtoRequest for PutProjects
+- [ ] render avatarlist after UserModal Update

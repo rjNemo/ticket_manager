@@ -7,6 +7,7 @@ import { AppFile } from "../types/AppFile";
 import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { ActivityList } from "./ActivityList";
 import { Activity } from "../types/Activity";
+import { NewTicketModal } from "./NewTicketModal";
 
 interface IProps {
   tickets: Ticket[];
@@ -26,6 +27,7 @@ export const TabRouter: FC<IProps> = ({
   return (
     <>
       <div className="row">
+        <NewTicketModal handleClose={() => {}} show={true} />
         <TabRouterHeader tabNames={tabNames} />
 
         <Redirect from={url} to={`${url}/tickets`} />

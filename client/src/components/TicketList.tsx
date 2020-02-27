@@ -3,6 +3,9 @@ import { Ticket } from "../types/Ticket";
 import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
+import { put } from "../utils/http";
+import { HttpResponse } from "../types/HttpResponse";
+import { Constants } from "../utils/Constants";
 
 type TicketListProps = {
   tickets: Ticket[];
@@ -13,8 +16,8 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
   };
-  const archiveTicket = () => {};
-  const validateTicket = () => {};
+  // const archiveTicket = () => {};
+
   const onClick: (e: MouseEvent) => void = (e: MouseEvent) => {
     e.preventDefault();
   };
@@ -42,16 +45,24 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
       <div className="col s12 grey">
         <ul>
           {tickets
-            .filter(t =>
-              t.title.toLowerCase().includes(filterText.toLowerCase())
+            .filter(
+              t =>
+                t.status !== "Done" &&
+                t.title.toLowerCase().includes(filterText.toLowerCase())
             )
             .map((t: Ticket) => (
               <li key={t.id}>
                 <HorizontalCard
                   title={t.title}
                   remainingDays={t.plannedEnding}
-                  validateTicket={validateTicket}
-                  archiveTicket={archiveTicket}
+                  validateTicket={async (e: MouseEvent) => {
+                    e.preventDefault();
+                    await put<HttpResponse<Ticket>>(
+                      `${Constants.ticketsURI}/${t.id}/closed`,
+                      {}
+                    );
+                  }}
+                  // archiveTicket={archiveTicket}
                 />
               </li>
             ))}

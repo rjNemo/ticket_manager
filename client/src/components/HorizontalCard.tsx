@@ -6,13 +6,13 @@ interface IProps {
   title: string;
   remainingDays: string;
   validateTicket: (event: MouseEvent) => void;
-  archiveTicket: (event: MouseEvent) => void;
+  // archiveTicket: (event: MouseEvent) => void;
 }
 
 export const HorizontalCard: FC<IProps> = ({
   title,
   remainingDays,
-  archiveTicket,
+  // archiveTicket,
   validateTicket
 }) => {
   return (
@@ -34,11 +34,11 @@ export const HorizontalCard: FC<IProps> = ({
                   check
                 </i>
               </Link>
-              <Link to="#">
+              {/* <Link to="#">
                 <i className="material-icons" onClick={archiveTicket}>
                   archive
                 </i>
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

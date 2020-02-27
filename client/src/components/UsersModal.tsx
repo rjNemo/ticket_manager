@@ -37,15 +37,14 @@ export const UsersModal: FC<IProps> = ({
     e: FormEvent
   ) => {
     e.preventDefault();
-
-    const response: HttpResponse<User[]> = await patch<User[]>(
+    await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
-      members
+      members.map(m => m.id)
     );
-    console.log(response);
+    handleClose();
   };
-  console.log(allUsers);
 
+  useEffect(() => {});
   return (
     <Modal show={show} handleClose={handleClose}>
       <div className="row valign-wrapper blue">
