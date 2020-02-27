@@ -94,20 +94,23 @@ namespace TicketManager.Controllers
         ///
         ///     PUT: api/v1/Projects/3
         ///     {
-        ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
-        ///         "firstName": "Thomas", 
-        ///         "lastName": "Price", 
-        ///         "presentation": "New Team?!",
-        ///         "email": "tp@mail.com",
-        ///         "phone": "0198237645"   
+        ///         "id": 3,
+        ///         "title": "Secret Project",
+        ///         "description": "Shhttt! Don't tell anyone",
+        ///         "endingDate": "2020-02-29T15:51:02.787373+01:00",
+        ///         "managerId": "d7787286-9043-4b31-8e45-569d38295435"
         ///     }
         ///
         /// </remarks>
+        /// <param name="id">Identifier of the project</param> 
+        /// <param name="project">Updated project</param> 
         /// <response code="204">Request was succesful but no content is changed</response> 
         /// <response code="404">If the required project is null</response> 
+        /// <response code="400">If id does not match project's</response> 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PutProject([FromRoute] int id, [FromBody] Project project)
         {
             if (id != project.Id)
