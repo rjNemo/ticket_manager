@@ -20,7 +20,6 @@ namespace TicketManager.Models
                 Description = description,
                 ActivityType = ActivityType.Undefined,
                 // User = user,
-                UpdateDate = DateTime.Now
             };
             Activities.Add(Activity);
         }

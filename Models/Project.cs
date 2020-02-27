@@ -36,25 +36,7 @@ namespace TicketManager.Models
                     Where(t => t.Status == Status.Done).Count()
                     / this.Tickets.Count() * 100;
             }
-            // private set
-            // {
-            //     _progression = 
-            // }
         }
-        // public decimal Progression
-        // {
-        //     get
-        //     {
-        //         return _progression;
-        //     }
-        //     private set
-        //     {
-        //         _progression = Tickets.Count() == 0 ? 0 :
-        //         (decimal)this.Tickets.
-        //             Where(t => t.Status == Status.Done).Count()
-        //             / this.Tickets.Count() * 100;
-        //     }
-        // }
 
         [Display(Name = "Project Status")]
         public Status Status { get; set; } = Status.ToDo;
@@ -95,10 +77,6 @@ namespace TicketManager.Models
         public void RemoveMembers(List<AppUser> membersToRemove)
         {
             this.Assignments.RemoveAll(a => membersToRemove.Contains(a.User));
-
-            // membersToRemove.ForEach(
-            //     m => m.Assignments.RemoveAll(a => (a.Project == this))
-            // );
         }
 
         public void SetMembers(List<AppUser> projectMembers)

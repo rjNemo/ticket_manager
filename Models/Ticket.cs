@@ -28,19 +28,15 @@ namespace TicketManager.Models
         public Impact Impact { get; set; } = Impact.Undefined;
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
-
-        // [Display(Name = "Created By")]
-        // public AppUser Creator { get; set; }
         public Guid CreatorId { get; set; }
 
         [Display(Name = "Project")]
         public Project Project { get; set; }
-        // public int ProjectId { get; set; }
-        public List<Note> Notes = new List<Note>();
+        public List<Note> Notes { get; set; } = new List<Note>();
 
-        public List<Activity> Activities = new List<Activity>();
+        public List<Activity> Activities { get; set; } = new List<Activity>();
 
-        public List<File> Files = new List<File>();
+        public List<File> Files { get; set; } = new List<File>();
 
         // Methods
         public List<AppUser> GetAssignees()

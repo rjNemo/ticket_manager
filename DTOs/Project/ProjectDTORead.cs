@@ -5,9 +5,9 @@ using TicketManager.Models;
 
 namespace TicketManager.DTO
 {
-    public class ProjectDTO
+    public class ProjectDTORead
     {
-        public ProjectDTO(Project project)
+        public ProjectDTORead(Project project)
         {
             Id = project.Id;
             Title = project.Title;
@@ -16,11 +16,7 @@ namespace TicketManager.DTO
             EndingDate = project.EndingDate;
             Progression = project.Progression;
             Status = project.Status.ToString();
-            // Manager = project.Manager != null ? new AppUserDTO(project.Manager) : null;
-            Users = project.GetMembers().Select(u => new AppUserDTO(u)).ToList();
-            Tickets = project.Tickets.Select(t => new TicketDTO(t)).ToList();
-            Activities = project.Activities;
-            Files = project.Files;
+            // Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
         }
 
         public int Id { get; set; }
@@ -37,14 +33,6 @@ namespace TicketManager.DTO
 
         public string Status { get; set; }
 
-        public AppUserDTO Manager { get; set; }
-
-        public List<AppUserDTO> Users { get; set; } = new List<AppUserDTO>();
-
-        public List<TicketDTO> Tickets { get; set; } = new List<TicketDTO>();
-
-        public List<Activity> Activities { get; set; } = new List<Activity>();
-
-        public List<File> Files { get; set; } = new List<File>();
+        public AppUserDTORead Manager { get; set; }
     }
 }

@@ -6,9 +6,9 @@ using TicketManager.Models;
 
 namespace TicketManager.DTO
 {
-    public class AppUserDTO
+    public class AppUserDTORead
     {
-        public AppUserDTO(AppUser user)
+        public AppUserDTORead(AppUser user)
         {
             Id = user.Id;
             FirstName = user.FirstName;
@@ -18,9 +18,6 @@ namespace TicketManager.DTO
             Phone = user.Phone;
             CreationDate = user.CreationDate;
             Picture = user.Picture;
-            Activities = user.Activities;
-            Projects = user.GetProjects().Select(u => new ProjectDTO(u)).ToList();
-            Tickets = user.GetTickets().Select(u => new TicketDTO(u)).ToList();
         }
 
         public Guid Id { get; set; }
@@ -43,11 +40,5 @@ namespace TicketManager.DTO
         public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         public string Picture { get; set; }
-
-        public List<Activity> Activities { get; set; } = new List<Activity>();
-
-        public List<ProjectDTO> Projects { get; set; } = new List<ProjectDTO>();
-
-        public List<TicketDTO> Tickets { get; set; } = new List<TicketDTO>();
     }
 }

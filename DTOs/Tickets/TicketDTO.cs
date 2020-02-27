@@ -20,11 +20,11 @@ namespace TicketManager.DTO
             Difficulty = ticket.Difficulty.ToString();
             Category = ticket.Category.ToString();
             CreatorId = ticket.CreatorId;
-            Project = new ProjectDTO(ticket.Project);
+            // Project = new ProjectDTORead(ticket.Project);
             Notes = ticket.Notes;
             Activities = ticket.Activities;
             Files = ticket.Files;
-            Users = ticket.GetAssignees().Select(u => new AppUserDTO(u)).ToList();
+            // Users = ticket.GetAssignees().Select(u => new AppUserDTORead(u)).ToList();
         }
 
         public int Id { get; set; }
@@ -49,7 +49,7 @@ namespace TicketManager.DTO
 
         public Guid CreatorId { get; set; }
 
-        public ProjectDTO Project { get; set; }
+        public ProjectDTORead Project { get; set; }
 
         public List<Note> Notes { get; set; } = new List<Note>();
 
@@ -57,6 +57,6 @@ namespace TicketManager.DTO
 
         public List<File> Files { get; set; } = new List<File>();
 
-        public List<AppUserDTO> Users { get; set; } = new List<AppUserDTO>();
+        public List<AppUserDTORead> Users { get; set; } = new List<AppUserDTORead>();
     }
 }

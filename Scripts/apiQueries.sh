@@ -1,2 +1,10 @@
-curl --insecure https://localhost:5001/api/v1/
-curl --insecure https://localhost:5001/api/v1/projects/1/ | json_pp > Scripts/response.http
+ROOT=https://localhost:5001/api/v1
+FILE=Scripts/response.json
+
+rm $FILE
+date >> $FILE
+
+URL=$ROOT/tickets/
+cat $URL >> $FILE
+
+curl --insecure $URL | json_pp >> $FILE
