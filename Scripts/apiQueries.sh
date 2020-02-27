@@ -4,7 +4,7 @@ FILE=Scripts/response.json
 rm $FILE
 date >> $FILE
 
-URL=$ROOT/tickets/
+URL=$ROOT/projects/1/members
 cat $URL >> $FILE
 
 curl --insecure $URL | json_pp >> $FILE

@@ -9,7 +9,7 @@ namespace TicketManager.Models
         int Id { get; set; }
         string Title { get; set; }
         string Description { get; set; }
-        DateTime CreatedAt { get; }
+        DateTime CreationDate { get; }
         DateTime PlannedEnding { get; set; }
         List<Activity> Activities { get; set; }
 

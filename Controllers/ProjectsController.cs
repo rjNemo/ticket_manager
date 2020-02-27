@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
 using TicketManager.Models;
 using TicketManager.DTO;
-
+using System;
 
 namespace TicketManager.Controllers
 {
@@ -263,17 +263,23 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPatch("{id}/members")]
-        public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
-        // [SAFETY] Use RequestDTO to limits posibilities. 
+        public async Task<ActionResult<Project>> SetProjectMembers(
+            [FromRoute] int id,
+            [FromBody] Guid[] membersId)
         {
             Project project = await _context.Projects
                 .Include(p => p.Assignments)
+                    .ThenInclude(p => p.User)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)
             {
                 return NotFound();
             }
+
+            var projectMembers = await _context.AppUsers
+                .Where(u => membersId.Contains(u.Id))
+                .ToListAsync();
 
             project.SetMembers(projectMembers);
             _context.Entry(project).State = EntityState.Modified;
@@ -282,10 +288,10 @@ namespace TicketManager.Controllers
 
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException ex)
             {
                 //Log the error (uncomment ex variable name and write a log.)
-                ModelState.AddModelError("", "Unable to save changes. " +
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
                     "Try again, and if the problem persists, " +
                     "see your system administrator.");
             }
