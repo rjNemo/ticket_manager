@@ -152,12 +152,21 @@ namespace TicketManager.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ProjectDTO>> PostProject(Project project)
+        public async Task<ActionResult<ProjectDTO>> PostProject([FromBody] NewProjectDTO projectDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+
+            var project = new Project()
+            {
+                Title = projectDto.Title,
+                Description = projectDto.Description,
+                EndingDate = projectDto.EndingDate,
+                Manager = await _context.AppUsers.FindAsync(projectDto.ManagerId)
+            };
+
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();
             var dto = new ProjectDTO(project);
