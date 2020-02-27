@@ -264,6 +264,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpPatch("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
+        // [SAFETY] Use RequestDTO to limits posibilities. 
         {
             Project project = await _context.Projects
                 .Include(p => p.Assignments)
