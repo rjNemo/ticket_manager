@@ -148,12 +148,22 @@ namespace TicketManager.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AppUserDTO>> PostUser(AppUser user)
+        public async Task<ActionResult<AppUserDTO>> PostUser([FromBody] NewAppUserDTO userDto)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
+
+            var user = new AppUser()
+            {
+                FirstName = userDto.FirstName,
+                LastName = userDto.LastName,
+                Presentation = userDto.Presentation,
+                Email = userDto.Email,
+                Phone = userDto.Phone,
+                Picture = userDto.Picture,
+            };
 
             _context.AppUsers.Add(user);
             await _context.SaveChangesAsync();
@@ -190,7 +200,7 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/projects")]
-        public async Task<ActionResult<IEnumerable<ProjectDTO>>> GetAppUserProjects(Guid id)
+        public async Task<ActionResult<IEnumerable<ProjectDTORequest>>> GetAppUserProjects(Guid id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -201,11 +211,11 @@ namespace TicketManager.Controllers
             {
                 return BadRequest();
             }
-            return user.GetProjects().Select(p => new ProjectDTO(p)).ToList();
+            return user.GetProjects().Select(p => new ProjectDTORequest(p)).ToList();
         }
 
         [HttpGet("{id}/tickets/")]
-        public async Task<ActionResult<IEnumerable<TicketDTO>>> GetAppUserTickets(Guid id)
+        public async Task<ActionResult<IEnumerable<TicketDTORead>>> GetAppUserTickets(Guid id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -217,7 +227,7 @@ namespace TicketManager.Controllers
             {
                 return BadRequest();
             }
-            return user.GetTickets().Select(t => new TicketDTO(t)).ToList();
+            return user.GetTickets().Select(t => new TicketDTORead(t)).ToList();
         }
 
         private bool UserExists(Guid id)

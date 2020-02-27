@@ -19,7 +19,7 @@ namespace TicketManager.DTO
             CreationDate = user.CreationDate;
             Picture = user.Picture;
             Activities = user.Activities;
-            Projects = user.GetProjects().Select(u => new ProjectDTORead(u)).ToList();
+            Projects = user.GetProjects().Select(u => new ProjectDTORequest(u)).ToList();
             Tickets = user.GetTickets().Select(u => new TicketDTORead(u)).ToList();
         }
 
@@ -46,7 +46,7 @@ namespace TicketManager.DTO
 
         public List<Activity> Activities { get; set; } = new List<Activity>();
 
-        public List<ProjectDTORead> Projects { get; set; } = new List<ProjectDTORead>();
+        public List<ProjectDTORequest> Projects { get; set; } = new List<ProjectDTORequest>();
 
         public List<TicketDTORead> Tickets { get; set; } = new List<TicketDTORead>();
     }

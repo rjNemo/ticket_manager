@@ -16,7 +16,7 @@ namespace TicketManager.DTO
             EndingDate = project.EndingDate;
             Progression = project.Progression;
             Status = project.Status.ToString();
-            // Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
+            Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
             Users = project.GetMembers().Select(u => new AppUserDTORead(u)).ToList();
             Tickets = project.Tickets.Select(t => new TicketDTORead(t)).ToList();
             Activities = project.Activities;

@@ -49,3 +49,4 @@
 - [ ] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
 - [x] write dtos without circular dependencies
+- [ ] use dtoRequest for PutProjects

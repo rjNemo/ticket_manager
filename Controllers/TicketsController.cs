@@ -46,14 +46,13 @@ namespace TicketManager.Controllers
                 .Include(t => t.Activities)
                 .Include(t => t.Notes)
                 .AsNoTracking()
-                .Select(t => new TicketDTO(t))
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             if (ticket == null)
             {
                 return NotFound();
             }
-            return ticket;
+            return new TicketDTO(ticket);
         }
 
         // PUT: api/Tickets/5
@@ -89,8 +88,22 @@ namespace TicketManager.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Ticket>> PostTicket(Ticket ticket)
+        public async Task<ActionResult<Ticket>> PostTicket([FromBody] NewTicketDTO ticketDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var ticket = new Ticket()
+            {
+                Title = ticketDto.Title,
+                Description = ticketDto.Description,
+                EndingDate = ticketDto.EndingDate,
+                CreatorId = ticketDto.CreatorId,
+                Project = await _context.Projects.FindAsync(ticketDto.ProjectId)
+            };
+
             _context.Tickets.Add(ticket);
             await _context.SaveChangesAsync();
 

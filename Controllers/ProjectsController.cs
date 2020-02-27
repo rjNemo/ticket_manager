@@ -9,6 +9,7 @@ using TicketManager.Data;
 using TicketManager.Models;
 using TicketManager.DTO;
 
+
 namespace TicketManager.Controllers
 {
     // [Authorize(Roles = "Admin")]
@@ -107,12 +108,22 @@ namespace TicketManager.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutProject(int id, Project project)
+        public async Task<IActionResult> PutProject([FromRoute] int id, [FromBody] Project project)
         {
             if (id != project.Id)
             {
                 return BadRequest();
             }
+
+            // var project = await _context.Projects.FindAsync(projectDto.Id);
+
+            // project.Title = projectDto.Title;
+            // project.Description = projectDto.Description;
+            // project.EndingDate = projectDto.EndingDate;
+            // project.Manager = await _context.AppUsers.FindAsync(projectDto.Manager.Id);
+
+
+
             _context.Entry(project).State = EntityState.Modified;
             try
             {
@@ -212,7 +223,7 @@ namespace TicketManager.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpGet("{id}/members")]
-        public async Task<ActionResult<List<AppUser>>> GetProjectMembers(int id)
+        public async Task<ActionResult<List<AppUserDTORead>>> GetProjectMembers(int id)
         {
             Project project = await _context.Projects
                 .Include(p => p.Assignments)
@@ -228,7 +239,7 @@ namespace TicketManager.Controllers
             {
                 return NotFound();
             }
-            return project.GetMembers();
+            return project.GetMembers().Select(m => new AppUserDTORead(m)).ToList();
         }
 
         /// <summary>
@@ -255,7 +266,7 @@ namespace TicketManager.Controllers
         public async Task<ActionResult<Project>> SetProjectMembers(int id, List<AppUser> projectMembers)
         {
             Project project = await _context.Projects
-                // .Include(p => p.Assignments)
+                .Include(p => p.Assignments)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (project == null)

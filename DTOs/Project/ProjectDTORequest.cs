@@ -5,9 +5,9 @@ using TicketManager.Models;
 
 namespace TicketManager.DTO
 {
-    public class ProjectDTORead
+    public class ProjectDTORequest
     {
-        public ProjectDTORead(Project project)
+        public ProjectDTORequest(Project project)
         {
             Id = project.Id;
             Title = project.Title;
@@ -16,7 +16,7 @@ namespace TicketManager.DTO
             EndingDate = project.EndingDate;
             Progression = project.Progression;
             Status = project.Status.ToString();
-            // Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
+            Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
         }
 
         public int Id { get; set; }
