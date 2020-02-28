@@ -12,7 +12,7 @@ import _ from "underscore";
 
 interface IProps {
   show: boolean;
-  handleClose: () => void;
+  handleClose(): void;
   // users: User[];
   // allUsers: User[];
 }

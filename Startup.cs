@@ -97,7 +97,6 @@ namespace TicketManager
             app.UseDefaultFiles();
 
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API v1");
