@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Newtonsoft.Json;
+// using Newtonsoft.Json;
 using TicketManager.Data;
 
 [assembly: ApiController]
@@ -48,12 +48,12 @@ namespace TicketManager
                 options.Audience = "https://localhost:5001/api/V1/";
             });
 
-            services.AddControllers()
-            .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
-                }
-            );
+            services.AddControllers();
+            // .AddNewtonsoftJson(options =>
+            //     {
+            //         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
+            //     }
+            // );
 
             services.AddSpaStaticFiles(configuration =>
             {
