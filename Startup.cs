@@ -12,9 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-// using Newtonsoft.Json;
 using TicketManager.Data;
 
 [assembly: ApiController]
@@ -49,11 +47,6 @@ namespace TicketManager
             });
 
             services.AddControllers();
-            // .AddNewtonsoftJson(options =>
-            //     {
-            //         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // avoid cycle ref errors
-            //     }
-            // );
 
             services.AddSpaStaticFiles(configuration =>
             {

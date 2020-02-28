@@ -22,7 +22,6 @@
 
 - `React` client on the front-end (TypeScript)
 - [Materialize](https://materializecss.com) CSS librairy for styling
-- API: Newtonsoft.Json, to avoid cycle errors
 - Hosting: ?
 - Authentication : [Auth0](https://auth0.com/)
 - Analytics : Google Analytics & Mixpanel
@@ -48,5 +47,5 @@
 - [ ] error page redirect when offline.
 - [ ] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
-- [x] write dtos without circular dependencies
+- [<span style="color:red">X</span>] write dtos without circular dependencies.
 - [ ] use dtoRequest for PutProjects

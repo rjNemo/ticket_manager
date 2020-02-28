@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ComponentModel.DataAnnotations;
-using TicketManager.DTO;
+using System.Text.Json.Serialization;
 
 namespace TicketManager.Models
 {
@@ -20,11 +20,13 @@ namespace TicketManager.Models
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = false)]
         public DateTime CreationDate { get; private set; } = DateTime.Now;
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}",
+        ApplyFormatInEditMode = true)]
         public DateTime EndingDate { get; set; }
 
         [Display(Name = "Progress")]
@@ -45,6 +47,7 @@ namespace TicketManager.Models
         [Display(Name = "Project Manager")]
         public AppUser Manager { get; set; }
 
+        [JsonIgnore]
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
         public List<Ticket> Tickets { get; set; } = new List<Ticket>();
