@@ -16,11 +16,12 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   remainingDays
 }) => {
   const styleString: CSSProperties = { width: `${value}%` };
+  const barColor: string = value < 75 ? "red" : "";
   return (
     <>
       <div className="row">
         <div className="progress">
-          <div className="determinate" style={styleString}></div>
+          <div className={`determinate ${barColor}`} style={styleString}></div>
         </div>
         <div>
           <i className="left material-icons">playlist_add_check</i>

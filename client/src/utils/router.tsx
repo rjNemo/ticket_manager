@@ -20,7 +20,7 @@ export const history = creacteHistory.createBrowserHistory();
 export const AppRouter = () => {
   return (
     <Router history={history}>
-      <div className="grey lighten-4">
+      <div className="grey lighten-3">
         <Switch>
           <Route exact path="/">
             <TestPage />

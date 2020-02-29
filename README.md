@@ -46,7 +46,7 @@
 - [ ] logging
 - [ ] check useRef, useReducer, dispatch
 - [ ] error page redirect when offline.
-- [ ] ticket/files/activities list placeholders when empty
+- [x] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
 - [x] write dtos without circular dependencies
 - [ ] use dtoRequest for PutProjects

@@ -7,7 +7,7 @@ export const InputFile: FC<IProps> = () => {
     <>
       <form action="/upload">
         <div className="file-field input-field">
-          <div className="btn">
+          <div className="btn indigo lighten-1">
             <i className="material-icons ">cloud_upload</i>
             <input
               type="file"

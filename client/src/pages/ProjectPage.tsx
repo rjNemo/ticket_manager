@@ -37,7 +37,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           <AvatarList users={users} />
           <FloatingButton
             icon="add"
-            color="grey"
+            color="indigo lighten-1"
             size="small"
             onClick={() => setShowModal(true)}
           />

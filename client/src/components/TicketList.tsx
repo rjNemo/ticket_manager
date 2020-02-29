@@ -30,7 +30,11 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   };
 
   const [showNew, setShowNew] = useState(false);
-
+  let filteredTickets = tickets.filter(
+    t =>
+      t.status !== "Done" &&
+      t.title.toLowerCase().includes(filterText.toLowerCase())
+  );
   return (
     <>
       <div className="row valign-wrapper">
@@ -42,7 +46,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
         />
         <h3>Tickets</h3>
         <FloatingButton
-          color=" blue-grey lighten-4"
+          color="indigo lighten-1"
           size="small"
           onClick={onClick}
         />
@@ -54,28 +58,25 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
       </div>
       <div className="col s12 grey">
         <ul>
-          {tickets
-            .filter(
-              t =>
-                t.status !== "Done" &&
-                t.title.toLowerCase().includes(filterText.toLowerCase())
-            )
-            .map((t: Ticket) => (
-              <li key={t.id}>
-                <HorizontalCard
-                  title={t.title}
-                  remainingDays={t.plannedEnding}
-                  validateTicket={async (e: MouseEvent) => {
-                    e.preventDefault();
-                    await put<HttpResponse<Ticket>>(
-                      `${Constants.ticketsURI}/${t.id}/closed`,
-                      {}
-                    );
-                  }}
-                  // archiveTicket={archiveTicket}
-                />
-              </li>
-            ))}
+          {filteredTickets.length === 0 ? (
+            <HorizontalCard />
+          ) : (
+            filteredTickets.map((t: Ticket) => (
+              <HorizontalCard
+                key={t.id}
+                title={t.title}
+                remainingDays={t.plannedEnding}
+                validateTicket={async (e: MouseEvent) => {
+                  e.preventDefault();
+                  await put<HttpResponse<Ticket>>(
+                    `${Constants.ticketsURI}/${t.id}/closed`,
+                    {}
+                  );
+                }}
+                // archiveTicket={archiveTicket}
+              />
+            ))
+          )}
         </ul>
       </div>
     </>
