@@ -112,5 +112,17 @@ namespace TicketManager.Models
         {
             this.Status = Status.Done;
         }
+
+        public void LogAction(string description, ActivityType type = ActivityType.Undefined)//, Guid userId)
+        {
+            Activity Activity = new Activity()
+            {
+                Description = description,
+                ActivityType = type,
+                TaskId = this.Id,
+                // UserId = userId
+            };
+            Activities.Add(Activity);
+        }
     }
 }

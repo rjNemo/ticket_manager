@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { User } from "../types/User";
-import _ from "underscore";
 
 interface IProps {
   setMembers: React.Dispatch<React.SetStateAction<User[]>>;
@@ -9,7 +8,7 @@ interface IProps {
 }
 
 export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
-  console.log(members);
+  // console.log(members);
   const match: (id: string) => boolean = (id: string) => {
     return Boolean(members.find(m => m.id === id));
   };

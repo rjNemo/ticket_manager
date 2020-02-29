@@ -1,20 +1,18 @@
-import React, { FC, useState, ChangeEvent, useEffect, FormEvent } from "react";
+import React, { FC, useState, ChangeEvent, FormEvent } from "react";
 import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
 import { FilterBar } from "./FilterBar";
-import { HttpResponse } from "../types/HttpResponse";
-import { get, put, patch } from "../utils/http";
+import { patch } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
-import _ from "underscore";
 
 interface IProps {
   show: boolean;
-  handleClose: () => void;
   users: User[];
   allUsers: User[];
+  handleClose(): void;
 }
 
 export const UsersModal: FC<IProps> = ({
@@ -38,13 +36,11 @@ export const UsersModal: FC<IProps> = ({
   ) => {
     e.preventDefault();
 
-    const response: HttpResponse<User[]> = await patch<User[]>(
+    await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
-      members
+      members.map(m => m.id)
     );
-    console.log(response);
   };
-  console.log(allUsers);
 
   return (
     <Modal show={show} handleClose={handleClose}>

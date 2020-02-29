@@ -28,6 +28,7 @@ export const ProjectController: FC = () => {
         setIsLoading(false);
       }
     } catch (ex) {
+      console.error(ex);
       setHasError(true);
       setError(ex);
     }
@@ -42,8 +43,8 @@ export const ProjectController: FC = () => {
         setAllUsers((response.parsedBody as unknown) as User[]);
       }
     } catch (ex) {
-      // setHasError(true);
-      // setError(ex);
+      setHasError(true);
+      setError(ex);
     }
   }
 

@@ -13,7 +13,7 @@ using TicketManager.DTO;
 
 namespace TicketManager.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/users")]
     [ApiController]

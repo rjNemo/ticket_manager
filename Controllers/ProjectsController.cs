@@ -13,7 +13,7 @@ using System;
 namespace TicketManager.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -180,6 +180,9 @@ namespace TicketManager.Controllers
                 EndingDate = projectDto.EndingDate,
                 Manager = await _context.AppUsers.FindAsync(projectDto.ManagerId)
             };
+            // project.LogAction(
+            //     $"{project.Title} has been created by {project.Manager.FullName}.",
+            //     ActivityType.StartTask);
 
             _context.Projects.Add(project);
             await _context.SaveChangesAsync();

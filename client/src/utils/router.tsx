@@ -39,7 +39,7 @@ export const AppRouter = () => {
             <TicketController />
           </Route> */}
 
-          <Route path="/404">
+          <Route path="/401">
             <NotFoundPage />
           </Route>
 
