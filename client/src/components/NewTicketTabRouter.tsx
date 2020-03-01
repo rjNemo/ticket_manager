@@ -19,15 +19,13 @@ export const NewTicketTabRouter: FC<IProps> = ({ tabNames, users }) => {
 
         <Redirect from={url} to={`${url}/details`} />
 
-        <form onSubmit={() => {}}>
-          <Route path={`${url}/details`}>
-            <NewTicketForm />
-          </Route>
+        <Route path={`${url}/details`}>
+          <NewTicketForm />
+        </Route>
 
-          <Route path={`${url}/members`}>
-            <MemberList users={users} />
-          </Route>
-        </form>
+        <Route path={`${url}/members`}>
+          <MemberList users={users} />
+        </Route>
       </div>
     </>
   );

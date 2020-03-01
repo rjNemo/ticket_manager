@@ -1,13 +1,12 @@
 import React, { FC } from "react";
+import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
 import { TicketList } from "./TicketList";
 import { FileList } from "./AppFileList";
+import { ActivityList } from "./ActivityList";
 import { Ticket } from "../types/Ticket";
 import { AppFile } from "../types/AppFile";
-import { Route, useRouteMatch, Redirect } from "react-router-dom";
-import { ActivityList } from "./ActivityList";
 import { Activity } from "../types/Activity";
-import { NewTicketModal } from "./NewTicketModal";
 import { User } from "../types/User";
 
 interface IProps {

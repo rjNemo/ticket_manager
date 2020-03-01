@@ -38,13 +38,6 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
   return (
     <>
       <div className="row valign-wrapper">
-        {/* <NewTicketModal
-          handleClose={() => {
-            setShowNew(false);
-          }}
-          show={showNew}
-          allUsers={users}
-        /> */}
         <h3>Projects</h3>
         <FloatingButton
           color="indigo lighten-1"
