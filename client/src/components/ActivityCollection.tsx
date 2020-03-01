@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { Activity } from "../types/Activity";
-import { act } from "react-dom/test-utils";
 
 type IProps = {
   activities: Activity[];

@@ -10,7 +10,7 @@ export interface User {
   presentation: string;
   email: string;
   phone: string;
-  createdAt: string;
+  creationDate: string;
   picture: string;
   activities: Activity[];
   projects: Project[];

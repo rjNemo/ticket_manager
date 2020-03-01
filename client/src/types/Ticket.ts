@@ -3,5 +3,5 @@ export interface Ticket {
   title: string;
   description: string;
   status: string;
-  plannedEnding: string;
+  endingDate: string;
 }

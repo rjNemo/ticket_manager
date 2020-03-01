@@ -7,12 +7,13 @@ import { put } from "../utils/http";
 import { HttpResponse } from "../types/HttpResponse";
 import { Constants } from "../utils/Constants";
 import { NewTicketModal } from "./NewTicketModal";
+import { Project } from "../types/Project";
 
-type TicketListProps = {
-  tickets: Ticket[];
+type IProps = {
+  projects: Project[];
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets }) => {
+export const ProjectList: FC<IProps> = ({ projects }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -30,7 +31,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   };
 
   const [showNew, setShowNew] = useState(false);
-  let filteredTickets = tickets.filter(
+  let filteredTickets = projects.filter(
     t =>
       t.status !== "Done" &&
       t.title.toLowerCase().includes(filterText.toLowerCase())
@@ -44,7 +45,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
           }}
           show={showNew}
         />
-        <h3>Tickets</h3>
+        <h3>Projects</h3>
         <FloatingButton
           color="indigo lighten-1"
           size="small"

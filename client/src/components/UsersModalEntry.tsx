@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import { User } from "../types/User";
-import _ from "underscore";
 
 interface IProps {
   setMembers: React.Dispatch<React.SetStateAction<User[]>>;

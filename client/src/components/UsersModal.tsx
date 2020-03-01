@@ -3,12 +3,10 @@ import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
 import { FilterBar } from "./FilterBar";
-import { HttpResponse } from "../types/HttpResponse";
-import { get, put, patch } from "../utils/http";
+import { patch } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
-import _ from "underscore";
 
 interface IProps {
   show: boolean;
