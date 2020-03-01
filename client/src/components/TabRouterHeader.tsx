@@ -7,11 +7,12 @@ interface IProps {
 }
 
 export const TabRouterHeader: FC<IProps> = ({
-  tabClass = "tab col s4",
-  tabNames
+  tabNames,
+  tabClass = `tab col s${12 / tabNames.length}`
 }) => {
   const [isActive, setIsActive] = useState(0);
   const nTabs = tabNames.length;
+
   return (
     <>
       <ul className="tabs">

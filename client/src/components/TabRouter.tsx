@@ -8,6 +8,7 @@ import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { ActivityList } from "./ActivityList";
 import { Activity } from "../types/Activity";
 import { NewTicketModal } from "./NewTicketModal";
+import { User } from "../types/User";
 
 interface IProps {
   tickets: Ticket[];
@@ -15,13 +16,15 @@ interface IProps {
   tabNames: string[];
   files: AppFile[];
   activities: Activity[];
+  allUsers: User[];
 }
 
 export const TabRouter: FC<IProps> = ({
   tickets,
   tabNames,
   files,
-  activities
+  activities,
+  allUsers
 }) => {
   const { url } = useRouteMatch();
 
@@ -33,7 +36,7 @@ export const TabRouter: FC<IProps> = ({
         <Redirect from={url} to={`${url}/tickets`} />
 
         <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} />
+          <TicketList tickets={tickets} users={allUsers} />
         </Route>
 
         <Route path={`${url}/files`}>

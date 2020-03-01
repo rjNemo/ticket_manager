@@ -1,13 +1,10 @@
 import React, { FC } from "react";
+import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
 import { TicketList } from "./TicketList";
-
-import { Ticket } from "../types/Ticket";
-
-import { Route, useRouteMatch, Redirect } from "react-router-dom";
-
-import { Project } from "../types/Project";
 import { ProjectList } from "./ProjectList";
+import { Ticket } from "../types/Ticket";
+import { Project } from "../types/Project";
 
 interface IProps {
   tabNames: string[];
@@ -29,9 +26,9 @@ export const UserTabRouter: FC<IProps> = ({ tickets, tabNames, projects }) => {
           <ProjectList projects={projects} />
         </Route>
 
-        <Route path={`${url}/tickets`}>
+        {/* <Route path={`${url}/tickets`}>
           <TicketList tickets={tickets} />
-        </Route>
+        </Route> */}
       </div>
     </>
   );

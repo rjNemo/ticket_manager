@@ -9,19 +9,20 @@ import { Constants } from "../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
 import _ from "underscore";
+import { NewTicketTabRouter } from "./NewTicketTabRouter";
 
 interface IProps {
   show: boolean;
   handleClose(): void;
   // users: User[];
-  // allUsers: User[];
+  allUsers: User[];
 }
 
 export const NewTicketModal: FC<IProps> = ({
   show,
-  handleClose
+  handleClose,
   // users,
-  // allUsers
+  allUsers
 }) => {
   const [filterText, setFilterText] = useState<string>("");
   // const [members, setMembers] = useState<User[]>(users);
@@ -48,26 +49,24 @@ export const NewTicketModal: FC<IProps> = ({
   useEffect(() => {});
   return (
     <Modal show={show} handleClose={handleClose}>
-      <div className="row valign-wrapper blue">
+      <div className="row valign-wrapper indigo">
         <div className="col s10">
           <h4 className="white-text">New Ticket</h4>
         </div>
         <div className="col s2">
           <i
-            className="right material-icons blue lighten-3 circle"
+            className="right material-icons indigo lighten-3 circle"
             onClick={handleClose}
           >
             close
           </i>
         </div>
       </div>
-      <div className="center">
-        {/* <AvatarList users={users} /> */}
-        {/* <FilterBar
-          filterText={filterText}
-          clearFilterText={() => setFilterText("")}
-          handleChange={handleChange}
-        /> */}
+      <div className="row">
+        <NewTicketTabRouter
+          tabNames={["Details", "Members"]}
+          users={allUsers}
+        />
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -82,11 +81,11 @@ export const NewTicketModal: FC<IProps> = ({
             </li>
           ))}
         </ul> */}
-        <div className="modal-footer">
+        <div className="modal-footer grey lighten-3">
           <input
             type="submit"
-            className="modal-close waves-effect waves-green btn"
-            value="Done"
+            className="modal-close waves-effect waves-green btn indigo"
+            value="Create Task"
           />
         </div>
       </form>

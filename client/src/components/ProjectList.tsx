@@ -4,9 +4,8 @@ import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
 import { put } from "../utils/http";
-import { HttpResponse } from "../types/HttpResponse";
 import { Constants } from "../utils/Constants";
-import { NewTicketModal } from "./NewTicketModal";
+import { HttpResponse } from "../types/HttpResponse";
 import { Project } from "../types/Project";
 
 type IProps = {
@@ -39,12 +38,13 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
   return (
     <>
       <div className="row valign-wrapper">
-        <NewTicketModal
+        {/* <NewTicketModal
           handleClose={() => {
             setShowNew(false);
           }}
           show={showNew}
-        />
+          allUsers={users}
+        /> */}
         <h3>Projects</h3>
         <FloatingButton
           color="indigo lighten-1"

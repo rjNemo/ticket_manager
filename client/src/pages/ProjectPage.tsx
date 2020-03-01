@@ -37,7 +37,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           <AvatarList users={users} />
           <FloatingButton
             icon="add"
-            color="indigo lighten-1"
+            color="indigo lighten-3"
             size="small"
             onClick={() => setShowModal(true)}
           />
@@ -59,6 +59,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           tickets={tickets}
           files={files}
           activities={activities}
+          allUsers={allUsers}
         />
       </div>
     </div>

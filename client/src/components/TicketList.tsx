@@ -3,16 +3,18 @@ import { Ticket } from "../types/Ticket";
 import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
-import { put } from "../utils/http";
+import { User } from "../types/User";
 import { HttpResponse } from "../types/HttpResponse";
+import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { NewTicketModal } from "./NewTicketModal";
 
 type TicketListProps = {
   tickets: Ticket[];
+  users: User[];
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets }) => {
+export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -43,10 +45,11 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
             setShowNew(false);
           }}
           show={showNew}
+          allUsers={users}
         />
         <h3>Tickets</h3>
         <FloatingButton
-          color="indigo lighten-1"
+          color="indigo lighten-3"
           size="small"
           onClick={onClick}
         />
