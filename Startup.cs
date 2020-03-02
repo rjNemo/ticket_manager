@@ -93,6 +93,7 @@ namespace TicketManager
 
             app.UseSwaggerUI(c =>
             {
+                c.RoutePrefix = "api/v1";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ticket Manager API v1");
                 c.DefaultModelsExpandDepth(-1);
             });
