@@ -32,13 +32,12 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
     e: FormEvent
   ) => {
     e.preventDefault();
-    let newTicket: Ticket = {
+    let newTicket = {
       title: title,
       description: description,
       endingDate: endingDate,
-      id: 0,
-      status: "",
-      project: {} as Project
+      creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
+      projectId: 1
     };
     console.log(newTicket);
     const response: HttpResponse<Ticket> = await post<Ticket>(
