@@ -92,7 +92,7 @@ namespace TicketManager.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest();
+                return BadRequest(ModelState);
             }
 
             var ticket = new Ticket()

@@ -42,14 +42,42 @@ export const UserController: FC = () => {
         title: "Client objective meeting",
         description: "Client objective meeting",
         endingDate: "2020-02-17 15:51:02.787373",
-        status: "Done"
+        status: "Done",
+        project: {
+          id: 1,
+          title: "Project Title",
+          description: "What is it about",
+          progression: 25,
+          creationDate: new Date().toDateString(),
+          endingDate: "2020-02-17 15:51:02.787373",
+          status: "Todo",
+          manager: {} as User,
+          users: [] as User[],
+          tickets: [] as Ticket[],
+          files: [] as AppFile[],
+          activities: [] as Activity[]
+        }
       },
       {
         id: 2,
         title: "Assemble Outcomes Report for client",
         description: "Assemble Outcomes Report for client",
         endingDate: "2020-02-27 15:51:02.787373",
-        status: "To Do"
+        status: "To Do",
+        project: {
+          id: 1,
+          title: "Project Title",
+          description: "What is it about",
+          progression: 25,
+          creationDate: new Date().toDateString(),
+          endingDate: "2020-02-17 15:51:02.787373",
+          status: "Todo",
+          manager: {} as User,
+          users: [] as User[],
+          tickets: [] as Ticket[],
+          files: [] as AppFile[],
+          activities: [] as Activity[]
+        }
       }
     ],
     activities: []

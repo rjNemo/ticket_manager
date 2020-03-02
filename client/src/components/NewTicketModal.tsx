@@ -3,8 +3,11 @@ import { useParams } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NewTicketTabRouter } from "./NewTicketTabRouter";
 import { User } from "../types/User";
-import { patch } from "../utils/http";
+import { Ticket } from "../types/Ticket";
+import { patch, post } from "../utils/http";
 import { Constants } from "../utils/Constants";
+import { Project } from "../types/Project";
+import { HttpResponse } from "../types/HttpResponse";
 
 interface IProps {
   show: boolean;
@@ -15,6 +18,9 @@ interface IProps {
 export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
   const [filterText, setFilterText] = useState<string>("");
   const { id } = useParams();
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [endingDate, setEndingDate] = useState("");
 
   const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
     e: ChangeEvent<HTMLInputElement>
@@ -26,11 +32,20 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
     e: FormEvent
   ) => {
     e.preventDefault();
-    await patch<User[]>(
-      `${Constants.projectsURI}/${id}/members`,
-      {}
-      // members.map(m => m.id)
+    let newTicket: Ticket = {
+      title: title,
+      description: description,
+      endingDate: endingDate,
+      id: 0,
+      status: "",
+      project: {} as Project
+    };
+    console.log(newTicket);
+    const response: HttpResponse<Ticket> = await post<Ticket>(
+      `${Constants.ticketsURI}`,
+      newTicket
     );
+    console.log(response.parsedBody);
     handleClose();
   };
 
@@ -57,6 +72,12 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
           <NewTicketTabRouter
             tabNames={["Details", "Members"]}
             users={allUsers}
+            title={title}
+            setTitle={setTitle}
+            description={description}
+            setDescription={setDescription}
+            endingDate={endingDate}
+            setEndingDate={setEndingDate}
           />
         </div>
 

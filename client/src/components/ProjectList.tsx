@@ -55,7 +55,7 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
           {filteredTickets.length === 0 ? (
             <HorizontalCard />
           ) : (
-            filteredTickets.map((t: Ticket) => (
+            filteredTickets.map((t: Project) => (
               <HorizontalCard
                 key={t.id}
                 title={t.title}

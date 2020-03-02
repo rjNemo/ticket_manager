@@ -8,7 +8,7 @@
 
 ### v1
 
-- [Internal Link. Don't forget to update](https://localhost:5001/swagger)
+- [Internal Link. Don't forget to update](https://localhost:5001/api/v1/)
 
 ## Features
 
