@@ -3,7 +3,6 @@ import { Ticket } from "../types/Ticket";
 import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
-import { User } from "../types/User";
 import { HttpResponse } from "../types/HttpResponse";
 import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
@@ -11,15 +10,13 @@ import { NewTicketModal } from "./NewTicketModal";
 
 type TicketListProps = {
   tickets: Ticket[];
-  users: User[];
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
+export const TicketList: FC<TicketListProps> = ({ tickets }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
   };
-  // const archiveTicket = () => {};
 
   const onClick: (e: MouseEvent) => void = (e: MouseEvent) => {
     e.preventDefault();
@@ -45,7 +42,6 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
             setShowNew(false);
           }}
           show={showNew}
-          allUsers={users}
         />
         <h3>Tickets</h3>
         <FloatingButton
@@ -59,7 +55,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
           clearFilterText={clearFilterText}
         />
       </div>
-      <div className="col s12 grey">
+      <div className="col s12 grey lighten-1">
         <ul>
           {filteredTickets.length === 0 ? (
             <HorizontalCard />
@@ -76,7 +72,6 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
                     {}
                   );
                 }}
-                // archiveTicket={archiveTicket}
               />
             ))
           )}

@@ -1,32 +1,20 @@
-import React, { FC, useState, ChangeEvent, useEffect, FormEvent } from "react";
-import { useParams } from "react-router-dom";
+import React, { FC, useState, useEffect, FormEvent } from "react";
 import { Modal } from "./Modal";
-import { NewTicketTabRouter } from "./NewTicketTabRouter";
-import { User } from "../types/User";
 import { Ticket } from "../types/Ticket";
-import { patch, post } from "../utils/http";
+import { post } from "../utils/http";
 import { Constants } from "../utils/Constants";
-import { Project } from "../types/Project";
 import { HttpResponse } from "../types/HttpResponse";
+import { NewTicketForm } from "./NewTicketForm";
 
 interface IProps {
   show: boolean;
   handleClose(): void;
-  allUsers: User[];
 }
 
-export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
-  const [filterText, setFilterText] = useState<string>("");
-  const { id } = useParams();
+export const NewTicketModal: FC<IProps> = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
-
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    setFilterText(e.target.value);
-  };
 
   const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
     e: FormEvent
@@ -39,12 +27,12 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
       creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
       projectId: 1
     };
-    console.log(newTicket);
+    // console.log(newTicket);
     const response: HttpResponse<Ticket> = await post<Ticket>(
       `${Constants.ticketsURI}`,
       newTicket
     );
-    console.log(response.parsedBody);
+    // console.log(response.parsedBody);
     handleClose();
   };
 
@@ -68,9 +56,7 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
 
       <form onSubmit={handleSubmit}>
         <div className="row">
-          <NewTicketTabRouter
-            tabNames={["Details", "Members"]}
-            users={allUsers}
+          <NewTicketForm
             title={title}
             setTitle={setTitle}
             description={description}

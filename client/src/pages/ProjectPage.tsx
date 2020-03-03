@@ -26,7 +26,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     activities
   } = viewModel;
 
-  const tabNames: string[] = ["Tickets", "Files", "Activity"];
+  const tabNames: string[] = ["Tickets", "Files"]; //, "Activity"];
   const [showModal, setShowModal] = useState<boolean>(false);
 
   return (
@@ -59,7 +59,6 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           tickets={tickets}
           files={files}
           activities={activities}
-          allUsers={allUsers}
         />
       </div>
     </div>
