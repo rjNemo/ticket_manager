@@ -16,7 +16,18 @@ export const ProgressBar: FC<ProgressBarProps> = ({
   remainingDays
 }) => {
   const styleString: CSSProperties = { width: `${value}%` };
-  const barColor: string = value < 75 ? "red" : "";
+  let barColor: string = "green";
+
+  if (value < 100) {
+    barColor = "yellow";
+  }
+  if (value < 200 / 3) {
+    barColor = "orange";
+  }
+  if (value < 100 / 3) {
+    barColor = "red";
+  }
+
   return (
     <>
       <div className="row">
