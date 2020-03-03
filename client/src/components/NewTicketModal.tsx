@@ -35,7 +35,7 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose, allUsers }) => {
     let newTicket = {
       title: title,
       description: description,
-      endingDate: endingDate,
+      endingDate: new Date(endingDate).toISOString(),
       creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
       projectId: 1
     };
