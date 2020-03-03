@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
-using TicketManager.DTO;
+using TicketManager.Resources;
 using TicketManager.Models;
 
 namespace TicketManager.Controllers

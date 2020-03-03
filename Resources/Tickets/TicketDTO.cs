@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TicketManager.Models;
 
-namespace TicketManager.DTO
+namespace TicketManager.Resources
 {
     public class TicketDTO
     {
@@ -20,7 +20,7 @@ namespace TicketManager.DTO
             Difficulty = ticket.Difficulty.ToString();
             Category = ticket.Category.ToString();
             CreatorId = ticket.CreatorId;
-            Project = new ProjectDTORequest(ticket.Project);
+            Project = ticket.Project != null ? new ProjectDTORequest(ticket.Project) : null;
             Notes = ticket.Notes;
             Activities = ticket.Activities;
             Files = ticket.Files;

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TicketManager.Data;
 using TicketManager.Models;
-using TicketManager.DTO;
+using TicketManager.Resources;
 using System;
 
 namespace TicketManager.Controllers

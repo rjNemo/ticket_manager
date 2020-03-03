@@ -3,11 +3,11 @@ using System.Linq;
 using System.Collections.Generic;
 using TicketManager.Models;
 
-namespace TicketManager.DTO
+namespace TicketManager.Resources
 {
-    public class ProjectDTO
+    public class ProjectDTORequest
     {
-        public ProjectDTO(Project project)
+        public ProjectDTORequest(Project project)
         {
             Id = project.Id;
             Title = project.Title;
@@ -17,10 +17,6 @@ namespace TicketManager.DTO
             Progression = project.Progression;
             Status = project.Status.ToString();
             Manager = project.Manager != null ? new AppUserDTORead(project.Manager) : null;
-            Users = project.GetMembers().Select(u => new AppUserDTORead(u)).ToList();
-            Tickets = project.Tickets.Select(t => new TicketDTORead(t)).ToList();
-            Activities = project.Activities;
-            Files = project.Files;
         }
 
         public int Id { get; set; }
@@ -38,13 +34,5 @@ namespace TicketManager.DTO
         public string Status { get; set; }
 
         public AppUserDTORead Manager { get; set; }
-
-        public List<AppUserDTORead> Users { get; set; } = new List<AppUserDTORead>();
-
-        public List<TicketDTORead> Tickets { get; set; } = new List<TicketDTORead>();
-
-        public List<Activity> Activities { get; set; } = new List<Activity>();
-
-        public List<File> Files { get; set; } = new List<File>();
     }
 }
