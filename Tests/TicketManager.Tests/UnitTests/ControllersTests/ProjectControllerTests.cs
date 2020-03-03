@@ -8,7 +8,7 @@ using Microsoft.Data.Sqlite;
 using TicketManager.Controllers;
 using TicketManager.Data;
 using TicketManager.Models;
-using TicketManager.DTO;
+using TicketManager.Resources;
 
 
 namespace TicketManager.Tests

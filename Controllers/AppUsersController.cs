@@ -8,12 +8,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using TicketManager.Data;
 using TicketManager.Models;
-using TicketManager.DTO;
+using TicketManager.Resources;
 
 
 namespace TicketManager.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/users")]
     [ApiController]

@@ -8,7 +8,7 @@ namespace TicketManager.Models
         public string Description { get; set; }
         public DateTime UpdateDate { get; private set; } = DateTime.Now;
         public ActivityType ActivityType { get; set; } = ActivityType.Undefined;
-        public AppUser User { get; set; }
-        public int UserId { get; set; }
+        // public Guid UserId { get; set; }
+        public int TaskId { get; set; }
     }
 }

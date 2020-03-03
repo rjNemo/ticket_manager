@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using TicketManager.Models;
 
-namespace TicketManager.DTO
+namespace TicketManager.Resources
 {
     public class TicketDTORead
     {

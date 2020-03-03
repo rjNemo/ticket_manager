@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 
 namespace TicketManager.Models
 {
@@ -39,6 +40,7 @@ namespace TicketManager.Models
         [Display(Name = "Avatar")]
         public string Picture { get; set; }
 
+        [JsonIgnore]
         public List<Assignment> Assignments { get; set; } = new List<Assignment>();
 
         [Display(Name = "Activity")]

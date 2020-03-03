@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace TicketManager.DTO
+namespace TicketManager.Resources
 {
     public class NewAppUserDTO
     {

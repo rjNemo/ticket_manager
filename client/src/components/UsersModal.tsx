@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, useEffect, FormEvent } from "react";
+import React, { FC, useState, ChangeEvent, FormEvent, useEffect } from "react";
 import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
@@ -10,9 +10,9 @@ import { useParams } from "react-router-dom";
 
 interface IProps {
   show: boolean;
-  handleClose: () => void;
   users: User[];
   allUsers: User[];
+  handleClose(): void;
 }
 
 export const UsersModal: FC<IProps> = ({
