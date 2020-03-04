@@ -1,11 +1,12 @@
-import React, { FC, useState, useEffect, FormEvent } from "react";
+import React, { FC, useState, FormEvent } from "react";
+import { useParams, useRouteMatch } from "react-router-dom";
 import { Modal } from "./Modal";
+import { NewTicketForm } from "./NewTicketForm";
 import { Ticket } from "../types/Ticket";
+import { Project } from "../types/Project";
 import { post } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { HttpResponse } from "../types/HttpResponse";
-import { NewTicketForm } from "./NewTicketForm";
-import { Project } from "../types/Project";
 
 interface IProps {
   show: boolean;
@@ -21,7 +22,10 @@ export const NewTicketModal: FC<IProps> = ({
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
-  const [projectId, setProjectId] = useState("0");
+
+  const { url } = useRouteMatch();
+  const id = url.split("/")[2];
+  const [projectId, setProjectId] = useState(id);
 
   const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
     e: FormEvent
@@ -43,7 +47,6 @@ export const NewTicketModal: FC<IProps> = ({
     handleClose();
   };
 
-  useEffect(() => {});
   return (
     <Modal show={show} handleClose={handleClose}>
       <div className="row valign-wrapper indigo">
