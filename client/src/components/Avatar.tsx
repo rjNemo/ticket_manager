@@ -6,7 +6,13 @@ interface IProps {
 export const Avatar: FC<IProps> = ({ picture }) => {
   return (
     <>
-      <img className="circle" src={picture} height="100vh" width="100vh" />
+      <img
+        className="circle"
+        src={picture}
+        height="100vh"
+        width="100vh"
+        alt="user avatar"
+      />
     </>
   );
 };

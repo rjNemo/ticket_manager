@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
-import { NewTicketForm } from "./NewTicketForm";
 
 interface IProps {
   tabNames: string[];
@@ -28,14 +27,14 @@ export const NewTicketTabRouter: FC<IProps> = ({
       <div className="row">
         <TabRouterHeader tabNames={tabNames} />
 
-        <NewTicketForm
+        {/* <NewTicketForm
           title={title}
           setTitle={setTitle}
           description={description}
           setDescription={setDescription}
           endingDate={endingDate}
           setEndingDate={setEndingDate}
-        />
+        /> */}
       </div>
     </>
   );

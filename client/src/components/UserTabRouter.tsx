@@ -4,6 +4,7 @@ import { TabRouterHeader } from "./TabRouterHeader";
 import { ProjectList } from "./ProjectList";
 import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
+import { TicketList } from "./TicketList";
 
 interface IProps {
   tabNames: string[];
@@ -25,9 +26,9 @@ export const UserTabRouter: FC<IProps> = ({ tickets, tabNames, projects }) => {
           <ProjectList projects={projects} />
         </Route>
 
-        {/* <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} />
-        </Route> */}
+        <Route path={`${url}/tickets`}>
+          <TicketList tickets={tickets} allProjects={[]} />
+        </Route>
       </div>
     </>
   );

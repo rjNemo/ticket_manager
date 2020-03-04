@@ -7,6 +7,7 @@ import { FileList } from "./AppFileList";
 import { Ticket } from "../types/Ticket";
 import { AppFile } from "../types/AppFile";
 import { Activity } from "../types/Activity";
+import { Project } from "../types/Project";
 
 interface IProps {
   tickets: Ticket[];
@@ -14,13 +15,15 @@ interface IProps {
   tabNames: string[];
   files: AppFile[];
   activities: Activity[];
+  allProjects: Project[];
 }
 
 export const TabRouter: FC<IProps> = ({
   tickets,
   tabNames,
   files,
-  activities
+  activities,
+  allProjects
 }) => {
   const { url } = useRouteMatch();
 
@@ -32,7 +35,7 @@ export const TabRouter: FC<IProps> = ({
         <Redirect from={url} to={`${url}/tickets`} />
 
         <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} />
+          <TicketList tickets={tickets} allProjects={allProjects} />
         </Route>
 
         <Route path={`${url}/files`}>

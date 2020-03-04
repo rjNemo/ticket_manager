@@ -8,7 +8,9 @@ namespace TicketManager.Resources
         [Required]
         public string Title { get; set; }
         public string Description { get; set; }
+        [Required]
         public DateTime EndingDate { get; set; }
+        [Required]
         public Guid ManagerId { get; set; }
     }
 }

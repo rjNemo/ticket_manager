@@ -13,6 +13,7 @@ import { User } from "../types/User";
 export const ProjectController: FC = () => {
   const [project, setProject] = useState<Project>({} as Project);
   const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [allProjects, setAllProjects] = useState<Project[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
@@ -48,10 +49,25 @@ export const ProjectController: FC = () => {
     }
   }
 
+  async function httpGetAllProjects(): Promise<void> {
+    try {
+      const response: HttpResponse<Project> = await get<Project>(
+        `${Constants.projectsURI}`
+      );
+      if (response.parsedBody !== undefined) {
+        setAllProjects((response.parsedBody as unknown) as Project[]);
+      }
+    } catch (ex) {
+      setHasError(true);
+      setError(ex);
+    }
+  }
+
   useEffect(() => {
     if (id !== undefined) {
       httpGetProjects(id);
       httpGetAllUsers();
+      httpGetAllProjects();
     } else {
       setHasError(true);
       setError("Bad Request");
@@ -61,6 +77,6 @@ export const ProjectController: FC = () => {
   if (hasError) {
     return <ErrorController error={error} />;
   }
-  const viewModel = new ProjectVM(project, allUsers);
+  const viewModel = new ProjectVM(project, allUsers, allProjects);
   return isLoading ? <Preloader /> : <ProjectPage viewModel={viewModel} />;
 };

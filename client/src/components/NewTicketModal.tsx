@@ -5,16 +5,23 @@ import { post } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { HttpResponse } from "../types/HttpResponse";
 import { NewTicketForm } from "./NewTicketForm";
+import { Project } from "../types/Project";
 
 interface IProps {
   show: boolean;
   handleClose(): void;
+  allProjects: Project[];
 }
 
-export const NewTicketModal: FC<IProps> = ({ show, handleClose }) => {
+export const NewTicketModal: FC<IProps> = ({
+  show,
+  handleClose,
+  allProjects
+}) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
+  const [projectId, setProjectId] = useState("0");
 
   const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
     e: FormEvent
@@ -25,7 +32,7 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose }) => {
       description: description,
       endingDate: new Date(endingDate).toISOString(),
       creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
-      projectId: 1
+      projectId: parseInt(projectId)
     };
     // console.log(newTicket);
     const response: HttpResponse<Ticket> = await post<Ticket>(
@@ -63,6 +70,9 @@ export const NewTicketModal: FC<IProps> = ({ show, handleClose }) => {
             setDescription={setDescription}
             endingDate={endingDate}
             setEndingDate={setEndingDate}
+            allProjects={allProjects}
+            projectId={projectId}
+            setProjectId={setProjectId}
           />
         </div>
 

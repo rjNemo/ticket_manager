@@ -23,10 +23,6 @@ export const UserPage: FC<IProps> = ({ viewModel }) => {
           tickets={tickets}
         />
       </div>
-      {/* // <TabView>
-    //     <CardList>
-    //     <CardList>
-    // </TabView> */}
     </div>
   );
 };

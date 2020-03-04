@@ -13,6 +13,7 @@ interface IProps {
 
 export const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const {
+    // id,
     title,
     description,
     users,
@@ -23,7 +24,8 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     ticketsTotalCount,
     remainingDays,
     files,
-    activities
+    activities,
+    allProjects
   } = viewModel;
 
   const tabNames: string[] = ["Tickets", "Files"]; //, "Activity"];
@@ -59,6 +61,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
           tickets={tickets}
           files={files}
           activities={activities}
+          allProjects={allProjects}
         />
       </div>
     </div>

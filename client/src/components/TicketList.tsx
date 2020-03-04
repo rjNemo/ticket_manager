@@ -7,12 +7,14 @@ import { HttpResponse } from "../types/HttpResponse";
 import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { NewTicketModal } from "./NewTicketModal";
+import { Project } from "../types/Project";
 
 type TicketListProps = {
   tickets: Ticket[];
+  allProjects: Project[];
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets }) => {
+export const TicketList: FC<TicketListProps> = ({ tickets, allProjects }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -42,6 +44,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets }) => {
             setShowNew(false);
           }}
           show={showNew}
+          allProjects={allProjects}
         />
         <h3>Tickets</h3>
         <FloatingButton

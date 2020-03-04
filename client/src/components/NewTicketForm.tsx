@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Project } from "../types/Project";
 
 interface IProps {
   title: string;
@@ -7,6 +8,9 @@ interface IProps {
   setDescription: React.Dispatch<React.SetStateAction<string>>;
   endingDate: string;
   setEndingDate: React.Dispatch<React.SetStateAction<string>>;
+  allProjects: Project[];
+  projectId: string;
+  setProjectId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const NewTicketForm: FC<IProps> = ({
@@ -15,7 +19,10 @@ export const NewTicketForm: FC<IProps> = ({
   description,
   setDescription,
   endingDate,
-  setEndingDate
+  setEndingDate,
+  allProjects,
+  projectId,
+  setProjectId
 }) => {
   return (
     <>
@@ -62,13 +69,23 @@ export const NewTicketForm: FC<IProps> = ({
         </div>
 
         <div className="input-field">
-          <select id="project" className="browser-default">
-            <option value="" disabled selected>
+          <select
+            id="project"
+            className="browser-default"
+            value={projectId}
+            onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+              e.preventDefault();
+              setProjectId(e.target.value);
+            }}
+          >
+            <option value={0} disabled>
               Project
             </option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
+            {allProjects.map(p => (
+              <option key={p.id} value={p.id}>
+                {p.title}
+              </option>
+            ))}
           </select>
         </div>
       </div>
