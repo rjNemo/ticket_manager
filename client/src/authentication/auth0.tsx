@@ -15,7 +15,7 @@ interface IAuth0Context {
   getTokenWithPopup(o?: GetTokenWithPopupOptions): Promise<string | undefined>;
   logout(o?: LogoutOptions): void;
 }
-interface IAuth0ProviderOptions {
+export interface IAuth0ProviderOptions {
   children: React.ReactElement;
   onRedirectCallback?(result: RedirectLoginResult): void;
 }
