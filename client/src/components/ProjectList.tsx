@@ -3,18 +3,16 @@ import { Ticket } from "../types/Ticket";
 import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
-import { User } from "../types/User";
-import { HttpResponse } from "../types/HttpResponse";
 import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
-import { NewTicketModal } from "./NewTicketModal";
+import { HttpResponse } from "../types/HttpResponse";
+import { Project } from "../types/Project";
 
-type TicketListProps = {
-  tickets: Ticket[];
-  users: User[];
+type IProps = {
+  projects: Project[];
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
+export const ProjectList: FC<IProps> = ({ projects }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -32,7 +30,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
   };
 
   const [showNew, setShowNew] = useState(false);
-  let filteredTickets = tickets.filter(
+  let filteredTickets = projects.filter(
     t =>
       t.status !== "Done" &&
       t.title.toLowerCase().includes(filterText.toLowerCase())
@@ -40,16 +38,9 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
   return (
     <>
       <div className="row valign-wrapper">
-        <NewTicketModal
-          handleClose={() => {
-            setShowNew(false);
-          }}
-          show={showNew}
-          allUsers={users}
-        />
-        <h3>Tickets</h3>
+        <h3>Projects</h3>
         <FloatingButton
-          color="indigo lighten-3"
+          color="indigo lighten-1"
           size="small"
           onClick={onClick}
         />
@@ -64,7 +55,7 @@ export const TicketList: FC<TicketListProps> = ({ tickets, users }) => {
           {filteredTickets.length === 0 ? (
             <HorizontalCard />
           ) : (
-            filteredTickets.map((t: Ticket) => (
+            filteredTickets.map((t: Project) => (
               <HorizontalCard
                 key={t.id}
                 title={t.title}

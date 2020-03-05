@@ -7,14 +7,15 @@ interface IProps {
 }
 
 export const TabRouterHeader: FC<IProps> = ({
-  tabClass = "tab col s4",
-  tabNames
+  tabNames,
+  tabClass = `tab col s${12 / tabNames.length}`
 }) => {
   const [isActive, setIsActive] = useState(0);
   const nTabs = tabNames.length;
+
   return (
     <>
-      <ul className="tabs z-depth-1">
+      <ul className="tabs">
         {tabNames.map((name, i) => (
           <TabUnit
             key={i}
@@ -27,7 +28,7 @@ export const TabRouterHeader: FC<IProps> = ({
           />
         ))}
         <li
-          className="indicator"
+          className="indicator indigo lighten-2"
           style={{
             left: `${(isActive / nTabs) * 100}%`,
             right: `${(1 - (isActive + 1) / nTabs) * 100}%`
@@ -68,7 +69,11 @@ const TabUnit: FC<TabUnitProps> = ({
       <Link
         to={`${url}/${text}`}
         id={value}
-        className={isActive === parseInt(value) ? "active pink lighten-5" : ""}
+        className={
+          isActive === parseInt(value)
+            ? "active indigo lighten-5 indigo-text"
+            : "indigo-text"
+        }
         onClick={() => setIsActive(parseInt(value))}
       >
         {text}

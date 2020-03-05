@@ -8,7 +8,7 @@
 
 ### v1
 
-- [Internal Link. Don't forget to update](https://localhost:5001/swagger)
+- [Internal Link. Don't forget to update](https://localhost:5001/api/v1/)
 
 ## Features
 
@@ -45,7 +45,8 @@
 - [ ] logging
 - [ ] check useRef, useReducer, dispatch
 - [ ] error page redirect when offline.
-- [ ] ticket/files/activities list placeholders when empty
+- [x] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
 - [<span style="color:red">X</span>] write dtos without circular dependencies.
 - [ ] use dtoRequest for PutProjects
+- [ ] render avatarlist after UserModal Update

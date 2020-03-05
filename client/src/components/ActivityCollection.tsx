@@ -12,38 +12,58 @@ export const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
   ) : (
     <>
       <ul className="collection">
-        {activities
-          .filter(
-            a =>
-              a.description.toLowerCase().includes(filterText.toLowerCase()) ||
-              a.user.firstName
-                .toLowerCase()
-                .includes(filterText.toLowerCase()) ||
-              a.ticket.title.toLowerCase().includes(filterText.toLowerCase())
-          )
-          .map((activity: Activity) => (
-            <li key={activity.id} className="collection-item avatar">
-              <ActivityEntry activity={activity} />
-            </li>
-          ))}
+        {activities.length === 0 ? (
+          <ActivityEntry />
+        ) : (
+          activities
+            .filter(
+              a =>
+                a.description
+                  .toLowerCase()
+                  .includes(filterText.toLowerCase()) ||
+                a.user.firstName
+                  .toLowerCase()
+                  .includes(filterText.toLowerCase()) ||
+                a.ticket.title.toLowerCase().includes(filterText.toLowerCase())
+            )
+            .map((activity: Activity) => (
+              <ActivityEntry activity={activity} key={activity.id} />
+            ))
+        )}
       </ul>
     </>
   );
 };
 
 type IFProps = {
-  activity: Activity;
+  activity?: Activity;
 };
 
 export const ActivityEntry: FC<IFProps> = ({ activity }) => {
   return (
     <>
-      <img src={activity.user.picture} alt="" className="circle" />
-      {/* <i className="material-icons circle">folder</i> */}
-      <span className="title">
-        {activity.user.firstName} {activity.description} {activity.ticket.title}
-      </span>
-      <p>{activity.date.toDateString()}</p>
+      <li className="collection-item avatar">
+        {/* <img
+        src={
+          activity
+            ? activity.user.picture
+            : "https://previews.123rf.com/images/vikpit/vikpit1604/vikpit160400034/54976526-welcome-sign-symbol-word-welcome-hand-lettering-calligraphic-font-letters-and-shade-isolated-on-whit.jpg"
+        }
+        alt=""
+        height="32vh"
+        width="32vh"
+        className="circle"
+      /> */}
+        <i className="material-icons circle indigo lighten-1">folder</i>
+        <span className="title">
+          {activity ? activity.user.firstName : "Ruidy"}
+          {activity ? activity.description : " welcomes you "}
+          {activity ? activity.ticket.title : "here"}
+        </span>
+        <p>
+          {activity ? activity.date.toDateString() : new Date().toDateString()}
+        </p>
+      </li>
     </>
   );
 };

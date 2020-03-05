@@ -90,7 +90,6 @@ namespace TicketManager
             app.UseDefaultFiles();
 
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.RoutePrefix = "api/v1";

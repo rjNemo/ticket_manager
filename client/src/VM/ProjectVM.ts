@@ -6,7 +6,7 @@ import { User } from "../types/User";
 import { getRemainingdays } from "../utils/methods";
 
 export default class ProjectVM {
-  public id: number;
+  // public id: number;
   public title: string;
   public description: string;
   public creationDate: string;
@@ -24,7 +24,7 @@ export default class ProjectVM {
   public remainingDays: number;
 
   public constructor(project: Project, allUsers: User[]) {
-    this.id = project.id;
+    // this.id = project.id;
     this.title = project.title;
     this.description = project.description;
     this.creationDate = project.creationDate;

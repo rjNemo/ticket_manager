@@ -1,12 +1,32 @@
 import React, { FC } from "react";
-import { Header } from "../components/Header";
+import { UserVM } from "../VM/UserVM";
+import { UserHeader } from "../components/UserHeader";
+import { UserTabRouter } from "../components/UserTabRouter";
 
-export const UserPage: FC = () => {
+interface IProps {
+  viewModel: UserVM;
+}
+export const UserPage: FC<IProps> = ({ viewModel }) => {
+  const { fullName, presentation, picture, projects, tickets } = viewModel;
+  const tabNames: string[] = ["Projects", "Tickets"];
   return (
-    <Header title = "Brand Concept and Design" description = "Research, ideate and present brand concepts for client consideration"/>
-    // <TabView>
+    <div className="section">
+      <div className="container">
+        <UserHeader
+          picture={picture}
+          fullName={fullName}
+          presentation={presentation}
+        />
+        <UserTabRouter
+          tabNames={tabNames}
+          projects={projects}
+          tickets={tickets}
+        />
+      </div>
+      {/* // <TabView>
     //     <CardList>
     //     <CardList>
-    // </TabView>
+    // </TabView> */}
+    </div>
   );
 };

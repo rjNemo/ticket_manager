@@ -35,22 +35,22 @@ export const UsersModal: FC<IProps> = ({
     e: FormEvent
   ) => {
     e.preventDefault();
-
     await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
       members.map(m => m.id)
     );
+    handleClose();
   };
 
   return (
     <Modal show={show} handleClose={handleClose}>
-      <div className="row valign-wrapper blue">
+      <div className="row valign-wrapper indigo">
         <div className="col s10">
           <h4 className="white-text">Manage users</h4>
         </div>
         <div className="col s2">
           <i
-            className="right material-icons blue lighten-3 circle"
+            className="right material-icons indigo lighten-3 circle"
             onClick={handleClose}
           >
             close
@@ -78,10 +78,10 @@ export const UsersModal: FC<IProps> = ({
             </li>
           ))}
         </ul>
-        <div className="modal-footer">
+        <div className="modal-footer grey lighten-3">
           <input
             type="submit"
-            className="modal-close waves-effect waves-green btn"
+            className="modal-close waves-effect waves-green btn indigo"
             value="Done"
           />
         </div>
