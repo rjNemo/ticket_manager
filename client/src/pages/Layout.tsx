@@ -1,11 +1,14 @@
 import React, { FC } from "react";
 import { AppRouter } from "../utils/router";
+import { NavBar } from "../components/Navbar";
 
 const Layout: FC = () => {
   return (
     <>
-      {/* <NavBar />
-      <BreadCrumb /> */}
+      <header>
+        <NavBar />
+      </header>
+      {/* <BreadCrumb /> */}
       <AppRouter />
       {/* <Footer /> */}
     </>
