@@ -23,6 +23,13 @@ namespace TicketManager
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+        // .ConfigureLogging((context, logging) =>
+        // {
+        //     logging.ClearProviders();
+        //     logging.AddConfiguration(context.Configuration.GetSection("Logging"));
+        //     logging.AddDebug();
+        //     logging.AddConsole();
+        // });
     }
 #pragma warning restore CS1591
 }
