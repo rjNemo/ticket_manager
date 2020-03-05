@@ -47,7 +47,7 @@
 - [ ] error page redirect when offline.
 - [x] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
-- [<span style="color:red">X</span>] write dtos without circular dependencies.
+- [<span style="color:red">x</span>] write dtos without circular dependencies.
 - [ ] use dtoRequest for PutProjects
 - [ ] render avatarlist after UserModal Update
 - [ ] Form validators
