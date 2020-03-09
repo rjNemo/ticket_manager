@@ -6,7 +6,7 @@ import { User } from "../types/User";
 import { getRemainingdays } from "../utils/methods";
 
 export default class ProjectVM {
-  // public id: number;
+  public id: number;
   public title: string;
   public description: string;
   public creationDate: string;
@@ -22,9 +22,14 @@ export default class ProjectVM {
   public ticketsTotalCount: number;
   public ticketsDone: number;
   public remainingDays: number;
+  public allProjects: Project[];
 
-  public constructor(project: Project, allUsers: User[]) {
-    // this.id = project.id;
+  public constructor(
+    project: Project,
+    allUsers: User[],
+    allProjects: Project[]
+  ) {
+    this.id = project.id;
     this.title = project.title;
     this.description = project.description;
     this.creationDate = project.creationDate;
@@ -44,5 +49,6 @@ export default class ProjectVM {
         ? 0
         : this.tickets.filter(t => t.status === "Done").length;
     this.remainingDays = getRemainingdays(project.endingDate);
+    this.allProjects = allProjects;
   }
 }

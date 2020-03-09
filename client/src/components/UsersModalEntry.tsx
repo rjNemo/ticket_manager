@@ -12,7 +12,7 @@ export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
     return Boolean(members.find(m => m.id === id));
   };
   return (
-    <div className="row">
+    <div className="valign-wrapper">
       <label htmlFor={user.id}>
         <input
           id={user.id}
@@ -27,15 +27,16 @@ export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
         />
         <span>
           {user.fullName}
-          <img
-            className="circle"
-            src={user.picture}
-            width="32vh"
-            height="32vh"
-            alt={user.fullName}
-          />
+          {"  "}
         </span>
       </label>
+      <img
+        className="circle"
+        src={user.picture}
+        width="32vh"
+        height="32vh"
+        alt={user.fullName}
+      />
     </div>
   );
 };

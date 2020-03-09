@@ -3,11 +3,11 @@ import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
 import { TicketList } from "./TicketList";
 import { FileList } from "./AppFileList";
-import { ActivityList } from "./ActivityList";
+// import { ActivityList } from "./ActivityList";
 import { Ticket } from "../types/Ticket";
 import { AppFile } from "../types/AppFile";
 import { Activity } from "../types/Activity";
-import { User } from "../types/User";
+import { Project } from "../types/Project";
 
 interface IProps {
   tickets: Ticket[];
@@ -15,7 +15,7 @@ interface IProps {
   tabNames: string[];
   files: AppFile[];
   activities: Activity[];
-  allUsers: User[];
+  allProjects: Project[];
 }
 
 export const TabRouter: FC<IProps> = ({
@@ -23,7 +23,7 @@ export const TabRouter: FC<IProps> = ({
   tabNames,
   files,
   activities,
-  allUsers
+  allProjects
 }) => {
   const { url } = useRouteMatch();
 
@@ -35,16 +35,16 @@ export const TabRouter: FC<IProps> = ({
         <Redirect from={url} to={`${url}/tickets`} />
 
         <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} users={allUsers} />
+          <TicketList tickets={tickets} allProjects={allProjects} />
         </Route>
 
         <Route path={`${url}/files`}>
           <FileList files={files} />
         </Route>
 
-        <Route path={`${url}/activity`}>
+        {/* <Route path={`${url}/activity`}>
           <ActivityList activities={activities} />
-        </Route>
+        </Route> */}
       </div>
     </>
   );

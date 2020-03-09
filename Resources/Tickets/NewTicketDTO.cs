@@ -8,10 +8,11 @@ namespace TicketManager.Resources
 {
     public class NewTicketDTO
     {
+        [Required]
         public string Title { get; set; }
-
+        [Required]
         public string Description { get; set; }
-
+        [Required]
         [DataType(DataType.Date)]
         public DateTime EndingDate { get; set; }
 
@@ -20,8 +21,9 @@ namespace TicketManager.Resources
         public string Difficulty { get; set; }
 
         public string Category { get; set; }
-
+        [Required]
         public Guid CreatorId { get; set; }
+        [Required]
         public int ProjectId { get; set; }
     }
 }
