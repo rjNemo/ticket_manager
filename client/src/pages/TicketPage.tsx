@@ -1,23 +1,20 @@
 import React, { FC } from "react";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
-import { ProgressBar } from "../components/ProgressBar";
+import { TicketVM } from "../VM/TicketVM";
 
-export const TicketPage: FC = () => {
+interface IProps {
+  viewModel: TicketVM;
+}
+
+export const TicketPage: FC<IProps> = ({ viewModel }) => {
+  const { title, description, users } = viewModel;
   return (
-    <>
-      <Header
-        description="Research, ideate and present brand concepts for client consideration"
-        title="Brand Concept and Design"
-      />
-      {/* <AvatarList users={["../images/user_1.jpg", "../images/user_2.jpg"]} /> */}
-      <ProgressBar value={60} />
-      {/* // <TabView>
-        //     <ChildTicket/>
-        //     <ChildFile/>
-        //     <ChildActivity/>
-        // </TabView>
-        // <Notes/> */}
-    </>
+    <div className="section">
+      <div className="container">
+        <Header title={title} description={description} />
+        <AvatarList users={users} />
+      </div>
+    </div>
   );
 };

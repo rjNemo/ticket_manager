@@ -75,6 +75,7 @@ export const TicketList: FC<TicketListProps> = ({
                 key={t.id}
                 title={t.title}
                 remainingDays={t.endingDate}
+                link={`/tickets/${t.id}`}
                 validateTicket={async (e: MouseEvent) => {
                   e.preventDefault();
                   await put<HttpResponse<Ticket>>(

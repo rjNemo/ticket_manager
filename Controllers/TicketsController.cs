@@ -28,6 +28,8 @@ namespace TicketManager.Controllers
         {
             return await _context.Tickets
                 .Include(t => t.Project)
+                    .ThenInclude(p => p.Assignments)
+                        .ThenInclude(a => a.User)
                 .Include(t => t.Files)
                 .Include(t => t.Activities)
                 .Include(t => t.Notes)
@@ -42,6 +44,8 @@ namespace TicketManager.Controllers
         {
             var ticket = await _context.Tickets
                 .Include(t => t.Project)
+                    .ThenInclude(p => p.Assignments)
+                        .ThenInclude(a => a.User)
                 .Include(t => t.Files)
                 .Include(t => t.Activities)
                 .Include(t => t.Notes)

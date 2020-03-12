@@ -7,13 +7,12 @@ import {
   //Link, NavLink
 } from "react-router-dom";
 import * as creacteHistory from "history";
-// import { TicketPage } from "../pages/TicketPage";
 // import { HomeController } from "../controllers/HomeController";
 import { ProjectController } from "../controllers/ProjectController";
+import { UserController } from "../controllers/UserController";
+import { TicketController } from "../controllers/TicketController";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { TestPage } from "../pages/TestPage";
-import { UserController } from "../controllers/UserController";
-// import { TicketController } from "../controllers/TicketController";
 
 export const history = creacteHistory.createBrowserHistory();
 
@@ -35,9 +34,9 @@ export const AppRouter = () => {
           <Route path="/projects/:id">
             <ProjectController />
           </Route>
-          {/* <Route path="/tickets/:id">
+          <Route path="/tickets/:id">
             <TicketController />
-          </Route>  */}
+          </Route>
 
           <Route path="/401">
             <NotFoundPage />

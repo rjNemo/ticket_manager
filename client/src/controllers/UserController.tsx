@@ -8,9 +8,6 @@ import { Preloader } from "../components/Preloader";
 import { get } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { ErrorController } from "./ErrorController";
-// import { AppFile } from "../types/AppFile";
-// import { Activity } from "../types/Activity";
-// import { Ticket } from "../types/Ticket";
 
 export const UserController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,79 +31,6 @@ export const UserController: FC = () => {
       setError(ex);
     }
   }
-
-  // const user: User = {
-  //   id: "resldsm,dgd",
-  //   firstName: "Ti",
-  //   lastName: "Nyny",
-  //   fullName: "Nilka Netty Nemo",
-  //   presentation: "Woman of my life  ❤️❤️❤️",
-  //   creationDate: new Date().toDateString(),
-  //   email: "dw@mail.au",
-  //   phone: "0998765432",
-  //   picture: require("../images/user_1.jpg"),
-  //   projects: [
-  //     {
-  //       id: 1,
-  //       title: "OP Baby",
-  //       description: "What is it about",
-  //       progression: 25,
-  //       creationDate: new Date().toDateString(),
-  //       endingDate: "2020-02-17 15:51:02.787373",
-  //       status: "Todo",
-  //       manager: {} as User,
-  //       users: [] as User[],
-  //       tickets: [] as Ticket[],
-  //       files: [] as AppFile[],
-  //       activities: [] as Activity[]
-  //     }
-  //   ],
-  //   tickets: [
-  //     {
-  //       id: 1,
-  //       title: "Client objective meeting",
-  //       description: "Client objective meeting",
-  //       endingDate: "2020-02-17 15:51:02.787373",
-  //       status: "Done",
-  //       project: {
-  //         id: 1,
-  //         title: "Project Title",
-  //         description: "What is it about",
-  //         progression: 25,
-  //         creationDate: new Date().toDateString(),
-  //         endingDate: "2020-02-17 15:51:02.787373",
-  //         status: "Todo",
-  //         manager: {} as User,
-  //         users: [] as User[],
-  //         tickets: [] as Ticket[],
-  //         files: [] as AppFile[],
-  //         activities: [] as Activity[]
-  //       }
-  //     },
-  //     {
-  //       id: 2,
-  //       title: "Assemble Outcomes Report for client",
-  //       description: "Assemble Outcomes Report for client",
-  //       endingDate: "2020-02-27 15:51:02.787373",
-  //       status: "To Do",
-  //       project: {
-  //         id: 1,
-  //         title: "Project Title",
-  //         description: "What is it about",
-  //         progression: 25,
-  //         creationDate: new Date().toDateString(),
-  //         endingDate: "2020-02-17 15:51:02.787373",
-  //         status: "Todo",
-  //         manager: {} as User,
-  //         users: [] as User[],
-  //         tickets: [] as Ticket[],
-  //         files: [] as AppFile[],
-  //         activities: [] as Activity[]
-  //       }
-  //     }
-  //   ],
-  //   activities: []
-  // };
 
   useEffect(() => {
     if (id !== undefined) {
