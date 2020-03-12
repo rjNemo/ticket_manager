@@ -12,9 +12,14 @@ import { Project } from "../types/Project";
 type TicketListProps = {
   tickets: Ticket[];
   allProjects: Project[];
+  addButton?: Boolean;
 };
 
-export const TicketList: FC<TicketListProps> = ({ tickets, allProjects }) => {
+export const TicketList: FC<TicketListProps> = ({
+  tickets,
+  allProjects,
+  addButton = true
+}) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -47,11 +52,13 @@ export const TicketList: FC<TicketListProps> = ({ tickets, allProjects }) => {
           allProjects={allProjects}
         />
         <h3>Tickets</h3>
-        <FloatingButton
-          color="indigo lighten-3"
-          size="small"
-          onClick={onClick}
-        />
+        {addButton && (
+          <FloatingButton
+            color="indigo lighten-3"
+            size="small"
+            onClick={onClick}
+          />
+        )}
         <FilterBar
           filterText={filterText}
           handleChange={handleChange}

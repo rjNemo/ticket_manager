@@ -6,13 +6,13 @@ interface IProps {
   title?: string;
   remainingDays?: string;
   validateTicket?: (event: MouseEvent) => void;
-  // archiveTicket: (event: MouseEvent) => void;
+  link?: string;
 }
 
 export const HorizontalCard: FC<IProps> = ({
   title,
   remainingDays,
-  // archiveTicket,
+  link = "#",
   validateTicket
 }) => {
   return (
@@ -23,7 +23,7 @@ export const HorizontalCard: FC<IProps> = ({
             <div className="row">
               <div className="card-title">
                 <h6>
-                  <Link to="#">
+                  <Link to={link}>
                     <b>{title ?? "Nothing to do"}</b>
                   </Link>
                 </h6>

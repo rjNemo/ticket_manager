@@ -27,7 +27,7 @@ export const UserTabRouter: FC<IProps> = ({ tickets, tabNames, projects }) => {
         </Route>
 
         <Route path={`${url}/tickets`}>
-          <TicketList tickets={tickets} allProjects={[]} />
+          <TicketList tickets={tickets} allProjects={[]} addButton={false} />
         </Route>
       </div>
     </>

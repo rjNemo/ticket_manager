@@ -43,6 +43,7 @@ namespace TicketManager.Controllers
             return await _context.AppUsers
                 .Include(u => u.Assignments)
                     .ThenInclude(a => a.Project)
+                        .ThenInclude(p => p.Tickets)
                 .Include(u => u.Activities)
                 .AsNoTracking()
                 .Select(u => new AppUserDTO(u))
@@ -68,6 +69,7 @@ namespace TicketManager.Controllers
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
                     .ThenInclude(a => a.Project)
+                        .ThenInclude(p => p.Tickets)
                 .Include(u => u.Activities)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
@@ -80,12 +82,12 @@ namespace TicketManager.Controllers
         }
 
         /// <summary>
-        /// Updates the specific project with Id. 
+        /// Updates the specific user with Id. 
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///
-        ///     PUT: api/v1/Projects/3
+        ///     PUT: api/v1/Users/3
         ///     {
         ///         "id": "357727fd-5262-4522-b8a3-38271d43de84",
         ///         "firstName": "Thomas", 
@@ -97,7 +99,7 @@ namespace TicketManager.Controllers
         ///
         /// </remarks>
         /// <response code="204">Request was succesful but no content is changed</response> 
-        /// <response code="404">If the required project is null</response> 
+        /// <response code="404">If the required User is null</response> 
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -129,12 +131,12 @@ namespace TicketManager.Controllers
         }
 
         /// <summary>
-        /// Creates a  project. 
+        /// Creates a  User. 
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///
-        ///     POST: api/v1/Projects/
+        ///     POST: api/v1/Users/
         ///     {
         ///         "firstName": "Thomas", 
         ///         "lastName": "Price", 
@@ -144,7 +146,7 @@ namespace TicketManager.Controllers
         ///     }
         ///
         /// </remarks>
-        /// <response code="201">Returns the created project</response>  
+        /// <response code="201">Returns the created User</response>  
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -174,15 +176,15 @@ namespace TicketManager.Controllers
         }
 
         /// <summary>
-        /// Deletes the project identified by its Id 
+        /// Deletes the User identified by its Id 
         /// </summary>
         /// <remarks>
         /// Sample request:
         ///
-        ///     DELETE: api/v1/Projects/5
+        ///     DELETE: api/v1/Users/5
         ///
         /// </remarks>
-        /// <response code="200">Returns the deleted project</response>  
+        /// <response code="200">Returns the deleted User</response>  
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [HttpDelete("{id}")]
@@ -205,6 +207,7 @@ namespace TicketManager.Controllers
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
                     .ThenInclude(a => a.Project)
+                        .ThenInclude(p => p.Tickets)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == id);
             if (user == null)

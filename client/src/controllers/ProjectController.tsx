@@ -77,6 +77,7 @@ export const ProjectController: FC = () => {
   if (hasError) {
     return <ErrorController error={error} />;
   }
+
   const viewModel = new ProjectVM(project, allUsers, allProjects);
   return isLoading ? <Preloader /> : <ProjectPage viewModel={viewModel} />;
 };
