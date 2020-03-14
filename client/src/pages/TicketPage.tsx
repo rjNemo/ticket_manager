@@ -22,7 +22,7 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
     difficulty
   } = viewModel;
   const daysToEnd: number = getRemainingdays(endingDate);
-  let notes: string = "";
+  // let notes: string = "";
 
   return (
     <div className="section">
