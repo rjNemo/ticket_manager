@@ -3,6 +3,7 @@
 .DS_Store
 **bin/
 **obj/
+app.db
 Data/Interfaces
 Data/UnitOfWork.cs
 Data/*Repository.cs
