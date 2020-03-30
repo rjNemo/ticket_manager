@@ -1,12 +1,12 @@
 import React, { FC, useState, FormEvent } from "react";
-import { useParams, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { Modal } from "./Modal";
 import { NewTicketForm } from "./NewTicketForm";
 import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
 import { post } from "../utils/http";
 import { Constants } from "../utils/Constants";
-import { HttpResponse } from "../types/HttpResponse";
+// import { HttpResponse } from "../types/HttpResponse";
 
 interface IProps {
   show: boolean;
@@ -38,12 +38,9 @@ export const NewTicketModal: FC<IProps> = ({
       creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
       projectId: parseInt(projectId)
     };
-    // console.log(newTicket);
-    const response: HttpResponse<Ticket> = await post<Ticket>(
-      `${Constants.ticketsURI}`,
-      newTicket
-    );
-    // console.log(response.parsedBody);
+
+    // const response: HttpResponse<Ticket> =
+    await post<Ticket>(`${Constants.ticketsURI}`, newTicket);
     handleClose();
   };
 

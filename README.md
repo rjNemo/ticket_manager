@@ -50,4 +50,5 @@
 - [<span style="color:red">x</span>] write dtos without circular dependencies.
 - [ ] use dtoRequest for PutProjects
 - [ ] render avatarlist after UserModal Update
-- [ ] Form validators
+- [x] Form validators
+- [ ] Azure

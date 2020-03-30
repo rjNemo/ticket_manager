@@ -55,7 +55,10 @@ namespace TicketManager.Models
         public List<Ticket> GetTickets()
         {
             var tickets = new List<Ticket>();
-            GetProjects().ForEach(p => tickets.Concat(p.Tickets));
+            foreach (var p in GetProjects())
+            {
+                tickets.AddRange(p.Tickets);
+            }
             return tickets;
         }
     }

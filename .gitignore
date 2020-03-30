@@ -1,9 +1,8 @@
 .vs/
 .vscode/
 .DS_Store
-bin/
-obj/
-app.db*
+**bin/
+**obj/
 Data/Interfaces
 Data/UnitOfWork.cs
 Data/*Repository.cs
