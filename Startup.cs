@@ -115,6 +115,10 @@ namespace TicketManager
                 {
                     spa.UseReactDevelopmentServer(npmScript: "start");
                 }
+                else
+                {
+                    spa.UseReactDevelopmentServer(npmScript: "build");
+                }
             });
         }
     }
