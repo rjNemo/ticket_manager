@@ -10,6 +10,11 @@
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <NoWarn>$(NoWarn);1591</NoWarn>
     </PropertyGroup>
+    <Target Name="BeforeBuild">
+      <ItemGroup>
+          <Content Include="client/build/*" />
+      </ItemGroup>
+  </Target>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
       <CustomCommands>
         <CustomCommands>
@@ -19,8 +24,7 @@
         </CustomCommands>
       </CustomCommands>
     </PropertyGroup>
-    <ItemGroup>
-    </ItemGroup>
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.2" />
