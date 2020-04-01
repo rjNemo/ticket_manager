@@ -1,6 +1,10 @@
 import React, { FC, CSSProperties } from "react";
+import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { Box } from "@material-ui/core";
+import { PlaylistAddCheck } from "@material-ui/icons";
 
-type ProgressBarProps = {
+type IProps = {
   value: number;
   max?: number;
   tasksTotalCount?: number;
@@ -8,7 +12,18 @@ type ProgressBarProps = {
   remainingDays?: number;
 };
 
-export const ProgressBar: FC<ProgressBarProps> = ({
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      "& > * + *": {
+        marginTop: theme.spacing(2)
+      }
+    }
+  })
+);
+
+export const ProgressBar: FC<IProps> = ({
   value,
   max = 100,
   tasksDone,
@@ -28,21 +43,29 @@ export const ProgressBar: FC<ProgressBarProps> = ({
     barColor = "red";
   }
 
+  const classes = useStyles();
+
   return (
     <>
       <div className="row">
-        <div className="progress">
+        <Box className="row">
+          <div className={classes.root}>
+            <LinearProgress variant="determinate" value={value} />
+            {/* <LinearProgress variant="determinate" value={value} color={barColor} /> */}
+          </div>
+        </Box>
+        {/* <div className="progress">
           <div className={`determinate ${barColor}`} style={styleString}></div>
-        </div>
-        <div>
-          <i className="left material-icons">playlist_add_check</i>
+        </div> */}
+        <Box>
+          <PlaylistAddCheck />
           <span>
             {tasksDone}/{tasksTotalCount}
           </span>
-          <div className="right">
+          <Box className="right">
             <span>Due {remainingDays} days</span>
-          </div>
-        </div>
+          </Box>
+        </Box>
       </div>
     </>
   );

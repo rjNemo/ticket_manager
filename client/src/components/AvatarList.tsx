@@ -1,6 +1,9 @@
 import React, { FC } from "react";
-import { User } from "../types/User";
 import { Link } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
+import AvatarGroup from "@material-ui/lab/AvatarGroup";
+import { User } from "../types/User";
+import { UserAvatar } from "./UserAvatar";
 
 interface AvatarListProps {
   users: User[];
@@ -11,17 +14,13 @@ export const AvatarList: FC<AvatarListProps> = ({ users }) => {
     <></>
   ) : (
     <>
-      {users.map((user: User, i: number) => (
-        <Link to={`/users/${user.id}`} key={i}>
-          <img
-            className="circle"
-            src={user.picture}
-            width="32vh"
-            height="32vh"
-            alt={user.fullName}
-          />
-        </Link>
-      ))}
+      <AvatarGroup max={2}>
+        {users.map((user: User, i: number) => (
+          <Link to={`/users/${user.id}`} key={i}>
+            <Avatar src={user.picture} alt={user.fullName} />
+          </Link>
+        ))}
+      </AvatarGroup>
     </>
   );
 };

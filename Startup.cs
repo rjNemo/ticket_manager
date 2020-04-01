@@ -63,7 +63,7 @@ namespace TicketManager
                     {
                         Name = "Ruidy Nemausat",
                         Email = "ruidy.nemausat@gmail.com",
-                        Url = new Uri("https://ruidywebsite.herokuapp.com/"),
+                        Url = new Uri("https://ruidyportfolio.herokuapp.com/"),
                     }
                 });
                 // Set the comments path for the Swagger JSON and UI.

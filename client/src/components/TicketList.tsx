@@ -53,11 +53,7 @@ export const TicketList: FC<TicketListProps> = ({
         />
         <h3>Tickets</h3>
         {addButton && (
-          <FloatingButton
-            color="indigo lighten-3"
-            size="small"
-            onClick={onClick}
-          />
+          <FloatingButton color="primary" size="small" onClick={onClick} />
         )}
         <FilterBar
           filterText={filterText}

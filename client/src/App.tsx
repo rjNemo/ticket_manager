@@ -1,8 +1,12 @@
 import React, { FC } from "react";
+import { Router } from "react-router-dom";
+import * as createHistory from "history";
 import Layout from "./pages/Layout";
 import { useAuth0 } from "./authentication/auth0";
 
-const App: FC = () => {
+export const history = createHistory.createBrowserHistory();
+
+export default function App() {
   const { loading } = useAuth0();
 
   if (loading) {
@@ -10,10 +14,10 @@ const App: FC = () => {
   }
 
   return (
-    <div className="App">
-      <Layout />
-    </div>
+    <>
+      <Router history={history}>
+        <Layout />
+      </Router>
+    </>
   );
-};
-
-export default App;
+}
