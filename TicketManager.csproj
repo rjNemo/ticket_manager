@@ -12,7 +12,9 @@
     </PropertyGroup>
     <Target Name="BeforeBuild">
       <ItemGroup>
-          <Content Include="client/build/*" />
+          <Content Include="client/build/**" >
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory> 
+          </Content>
       </ItemGroup>
   </Target>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
