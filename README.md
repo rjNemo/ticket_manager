@@ -8,7 +8,7 @@
 
 ### v1
 
-- [Internal Link. Don't forget to update](https://localhost:5001/api/v1/)
+- [Documentation](https://bugbuster.azurewebsites.net/api/v1/)
 
 ## Features
 
@@ -22,7 +22,7 @@
 
 - `React` client on the front-end (TypeScript)
 - [Materialize](https://materializecss.com) CSS librairy for styling
-- Hosting: ?
+- Hosting: Microsoft Azure
 - Authentication : [Auth0](https://auth0.com/)
 - Analytics : Google Analytics & Mixpanel
 
@@ -47,8 +47,9 @@
 - [ ] error page redirect when offline.
 - [x] ticket/files/activities list placeholders when empty
 - [ ] think about public/private DTO's constructor, getters and setters
-- [<span style="color:red">x</span>] write dtos without circular dependencies.
+- [x] write dtos without circular dependencies.
 - [ ] use dtoRequest for PutProjects
 - [ ] render avatarlist after UserModal Update
 - [x] Form validators
-- [ ] Azure
+- [x] API deployed to Azure
+- [x] Front-end deployment: build first then use ssh …
