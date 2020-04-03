@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
 import { User } from "../types/User";
-import { UserAvatar } from "./UserAvatar";
 
 interface AvatarListProps {
   users: User[];

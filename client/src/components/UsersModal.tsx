@@ -1,4 +1,4 @@
-import React, { FC, useState, ChangeEvent, FormEvent, useEffect } from "react";
+import React, { FC, useState, ChangeEvent, FormEvent } from "react";
 import { Modal } from "./Modal";
 import { AvatarList } from "./AvatarList";
 import { User } from "../types/User";
@@ -25,9 +25,7 @@ export const UsersModal: FC<IProps> = ({
   const [members, setMembers] = useState<User[]>(users);
   const { id } = useParams();
 
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
   };
 
@@ -42,7 +40,6 @@ export const UsersModal: FC<IProps> = ({
     handleClose();
   };
 
-  useEffect(() => {});
   return (
     <Modal show={show} handleClose={handleClose}>
       <div className="row valign-wrapper indigo">

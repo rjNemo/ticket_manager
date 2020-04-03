@@ -7,7 +7,6 @@ type IProps = {
 };
 
 export const FileCollection: FC<IProps> = ({ files, filterText }) => {
-  console.log();
   return (
     <>
       <ul className="collection">

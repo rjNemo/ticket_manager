@@ -17,9 +17,7 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
     setFilterText("");
   };
 
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
   };
 

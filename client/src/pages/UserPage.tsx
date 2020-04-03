@@ -2,10 +2,12 @@ import React, { FC } from "react";
 import { UserVM } from "../VM/UserVM";
 import { UserHeader } from "../components/UserHeader";
 import { UserTabRouter } from "../components/UserTabRouter";
+import { UserTabPanel } from "../components/UserTabPanel";
 
 interface IProps {
   viewModel: UserVM;
 }
+
 export const UserPage: FC<IProps> = ({ viewModel }) => {
   const { fullName, presentation, picture, projects, tickets } = viewModel;
   const tabNames: string[] = ["Projects", "Tickets"];
@@ -17,7 +19,7 @@ export const UserPage: FC<IProps> = ({ viewModel }) => {
           fullName={fullName}
           presentation={presentation}
         />
-        <UserTabRouter
+        <UserTabPanel
           tabNames={tabNames}
           projects={projects}
           tickets={tickets}

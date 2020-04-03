@@ -10,12 +10,10 @@ type IProps = {
 
 export const FileList: FC<IProps> = ({ files }) => {
   const [filterText, setFilterText] = useState<string>("");
-  const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
+  const clearFilterText = (e: MouseEvent): void => {
     setFilterText("");
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
   };
   return (

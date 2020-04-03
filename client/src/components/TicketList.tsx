@@ -21,17 +21,15 @@ export const TicketList: FC<TicketListProps> = ({
   addButton = true
 }) => {
   const [filterText, setFilterText] = useState<string>("");
-  const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
+  const clearFilterText = (e: MouseEvent): void => {
     setFilterText("");
   };
 
-  const onClick: (e: MouseEvent) => void = (e: MouseEvent) => {
+  const onClick = (e: MouseEvent): void => {
     e.preventDefault();
     setShowNew(true);
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
   };
 

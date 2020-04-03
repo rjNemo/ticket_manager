@@ -6,14 +6,14 @@ import { ProjectController } from "../controllers/ProjectController";
 import { UserController } from "../controllers/UserController";
 import { TicketController } from "../controllers/TicketController";
 import { NotFoundPage } from "../pages/NotFoundPage";
-// import { TestPage } from "../pages/TestPage";
+import { TestPage } from "../pages/TestPage";
 
 export const AppRouter = () => {
   return (
     <Switch>
-      {/* <Route exact path="/">
-            <TestPage />
-          </Route> */}
+      <Route exact path="/test">
+        <TestPage />
+      </Route>
 
       <Route exact path="/">
         <HomeController />

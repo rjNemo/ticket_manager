@@ -7,20 +7,6 @@ interface IProps {
   alt: string;
 }
 
-// export const Avatar: FC<IProps> = () => {
-//   return (
-//     <>
-//       <img
-//         className="circle"
-//         src={picture}
-//         height="100vh"
-//         width="100vh"
-//         alt="user avatar"
-//       />
-//     </>
-//   );
-// };
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

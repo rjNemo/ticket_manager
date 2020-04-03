@@ -1,23 +1,31 @@
-import React from "react";
-import { AppBar } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import React, { FC } from "react";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Link from "@material-ui/core/Link";
 
-function Copyright() {
+interface IProps {
+  brand: string;
+  text: string;
+}
+
+const copyParams: IProps = {
+  brand: "BugBuster",
+  text: "Made with 🔥"
+};
+
+const Copyright: FC<IProps> = ({ brand, text }) => {
   return (
     <Typography variant="body2" color="textSecondary">
       {"© "}
       <Link color="inherit" href="/">
-        BugBuster
+        {brand}
       </Link>{" "}
       {new Date().getFullYear()}
-      {". All Rights Reserved. Made with 🔥"}
+      {`. All Rights Reserved. ${text}`}
     </Typography>
   );
-}
+};
 
 const useStyles = makeStyles(theme => ({
   footer: {
@@ -46,7 +54,7 @@ export default function Footer() {
             Ruidy Nemausat
           </Link>{" "}
         </Typography>
-        <Copyright />
+        <Copyright brand={copyParams.brand} text={copyParams.text} />
       </Container>
     </footer>
   );

@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from "react";
+import React, { FC } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { Box } from "@material-ui/core";
@@ -25,23 +25,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const ProgressBar: FC<IProps> = ({
   value,
-  max = 100,
+  // max = 100,
   tasksDone,
   tasksTotalCount,
   remainingDays
 }) => {
-  const styleString: CSSProperties = { width: `${value}%` };
-  let barColor: string = "green";
+  // const styleString: CSSProperties = { width: `${value}%` };
+  // let barColor: string = "green";
 
-  if (value < 100) {
-    barColor = "yellow";
-  }
-  if (value < 200 / 3) {
-    barColor = "orange";
-  }
-  if (value < 100 / 3) {
-    barColor = "red";
-  }
+  // if (value < 100) {
+  //   barColor = "yellow";
+  // }
+  // if (value < 200 / 3) {
+  //   barColor = "orange";
+  // }
+  // if (value < 100 / 3) {
+  //   barColor = "red";
+  // }
 
   const classes = useStyles();
 

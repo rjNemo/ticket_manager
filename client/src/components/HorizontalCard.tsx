@@ -45,11 +45,6 @@ export const HorizontalCard: FC<IProps> = ({
                     check
                   </i>
                 </Link>
-                {/* <Link to="#">
-                <i className="material-icons" onClick={archiveTicket}>
-                  archive
-                </i>
-              </Link> */}
               </div>
             </div>
           </div>

@@ -12,9 +12,7 @@ export const ActivityList: FC<IProps> = ({ activities }) => {
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterText(e.target.value);
   };
 

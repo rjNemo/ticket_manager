@@ -1,8 +1,6 @@
 import React, { FC } from "react";
 
-type IProps = {};
-
-export const InputFile: FC<IProps> = () => {
+export const InputFile: FC = () => {
   return (
     <>
       <form action="/upload">

@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { HorizontalCard } from "./HorizontalCard";
 import { UserAvatar } from "./UserAvatar";
 import { Link } from "react-router-dom";
 

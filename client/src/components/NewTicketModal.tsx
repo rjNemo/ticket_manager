@@ -6,11 +6,10 @@ import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
 import { post } from "../utils/http";
 import { Constants } from "../utils/Constants";
-// import { HttpResponse } from "../types/HttpResponse";
 
 interface IProps {
   show: boolean;
-  handleClose(): void;
+  handleClose: () => void;
   allProjects: Project[];
 }
 
