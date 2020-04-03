@@ -46,7 +46,7 @@ const a11yProps = (index: any) => {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 500
+    flexGrow: 1
   }
 }));
 
@@ -71,7 +71,7 @@ export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <AppBar position="static" color="inherit">
         <Tabs
           value={value}
           onChange={handleChange}
