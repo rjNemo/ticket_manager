@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-
+import React from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import { AppRouter } from "../utils/router";
@@ -21,16 +20,14 @@ const useStyles = makeStyles(theme => ({
 export default function Layout() {
   const classes = useStyles();
   return (
-    <div className="grey lighten-3">
-      <div className={classes.root}>
-        <header>
-          <ButtonAppBar />
-        </header>
-        {/* <BreadCrumb /> */}
-        <CssBaseline />
-        <AppRouter />
-        <Footer />
-      </div>
+    <div className={classes.root}>
+      <header>
+        <ButtonAppBar />
+      </header>
+      {/* <BreadCrumb /> */}
+      <CssBaseline />
+      <AppRouter />
+      <Footer />
     </div>
   );
 }

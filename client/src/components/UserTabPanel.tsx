@@ -6,7 +6,6 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Header } from "./Header";
 import { Ticket } from "../types/Ticket";
 import { Project } from "../types/Project";
 import { ProjectList } from "./ProjectList";
@@ -45,7 +44,7 @@ const a11yProps = (index: any) => {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: "#ffffff",
     flexGrow: 1
   }
 }));
@@ -81,7 +80,7 @@ export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
           aria-label="full width tabs example"
         >
           {tabNames.map((t: string, i: number) => (
-            <Tab label={t} {...a11yProps({ i })} />
+            <Tab key={i} label={t} {...a11yProps({ i })} />
           ))}
         </Tabs>
       </AppBar>

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { UserVM } from "../VM/UserVM";
 import { UserHeader } from "../components/UserHeader";
-import { UserTabRouter } from "../components/UserTabRouter";
 import { UserTabPanel } from "../components/UserTabPanel";
 import { Container } from "@material-ui/core";
 
