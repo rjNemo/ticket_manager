@@ -17,10 +17,9 @@ import {
   makeStyles,
   Theme,
   Grid,
-  Typography,
-  Chip
+  Typography
 } from "@material-ui/core";
-import { Timer, InfoSharp } from "@material-ui/icons";
+import { Timer } from "@material-ui/icons";
 
 interface IProps {
   viewModel: TicketVM;
@@ -52,7 +51,6 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
   // let notes: string = "";
   const classes = useStyles();
 
-  const infos: InfoProps = { status, category, impact, difficulty };
   return (
     <Container maxWidth="md">
       <div className={classes.root}>
