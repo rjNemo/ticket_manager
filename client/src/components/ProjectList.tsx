@@ -44,27 +44,25 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
         </Grid>
       </Grid>
       <div className="col s12 grey lighten-1">
-        <ul>
-          {filteredTickets.length === 0 ? (
-            <HorizontalCard />
-          ) : (
-            filteredTickets.map((t: Project) => (
-              <HorizontalCard
-                key={t.id}
-                title={t.title}
-                remainingDays={t.endingDate}
-                link={`/projects/${t.id}`}
-                validateTicket={async (e: MouseEvent) => {
-                  e.preventDefault();
-                  await put<HttpResponse<Ticket>>(
-                    `${Constants.ticketsURI}/${t.id}/closed`,
-                    {}
-                  );
-                }}
-              />
-            ))
-          )}
-        </ul>
+        {filteredTickets.length === 0 ? (
+          <HorizontalCard />
+        ) : (
+          filteredTickets.map((t: Project) => (
+            <HorizontalCard
+              key={t.id}
+              title={t.title}
+              remainingDays={t.endingDate}
+              link={`/projects/${t.id}`}
+              validateTicket={async (e: MouseEvent) => {
+                e.preventDefault();
+                await put<HttpResponse<Ticket>>(
+                  `${Constants.ticketsURI}/${t.id}/closed`,
+                  {}
+                );
+              }}
+            />
+          ))
+        )}
       </div>
     </>
   );
