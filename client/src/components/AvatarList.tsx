@@ -13,7 +13,7 @@ export const AvatarList: FC<AvatarListProps> = ({ users }) => {
     <></>
   ) : (
     <>
-      <AvatarGroup max={2}>
+      <AvatarGroup max={5}>
         {users.map((user: User, i: number) => (
           <Link to={`/users/${user.id}`} key={i}>
             <Avatar src={user.picture} alt={user.fullName} />

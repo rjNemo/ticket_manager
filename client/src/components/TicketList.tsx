@@ -42,58 +42,56 @@ export const TicketList: FC<TicketListProps> = ({
   );
   return (
     <>
-      <div className="row valign-wrapper">
-        <NewTicketModal
-          handleClose={() => {
-            setShowNew(false);
-          }}
-          show={showNew}
-          allProjects={allProjects}
-        />
+      <NewTicketModal
+        handleClose={() => {
+          setShowNew(false);
+        }}
+        show={showNew}
+        allProjects={allProjects}
+      />
 
-        <Grid container>
-          <Grid item xs>
-            <Typography variant="h4" component="h4">
-              Tickets
-            </Typography>
-          </Grid>
-          <Grid item xs>
-            {addButton && (
-              <FloatingButton color="primary" size="small" onClick={onClick} />
-            )}
-          </Grid>
-          <Grid item xs={4}>
-            <FilterBar
-              filterText={filterText}
-              handleChange={handleChange}
-              clearFilterText={clearFilterText}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <div className="col s12 grey lighten-1">
-              {filteredTickets.length === 0 ? (
-                <HorizontalCard />
-              ) : (
-                filteredTickets.map((t: Ticket) => (
-                  <HorizontalCard
-                    key={t.id}
-                    title={t.title}
-                    remainingDays={t.endingDate}
-                    link={`/tickets/${t.id}`}
-                    validateTicket={async (e: MouseEvent) => {
-                      e.preventDefault();
-                      await put<HttpResponse<Ticket>>(
-                        `${Constants.ticketsURI}/${t.id}/closed`,
-                        {}
-                      );
-                    }}
-                  />
-                ))
-              )}
-            </div>
-          </Grid>
+      <Grid container>
+        <Grid item xs>
+          <Typography variant="h4" component="h4">
+            Tickets
+          </Typography>
         </Grid>
-      </div>
+        <Grid item xs>
+          {addButton && (
+            <FloatingButton color="primary" size="small" onClick={onClick} />
+          )}
+        </Grid>
+        <Grid item xs={4}>
+          <FilterBar
+            filterText={filterText}
+            handleChange={handleChange}
+            clearFilterText={clearFilterText}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <div className="col s12 grey lighten-1">
+            {filteredTickets.length === 0 ? (
+              <HorizontalCard />
+            ) : (
+              filteredTickets.map((t: Ticket) => (
+                <HorizontalCard
+                  key={t.id}
+                  title={t.title}
+                  remainingDays={t.endingDate}
+                  link={`/tickets/${t.id}`}
+                  validateTicket={async (e: MouseEvent) => {
+                    e.preventDefault();
+                    await put<HttpResponse<Ticket>>(
+                      `${Constants.ticketsURI}/${t.id}/closed`,
+                      {}
+                    );
+                  }}
+                />
+              ))
+            )}
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 };
