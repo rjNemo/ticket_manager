@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const FileCollection: FC<IProps> = ({ files, filterText }) => {
   const classes = useStyles();
   return (
-
     <List className={classes.root}>
         {files.length === 0 ? (
           <FileEntry />
@@ -42,7 +41,6 @@ export const FileCollection: FC<IProps> = ({ files, filterText }) => {
             .map((file: AppFile) => <FileEntry file={file} key={file.id} />)
         )}
       </List>
-
   );
 };
 

@@ -3,15 +3,21 @@ import ProjectVM from "../VM/ProjectVM";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { ProgressBar } from "../components/ProgressBar";
-import { TabRouter } from "../components/TabRouter";
 import { FloatingButton } from "../components/FloatingButton";
 import { UsersModal } from "../components/UsersModal";
-import { Container, Grid } from "@material-ui/core";
+import { Container, Grid, makeStyles, Theme } from "@material-ui/core";
 import { ProjectTabPanel } from "../components/ProjectTabPanel";
 
 interface IProps {
   viewModel: ProjectVM;
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    margin: theme.spacing(1),
+    flexGrow: 1
+  }
+}));
 
 export const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const {
@@ -33,9 +39,13 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const tabNames: string[] = ["Tickets", "Files"]; //, "Activity"];
   const [showModal, setShowModal] = useState<boolean>(false);
 
+  const classes = useStyles();
+
   return (
     <Container maxWidth="md">
-      <Header title={title} description={description} />
+      <div className={classes.root}>
+        <Header title={title} description={description} />
+      </div>
       <UsersModal
         show={showModal}
         users={users}
@@ -57,13 +67,14 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
         </Grid>
       </Grid>
 
-      <ProgressBar
-        value={progression}
-        tasksDone={ticketsDone}
-        tasksTotalCount={ticketsTotalCount}
-        remainingDays={remainingDays}
-      />
-
+      <div className={classes.root}>
+        <ProgressBar
+          value={progression}
+          tasksDone={ticketsDone}
+          tasksTotalCount={ticketsTotalCount}
+          remainingDays={remainingDays}
+        />
+      </div>
       <ProjectTabPanel
         tabNames={tabNames}
         tickets={tickets}
