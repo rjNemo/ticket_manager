@@ -1,13 +1,40 @@
 import React, { FC } from "react";
+import { Link } from "react-router-dom";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { TicketVM } from "../VM/TicketVM";
 import { getRemainingdays } from "../utils/methods";
-import { Link } from "react-router-dom";
+
+import {
+  Container,
+  makeStyles,
+  Theme,
+  Grid,
+  Typography,
+  Chip
+} from "@material-ui/core";
+import { Timer, InfoSharp } from "@material-ui/icons";
 
 interface IProps {
   viewModel: TicketVM;
 }
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    margin: theme.spacing(1),
+    flexGrow: 1
+  },
+  table: {
+    minWidth: 650
+  }
+}));
 
 export const TicketPage: FC<IProps> = ({ viewModel }) => {
   const {
@@ -23,48 +50,38 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
   } = viewModel;
   const daysToEnd: number = getRemainingdays(endingDate);
   // let notes: string = "";
+  const classes = useStyles();
 
+  const infos: InfoProps = { status, category, impact, difficulty };
   return (
-    <div className="section">
-      <div className="container">
+    <Container maxWidth="md">
+      <div className={classes.root}>
         <Header title={title} description={description} />
-        <AvatarList users={users} />
+      </div>
+      <AvatarList users={users} />
 
-        <div className="row section">
-          <div className="col s9">
-            <h5>
+      <div className={classes.root}>
+        <Grid container>
+          <Grid item xs={9}>
+            <Typography variant="h5" component="h5">
               <b>In project: </b>{" "}
               <Link to={`/projects/${project.id}`}>{project.title}</Link>
-            </h5>
-          </div>
-          <div className="col s3">
-            <i className="left material-icons">timer</i>
-            <span>Due in {daysToEnd} days</span>
-          </div>
-        </div>
+            </Typography>
+          </Grid>
+          <Grid item xs>
+            <Timer /> <span>Due in {daysToEnd} days</span>
+          </Grid>
+        </Grid>
+      </div>
 
-        <div className="section white center">
-          <div className="chip">
-            <span className="indigo-text">Status: </span> {status}
-            {/* <i className="close material-icons">close</i> */}
-          </div>
-
-          <div className="chip">
-            <span className="orange-text">Category: </span> {category}
-            {/* <i className="close material-icons">close</i> */}
-          </div>
-
-          <div className="chip">
-            <span className="green-text">Impact: </span> {impact}
-            {/* <i className="close material-icons">close</i> */}
-          </div>
-
-          <div className="chip">
-            <span className="red-text">Difficulty: </span> {difficulty}
-            {/* <i className="close material-icons">close</i> */}
-          </div>
-
-          {/* <textarea
+      <div className={classes.root}>
+        <InfoTable
+          status={status}
+          category={category}
+          impact={impact}
+          difficulty={difficulty}
+        />
+        {/* <textarea
             id="notes"
             className="materialize-textarea validate"
             value={notes}
@@ -72,8 +89,41 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
             //   setDescription(e.target.value)
             // }
           ></textarea> */}
-        </div>
       </div>
-    </div>
+    </Container>
+  );
+};
+
+interface InfoProps {
+  status: string;
+  category: string;
+  impact: string;
+  difficulty: string;
+}
+
+const InfoTable: FC<InfoProps> = (info: InfoProps) => {
+  const classes = useStyles();
+
+  return (
+    <TableContainer component={Paper}>
+      <Table className={classes.table} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Status</TableCell>
+            <TableCell>Category</TableCell>
+            <TableCell>Impact</TableCell>
+            <TableCell>Difficulty</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          <TableRow>
+            <TableCell>{info.status}</TableCell>
+            <TableCell>{info.category}</TableCell>
+            <TableCell>{info.impact}</TableCell>
+            <TableCell>{info.difficulty}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 };
