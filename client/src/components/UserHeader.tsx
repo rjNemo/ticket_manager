@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { Header } from "../components/Header";
 import { UserAvatar } from "./UserAvatar";
-import { Grid, makeStyles, createStyles, Theme } from "@material-ui/core";
-import classes from "*.module.css";
+import { Grid, makeStyles, Theme } from "@material-ui/core";
 
 interface IProps {
   fullName: string;

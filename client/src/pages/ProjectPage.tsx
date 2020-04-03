@@ -32,7 +32,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     ticketsTotalCount,
     remainingDays,
     files,
-    activities,
+    // activities,
     allProjects
   } = viewModel;
 
