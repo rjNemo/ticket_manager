@@ -6,6 +6,7 @@ import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
 import { HttpResponse } from "../types/HttpResponse";
 import { Project } from "../types/Project";
+import { Container, Typography, Grid } from "@material-ui/core";
 
 type IProps = {
   projects: Project[];
@@ -28,14 +29,20 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
   );
   return (
     <>
-      <div className="row valign-wrapper">
-        <h3>Projects</h3>
-        <FilterBar
-          filterText={filterText}
-          handleChange={handleChange}
-          clearFilterText={clearFilterText}
-        />
-      </div>
+      <Grid container>
+        <Grid item xs>
+          <Typography variant="h4" component="h4">
+            Projects
+          </Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <FilterBar
+            filterText={filterText}
+            handleChange={handleChange}
+            clearFilterText={clearFilterText}
+          />
+        </Grid>
+      </Grid>
       <div className="col s12 grey lighten-1">
         <ul>
           {filteredTickets.length === 0 ? (
