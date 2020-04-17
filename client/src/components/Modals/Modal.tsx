@@ -1,16 +1,15 @@
-import React, { FC, CSSProperties } from "react";
+import React, { FC } from "react";
+import Dialog from "@material-ui/core/Dialog";
 
 interface IProps {
   handleClose: () => void;
   show: boolean;
 }
+
 export const Modal: FC<IProps> = ({ handleClose, show, children }) => {
-  const showHideStyle: CSSProperties = show
-    ? { display: "block", zIndex: 10 }
-    : { display: "none", zIndex: 10 };
   return (
-    <div className="modal" style={showHideStyle}>
-      <div className="modal-content">{children}</div>
-    </div>
+    <Dialog open={show} onClose={handleClose}>
+      {children}
+    </Dialog>
   );
 };
