@@ -15,6 +15,7 @@ import { NewTicketModal } from "./NewTicketModal";
 import { Project } from "../types/Project";
 import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
+import TicketCard from "./TicketCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -101,10 +102,10 @@ export const TicketList: FC<TicketListProps> = ({
         <Grid item xs={12}>
           <div className="col s12 grey lighten-1">
             {filteredTickets.length === 0 ? (
-              <HorizontalCard />
+              <TicketCard />
             ) : (
               filteredTickets.map((t: Ticket) => (
-                <HorizontalCard
+                <TicketCard
                   key={t.id}
                   title={t.title}
                   remainingDays={t.endingDate}

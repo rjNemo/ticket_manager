@@ -13,6 +13,7 @@ import { HttpResponse } from "../types/HttpResponse";
 import { Project } from "../types/Project";
 import { put } from "../utils/http";
 import { Constants } from "../utils/Constants";
+import ProjectCard from "./ProjectCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -65,21 +66,21 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
       <Grid item xs={12}>
         <div className="col s12 grey lighten-1">
           {filteredTickets.length === 0 ? (
-            <HorizontalCard />
+            <ProjectCard />
           ) : (
             filteredTickets.map((t: Project) => (
-              <HorizontalCard
+              <ProjectCard
                 key={t.id}
                 title={t.title}
                 remainingDays={t.endingDate}
                 link={`/projects/${t.id}`}
-                validateTicket={async (e: MouseEvent) => {
-                  e.preventDefault();
-                  await put<HttpResponse<Ticket>>(
-                    `${Constants.ticketsURI}/${t.id}/closed`,
-                    {}
-                  );
-                }}
+                // validateTicket={async (e: MouseEvent) => {
+                //   e.preventDefault();
+                //   await put<HttpResponse<Ticket>>(
+                //     `${Constants.ticketsURI}/${t.id}/closed`,
+                //     {}
+                //   );
+                // }}
               />
             ))
           )}

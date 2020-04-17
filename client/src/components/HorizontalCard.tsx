@@ -1,4 +1,4 @@
-import React, { FC, MouseEvent } from "react";
+import React, { FC, MouseEvent, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -10,33 +10,22 @@ import { getRemainingdays } from "../utils/methods";
 
 interface IProps {
   title?: string;
-  remainingDays?: string;
-  validateTicket?: (event: MouseEvent) => void;
   link?: string;
+  content: ReactNode;
+  actions?: ReactNode;
 }
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275
+    minWidth: 275,
   },
-  bullet: {
-    display: "inline-block",
-    margin: "0 2px",
-    transform: "scale(0.8)"
-  },
-  title: {
-    fontSize: 14
-  },
-  pos: {
-    marginBottom: 12
-  }
 });
 
 export const HorizontalCard: FC<IProps> = ({
   title,
-  remainingDays,
   link = "#",
-  validateTicket
+  content,
+  actions,
 }) => {
   const classes = useStyles();
 
@@ -48,26 +37,9 @@ export const HorizontalCard: FC<IProps> = ({
             <b>{title ?? "Nothing to do"}</b>
           </Link>
         </Typography>
-
-        <Typography variant="body2" component="p">
-          <span>
-            Due{" "}
-            {remainingDays ? (
-              getRemainingdays(remainingDays)
-            ) : (
-              <span>
-                <del>Too much</del> 0
-              </span>
-            )}{" "}
-            days
-          </span>
-        </Typography>
+        {content}
       </CardContent>
-      <CardActions>
-        <Button size="small" onClick={validateTicket}>
-          Mark as done
-        </Button>
-      </CardActions>
+      <CardActions>{actions}</CardActions>
     </Card>
   );
 };
