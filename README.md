@@ -53,3 +53,4 @@
 - [x] Form validators
 - [x] Azure
 - [ ] Refactor TabPanels code
+- [ ] Refactor Lists code

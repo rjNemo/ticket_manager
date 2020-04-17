@@ -1,14 +1,28 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { Ticket } from "../types/Ticket";
+import {
+  Grid,
+  Typography,
+  makeStyles,
+  Theme,
+  createStyles,
+} from "@material-ui/core";
 import { FloatingButton } from "./FloatingButton";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
 import { HttpResponse } from "../types/HttpResponse";
-import { put } from "../utils/http";
-import { Constants } from "../utils/Constants";
+import { Ticket } from "../types/Ticket";
 import { NewTicketModal } from "./NewTicketModal";
 import { Project } from "../types/Project";
-import { Grid, Typography } from "@material-ui/core";
+import { put } from "../utils/http";
+import { Constants } from "../utils/Constants";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    header: {
+      paddingBottom: theme.spacing(2),
+    },
+  })
+);
 
 type TicketListProps = {
   tickets: Ticket[];
@@ -19,7 +33,7 @@ type TicketListProps = {
 export const TicketList: FC<TicketListProps> = ({
   tickets,
   allProjects,
-  addButton = true
+  addButton = true,
 }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText = (e: MouseEvent): void => {
@@ -36,10 +50,13 @@ export const TicketList: FC<TicketListProps> = ({
 
   const [showNew, setShowNew] = useState(false);
   let filteredTickets = tickets.filter(
-    t =>
+    (t) =>
       t.status !== "Done" &&
       t.title.toLowerCase().includes(filterText.toLowerCase())
   );
+
+  const classes = useStyles();
+
   return (
     <>
       <NewTicketModal
@@ -51,17 +68,21 @@ export const TicketList: FC<TicketListProps> = ({
       />
 
       <Grid container>
-        <Grid item xs>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+          className={classes.header}
+        >
           <Typography variant="h4" component="h4">
             Tickets
           </Typography>
-        </Grid>
-        <Grid item xs>
+
           {addButton && (
             <FloatingButton color="primary" size="small" onClick={onClick} />
           )}
-        </Grid>
-        <Grid item xs={4}>
+
           <FilterBar
             filterText={filterText}
             handleChange={handleChange}
