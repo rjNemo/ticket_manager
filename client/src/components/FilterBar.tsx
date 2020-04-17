@@ -16,22 +16,25 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       "& > *": {
         margin: theme.spacing(1),
-        width: "25ch"
-      }
+        width: "25ch",
+      },
     },
     margin: {
-      margin: theme.spacing(1)
-    }
+      margin: theme.spacing(1),
+    },
+    filter: {
+      backgroundColor: "#fff",
+    },
   })
 );
 
 export const FilterBar: FC<IProps> = ({
   filterText,
-  handleChange
+  handleChange,
   // clearFilterText
 }) => {
   const { url } = useRouteMatch();
-  const placeholder: string = url.split("/")[3] || "users";
+  const placeholder: string = url.split("/")[3] || "elements";
   const classes = useStyles();
   return (
     <div className={classes.margin}>
@@ -44,6 +47,8 @@ export const FilterBar: FC<IProps> = ({
             size="small"
             value={filterText}
             onChange={handleChange}
+            color="primary"
+            className={classes.filter}
           />
         </Grid>
       </Grid>

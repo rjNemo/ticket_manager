@@ -51,4 +51,5 @@
 - [ ] use dtoRequest for PutProjects
 - [ ] render avatarlist after UserModal Update
 - [x] Form validators
-- [ ] Azure
+- [x] Azure
+- [ ] Refactor TabPanels code
