@@ -1,10 +1,13 @@
 import React from "react";
 import { Router } from "react-router-dom";
-import Layout from "./pages/Layout";
 import { useAuth0 } from "./authentication/auth0";
-// import history from "./utils/history";
 import * as createHistory from "history";
+// import history from "./utils/history";
+import MainLayout from "./layouts/MainLayout";
+import { AppRouter } from "./utils/router";
+
 export const history = createHistory.createBrowserHistory();
+
 export default function App() {
   const { loading } = useAuth0();
 
@@ -14,7 +17,9 @@ export default function App() {
 
   return (
     <Router history={history}>
-      <Layout />
+      <MainLayout>
+        <AppRouter />
+      </MainLayout>
     </Router>
   );
 }
