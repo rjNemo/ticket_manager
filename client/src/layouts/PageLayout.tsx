@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   // root style allow for fixed footer
   header: {
     margin: theme.spacing(1),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     flexGrow: 1,
   },
   content: {

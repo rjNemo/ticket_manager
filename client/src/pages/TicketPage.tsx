@@ -12,13 +12,7 @@ import { AvatarList } from "../components/AvatarList";
 import { TicketVM } from "../VM/TicketVM";
 import { getRemainingdays } from "../utils/methods";
 
-import {
-  Container,
-  makeStyles,
-  Theme,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { makeStyles, Theme, Grid, Typography } from "@material-ui/core";
 import { Timer } from "@material-ui/icons";
 import PageLayout from "../layouts/PageLayout";
 

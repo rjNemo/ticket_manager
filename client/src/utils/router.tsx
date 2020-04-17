@@ -1,13 +1,10 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-
 import { HomeController } from "../controllers/HomeController";
 import { ProjectController } from "../controllers/ProjectController";
 import { UserController } from "../controllers/UserController";
 import { TicketController } from "../controllers/TicketController";
 import { NotFoundPage } from "../pages/NotFoundPage";
-import { TestPage } from "../pages/TestPage";
-import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRouter = () => {
   return (

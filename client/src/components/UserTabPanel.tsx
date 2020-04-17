@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState, ReactNode } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -12,7 +12,7 @@ import { ProjectList } from "./ProjectList";
 import { TicketList } from "./TicketList";
 
 interface TabProps {
-  children?: React.ReactNode;
+  children?: ReactNode;
   dir?: string;
   index: any;
   value: any;
@@ -38,15 +38,15 @@ const TabPanel: FC<TabProps> = (props: TabProps) => {
 const a11yProps = (index: any) => {
   return {
     id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`
+    "aria-controls": `full-width-tabpanel-${index}`,
   };
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: "#ffffff",
-    flexGrow: 1
-  }
+    backgroundColor: "#E9ECEF",
+    borderRadius: "20px",
+  },
 }));
 
 interface IProps {
@@ -58,7 +58,7 @@ interface IProps {
 export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.ChangeEvent<{}>, newValue: number) => {
     setValue(newValue);
@@ -70,14 +70,18 @@ export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="inherit">
+      <AppBar
+        position="static"
+        color="inherit"
+        style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
+      >
         <Tabs
           value={value}
           onChange={handleChange}
           indicatorColor="primary"
           textColor="primary"
           variant="fullWidth"
-          aria-label="full width tabs example"
+          aria-label="full width tabs"
         >
           {tabNames.map((t: string, i: number) => (
             <Tab key={i} label={t} {...a11yProps({ i })} />

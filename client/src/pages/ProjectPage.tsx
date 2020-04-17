@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Container, Grid, makeStyles, Theme } from "@material-ui/core";
+import { Grid, makeStyles, Theme } from "@material-ui/core";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { ProgressBar } from "../components/ProgressBar";
