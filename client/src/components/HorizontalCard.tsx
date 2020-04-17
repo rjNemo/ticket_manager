@@ -4,13 +4,13 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { getRemainingdays } from "../utils/methods";
+import { ProgressBar } from "./ProgressBar";
 
 interface IProps {
   title?: string;
   link?: string;
+  progress?: number;
   content: ReactNode;
   actions?: ReactNode;
 }
@@ -26,11 +26,13 @@ export const HorizontalCard: FC<IProps> = ({
   link = "#",
   content,
   actions,
+  progress = 0,
 }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
+      <ProgressBar value={progress} />
       <CardContent>
         <Typography variant="h5" component="h2">
           <Link to={link}>

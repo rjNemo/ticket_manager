@@ -6,10 +6,6 @@ import { PlaylistAddCheck } from "@material-ui/icons";
 
 type IProps = {
   value: number;
-  max?: number;
-  tasksTotalCount?: number;
-  tasksDone?: number;
-  remainingDays?: number;
 };
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -17,19 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
       "& > * + *": {
-        marginTop: theme.spacing(2)
-      }
-    }
+        marginTop: theme.spacing(2),
+      },
+    },
   })
 );
 
-export const ProgressBar: FC<IProps> = ({
-  value,
-  // max = 100,
-  tasksDone,
-  tasksTotalCount,
-  remainingDays
-}) => {
+export const ProgressBar: FC<IProps> = ({ value }) => {
   // const styleString: CSSProperties = { width: `${value}%` };
   // let barColor: string = "green";
 
@@ -46,27 +36,17 @@ export const ProgressBar: FC<IProps> = ({
   const classes = useStyles();
 
   return (
-    <>
-      <div className="row">
-        <Box className="row">
-          <div className={classes.root}>
-            <LinearProgress variant="determinate" value={value} />
-            {/* <LinearProgress variant="determinate" value={value} color={barColor} /> */}
-          </div>
-        </Box>
-        {/* <div className="progress">
-          <div className={`determinate ${barColor}`} style={styleString}></div>
-        </div> */}
-        <Box>
-          <PlaylistAddCheck />
-          <span>
-            {tasksDone}/{tasksTotalCount}
-          </span>
-          <Box className="right">
-            <span>Due {remainingDays} days</span>
-          </Box>
-        </Box>
+    <Box className="row">
+      <div className={classes.root}>
+        <LinearProgress variant="determinate" value={value} />
+        {/* <LinearProgress variant="determinate" value={value} color={barColor} /> */}
       </div>
-    </>
+    </Box>
   );
 };
+
+{
+  /* <div className="progress">
+  <div className={`determinate ${barColor}`} style={styleString}></div>
+</div> */
+}

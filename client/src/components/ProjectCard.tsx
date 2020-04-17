@@ -1,34 +1,60 @@
-import React, { FC, MouseEvent } from "react";
+import React, { FC } from "react";
 import { HorizontalCard } from "./HorizontalCard";
-import { Typography } from "@material-ui/core";
+import { Typography, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { getRemainingdays } from "../utils/methods";
+import { User } from "../types/User";
+import { AvatarList } from "./AvatarList";
+import { ProgressBar } from "./ProgressBar";
+import { ProgressInfo } from "./ProgressInfo";
 
 interface IProps {
   title?: string;
   remainingDays?: string;
   link?: string;
+  members?: User[];
+  progress?: number;
 }
 
-const ProjectCard: FC<IProps> = ({ title, remainingDays, link = "#" }) => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    progress: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+  })
+);
+
+const ProjectCard: FC<IProps> = ({
+  title,
+  remainingDays,
+  link = "#",
+  members,
+  progress = 0,
+}) => {
+  const classes = useStyles();
+
   const Content: FC = () => {
     return (
-      <Typography variant="body2" component="p">
-        <span>
-          Due{" "}
-          {remainingDays ? (
-            getRemainingdays(remainingDays)
-          ) : (
-            <span>
-              <del>Too much</del> 0
-            </span>
-          )}{" "}
-          days
-        </span>
-      </Typography>
+      <>
+        {members && <AvatarList users={members} />}
+        <div className={classes.progress}>
+          {/* <Typography variant="body2" component="p">
+            Progression:
+          </Typography> */}
+          <ProgressInfo />
+        </div>
+      </>
     );
   };
 
-  return <HorizontalCard title={title} link={link} content={<Content />} />;
+  return (
+    <HorizontalCard
+      title={title}
+      link={link}
+      content={<Content />}
+      progress={progress}
+    />
+  );
 };
 
 export default ProjectCard;

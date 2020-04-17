@@ -54,3 +54,4 @@
 - [x] Azure
 - [ ] Refactor TabPanels code
 - [ ] Refactor Lists code
+- [ ] Query project members in UserPage

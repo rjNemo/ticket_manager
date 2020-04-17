@@ -6,14 +6,9 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
-import { Ticket } from "../types/Ticket";
-import { HttpResponse } from "../types/HttpResponse";
-import { Project } from "../types/Project";
-import { put } from "../utils/http";
-import { Constants } from "../utils/Constants";
 import ProjectCard from "./ProjectCard";
+import { Project } from "../types/Project";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,7 +32,7 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
     setFilterText(e.target.value);
   };
 
-  let filteredTickets = projects.filter(
+  let filteredProjects = projects.filter(
     (t) =>
       t.status !== "Done" &&
       t.title.toLowerCase().includes(filterText.toLowerCase())
@@ -65,22 +60,17 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
       </Grid>
       <Grid item xs={12}>
         <div className="col s12 grey lighten-1">
-          {filteredTickets.length === 0 ? (
+          {filteredProjects.length === 0 ? (
             <ProjectCard />
           ) : (
-            filteredTickets.map((t: Project) => (
+            filteredProjects.map((t: Project) => (
               <ProjectCard
                 key={t.id}
                 title={t.title}
                 remainingDays={t.endingDate}
                 link={`/projects/${t.id}`}
-                // validateTicket={async (e: MouseEvent) => {
-                //   e.preventDefault();
-                //   await put<HttpResponse<Ticket>>(
-                //     `${Constants.ticketsURI}/${t.id}/closed`,
-                //     {}
-                //   );
-                // }}
+                members={t.users}
+                progress={t.progression}
               />
             ))
           )}

@@ -8,6 +8,7 @@ import { UsersModal } from "../components/UsersModal";
 import { ProjectTabPanel } from "../components/ProjectTabPanel";
 import ProjectVM from "../VM/ProjectVM";
 import PageLayout from "../layouts/PageLayout";
+import { ProgressInfo } from "../components/ProgressInfo";
 
 interface IProps {
   viewModel: ProjectVM;
@@ -67,8 +68,8 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
         </Grid>
 
         <div className={classes.root}>
-          <ProgressBar
-            value={progression}
+          <ProgressBar value={progression} />
+          <ProgressInfo
             tasksDone={ticketsDone}
             tasksTotalCount={ticketsTotalCount}
             remainingDays={remainingDays}
