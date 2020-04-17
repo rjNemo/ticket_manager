@@ -21,6 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
     header: {
       paddingBottom: theme.spacing(2),
     },
+    addButton: {
+      position: "relative",
+      marginLeft: "20px",
+    },
   })
 );
 
@@ -77,11 +81,16 @@ export const TicketList: FC<TicketListProps> = ({
         >
           <Typography variant="h4" component="h4">
             Tickets
+            {addButton && (
+              <span className={classes.addButton}>
+                <FloatingButton
+                  color="primary"
+                  size="small"
+                  onClick={onClick}
+                />
+              </span>
+            )}
           </Typography>
-
-          {addButton && (
-            <FloatingButton color="primary" size="small" onClick={onClick} />
-          )}
 
           <FilterBar
             filterText={filterText}

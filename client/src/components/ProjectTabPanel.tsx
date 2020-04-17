@@ -103,7 +103,7 @@ export const ProjectTabPanel: FC<IProps> = ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <TicketList tickets={tickets} allProjects={[]} addButton={false} />
+          <TicketList tickets={tickets} allProjects={[]} addButton={true} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <FileList files={files} />
