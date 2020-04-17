@@ -6,21 +6,7 @@ import { Ticket } from "../../types/Ticket";
 import { Project } from "../../types/Project";
 import { post } from "../../utils/http";
 import { Constants } from "../../utils/Constants";
-import {
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  TextField,
-  DialogActions,
-  Button,
-  Typography,
-  IconButton,
-  Theme,
-  createStyles,
-  makeStyles,
-} from "@material-ui/core";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import MuiDialogContent from "@material-ui/core/DialogContent";
+import { TextField, MenuItem } from "@material-ui/core";
 
 interface IProps {
   show: boolean;
@@ -64,44 +50,75 @@ export const NewTicketModal: FC<IProps> = ({
       action="New Ticket"
       handleAction={handleSubmit}
     >
-      <div className="row valign-wrapper indigo">
-        {/* <div className="col s10">
-          <h4 className="white-text">New Ticket</h4>
-        </div> */}
+      {/* <form onSubmit={handleSubmit}> */}
+      <div className="row">
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="title"
+          value={title}
+          label="Title"
+          name="text"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setTitle(e.target.value)
+          }
+          autoFocus
+        />
 
-        <div className="col s2">
-          <i
-            className="right material-icons indigo lighten-3 circle"
-            onClick={handleClose}
-          >
-            close
-          </i>
-        </div>
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="description"
+          value={description}
+          label="Description"
+          name="text"
+          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+            setDescription(e.target.value)
+          }
+          multiline
+        />
+
+        <TextField
+          id="date"
+          label="Due Date"
+          type="date"
+          // defaultValue={new Date().toISOString()}
+          // className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          required
+          value={endingDate}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEndingDate(e.target.value)
+          }
+        />
+
+        <TextField
+          id="project"
+          select
+          label="Project"
+          value={projectId}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault();
+            setProjectId(e.target.value);
+          }}
+          // helperText="Please select your currency"
+          variant="outlined"
+        >
+          {allProjects.map((p) => (
+            <MenuItem key={p.id} value={p.id}>
+              {p.title}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
-
-      <form onSubmit={handleSubmit}>
-        <div className="row">
-          <NewTicketForm
-            title={title}
-            setTitle={setTitle}
-            description={description}
-            setDescription={setDescription}
-            endingDate={endingDate}
-            setEndingDate={setEndingDate}
-            allProjects={allProjects}
-            projectId={projectId}
-            setProjectId={setProjectId}
-          />
-        </div>
-
-        <div className="modal-footer grey lighten-3">
-          <input
-            type="submit"
-            className="modal-close waves-effect waves-green btn indigo"
-            value="Create Task"
-          />
-        </div>
-      </form>
+      {/* </form> */}
     </Modal>
   );
 };

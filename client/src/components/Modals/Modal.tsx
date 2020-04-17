@@ -47,7 +47,7 @@ export const Modal: FC<IProps> = ({
   const classes = useStyles();
 
   return (
-    <Dialog open={show} onClose={handleClose}>
+    <Dialog open={show} onClose={handleClose} maxWidth="md" fullWidth>
       <DialogTitle disableTypography className={classes.root}>
         <Typography variant="h6">{name}</Typography>
         {handleClose ? (
