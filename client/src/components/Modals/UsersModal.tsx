@@ -90,25 +90,26 @@ export const UsersModal: FC<IProps> = ({
           handleChange={handleChange}
         />
       </Grid>
-
-      <List dense className={classes.root}>
-        {allUsers.map((u: User) => (
-          <ListItem key={u.id}>
-            <ListItemAvatar>
-              <Avatar alt={u.fullName} src={u.picture} />
-            </ListItemAvatar>
-            <ListItemText id={u.id} primary={u.fullName} />
-            <ListItemSecondaryAction>
-              <Checkbox
-                edge="end"
-                onChange={handleToggle(u.id)}
-                checked={members.indexOf(u.id) !== -1}
-                inputProps={{ "aria-labelledby": `checkbox-${u.id}` }}
-              />
-            </ListItemSecondaryAction>
-          </ListItem>
-        ))}
-      </List>
+      <Grid container justify="center">
+        <List dense className={classes.root}>
+          {allUsers.map((u: User) => (
+            <ListItem key={u.id}>
+              <ListItemAvatar>
+                <Avatar alt={u.fullName} src={u.picture} />
+              </ListItemAvatar>
+              <ListItemText id={u.id} primary={u.fullName} />
+              <ListItemSecondaryAction>
+                <Checkbox
+                  edge="end"
+                  onChange={handleToggle(u.id)}
+                  checked={members.indexOf(u.id) !== -1}
+                  inputProps={{ "aria-labelledby": `checkbox-${u.id}` }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
     </Modal>
   );
 };
