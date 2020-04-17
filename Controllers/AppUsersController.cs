@@ -200,7 +200,7 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/projects")]
-        public async Task<ActionResult<IEnumerable<ProjectDTORequest>>> GetAppUserProjects(Guid id)
+        public async Task<ActionResult<IEnumerable<ProjectDTORead>>> GetAppUserProjects(Guid id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -211,7 +211,7 @@ namespace TicketManager.Controllers
             {
                 return BadRequest();
             }
-            return user.GetProjects().Select(p => new ProjectDTORequest(p)).ToList();
+            return user.GetProjects().Select(p => new ProjectDTORead(p)).ToList();
         }
 
         [HttpGet("{id}/tickets/")]

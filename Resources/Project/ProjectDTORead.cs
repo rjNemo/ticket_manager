@@ -5,9 +5,9 @@ using TicketManager.Models;
 
 namespace TicketManager.Resources
 {
-    public class ProjectDTORequest
+    public class ProjectDTORead
     {
-        public ProjectDTORequest(Project project)
+        public ProjectDTORead(Project project)
         {
             Id = project.Id;
             Title = project.Title;

@@ -158,7 +158,7 @@ namespace TicketManager.Tests
                     await context.SaveChangesAsync();
 
                     // result = await controller.PatchProject(1,
-                    //     new ProjectDTORequest()
+                    //     new ProjectDTORead()
                     //     {
                     //         Id = 1,
                     //         Title = "Top Secret Project",
