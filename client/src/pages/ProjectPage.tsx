@@ -1,12 +1,13 @@
 import React, { FC, useState } from "react";
-import ProjectVM from "../VM/ProjectVM";
+import { Container, Grid, makeStyles, Theme } from "@material-ui/core";
 import { Header } from "../components/Header";
 import { AvatarList } from "../components/AvatarList";
 import { ProgressBar } from "../components/ProgressBar";
 import { FloatingButton } from "../components/FloatingButton";
 import { UsersModal } from "../components/UsersModal";
-import { Container, Grid, makeStyles, Theme } from "@material-ui/core";
 import { ProjectTabPanel } from "../components/ProjectTabPanel";
+import ProjectVM from "../VM/ProjectVM";
+import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
   viewModel: ProjectVM;
@@ -15,8 +16,8 @@ interface IProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     margin: theme.spacing(1),
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 }));
 
 export const ProjectPage: FC<IProps> = ({ viewModel }) => {
@@ -33,7 +34,7 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     remainingDays,
     files,
     // activities,
-    allProjects
+    allProjects,
   } = viewModel;
 
   const tabNames: string[] = ["Tickets", "Files"]; //, "Activity"];
@@ -41,47 +42,53 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
 
   const classes = useStyles();
 
-  return (
-    <Container maxWidth="md">
-      <div className={classes.root}>
-        <Header title={title} description={description} />
-      </div>
-      <UsersModal
-        show={showModal}
-        users={users}
-        allUsers={allUsers}
-        handleClose={() => setShowModal(false)}
-      />
-
-      <Grid container>
-        <Grid item xs={3}>
-          <AvatarList users={users} />
-        </Grid>
-        <Grid item xs={9}>
-          <FloatingButton
-            icon="add"
-            color="default"
-            size="small"
-            onClick={() => setShowModal(true)}
-          />
-        </Grid>
-      </Grid>
-
-      <div className={classes.root}>
-        <ProgressBar
-          value={progression}
-          tasksDone={ticketsDone}
-          tasksTotalCount={ticketsTotalCount}
-          remainingDays={remainingDays}
+  const Content: FC = () => {
+    return (
+      <>
+        <UsersModal
+          show={showModal}
+          users={users}
+          allUsers={allUsers}
+          handleClose={() => setShowModal(false)}
         />
-      </div>
-      <ProjectTabPanel
-        tabNames={tabNames}
-        tickets={tickets}
-        files={files}
-        // activities={activities}
-        allProjects={allProjects}
-      />
-    </Container>
+
+        <Grid container>
+          <Grid item xs={3}>
+            <AvatarList users={users} />
+          </Grid>
+          <Grid item xs={9}>
+            <FloatingButton
+              icon="add"
+              color="default"
+              size="small"
+              onClick={() => setShowModal(true)}
+            />
+          </Grid>
+        </Grid>
+
+        <div className={classes.root}>
+          <ProgressBar
+            value={progression}
+            tasksDone={ticketsDone}
+            tasksTotalCount={ticketsTotalCount}
+            remainingDays={remainingDays}
+          />
+        </div>
+        <ProjectTabPanel
+          tabNames={tabNames}
+          tickets={tickets}
+          files={files}
+          // activities={activities}
+          allProjects={allProjects}
+        />
+      </>
+    );
+  };
+
+  return (
+    <PageLayout
+      header={<Header title={title} description={description} />}
+      content={<Content />}
+    />
   );
 };

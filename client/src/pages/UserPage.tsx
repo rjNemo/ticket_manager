@@ -3,6 +3,7 @@ import { UserVM } from "../VM/UserVM";
 import { UserHeader } from "../components/UserHeader";
 import { UserTabPanel } from "../components/UserTabPanel";
 import { Container } from "@material-ui/core";
+import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
   viewModel: UserVM;
@@ -13,13 +14,21 @@ export const UserPage: FC<IProps> = ({ viewModel }) => {
   const tabNames: string[] = ["Projects", "Tickets"];
 
   return (
-    <Container maxWidth="md">
-      <UserHeader
-        picture={picture}
-        fullName={fullName}
-        presentation={presentation}
-      />
-      <UserTabPanel tabNames={tabNames} projects={projects} tickets={tickets} />
-    </Container>
+    <PageLayout
+      header={
+        <UserHeader
+          picture={picture}
+          fullName={fullName}
+          presentation={presentation}
+        />
+      }
+      content={
+        <UserTabPanel
+          tabNames={tabNames}
+          projects={projects}
+          tickets={tickets}
+        />
+      }
+    />
   );
 };

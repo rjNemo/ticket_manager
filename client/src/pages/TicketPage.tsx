@@ -17,9 +17,10 @@ import {
   makeStyles,
   Theme,
   Grid,
-  Typography
+  Typography,
 } from "@material-ui/core";
 import { Timer } from "@material-ui/icons";
+import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
   viewModel: TicketVM;
@@ -28,11 +29,11 @@ interface IProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     margin: theme.spacing(1),
-    flexGrow: 1
+    flexGrow: 1,
   },
   table: {
-    minWidth: 650
-  }
+    minWidth: 650,
+  },
 }));
 
 export const TicketPage: FC<IProps> = ({ viewModel }) => {
@@ -45,50 +46,55 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
     status,
     category,
     impact,
-    difficulty
+    difficulty,
   } = viewModel;
   const daysToEnd: number = getRemainingdays(endingDate);
   // let notes: string = "";
   const classes = useStyles();
 
+  const Content: FC = () => {
+    return (
+      <>
+        <AvatarList users={users} />
+
+        <div className={classes.root}>
+          <Grid container>
+            <Grid item xs={9}>
+              <Typography variant="h5" component="h5">
+                <b>In project: </b>{" "}
+                <Link to={`/projects/${project.id}`}>{project.title}</Link>
+              </Typography>
+            </Grid>
+            <Grid item xs>
+              <Timer /> <span>Due in {daysToEnd} days</span>
+            </Grid>
+          </Grid>
+        </div>
+
+        <div className={classes.root}>
+          <InfoTable
+            status={status}
+            category={category}
+            impact={impact}
+            difficulty={difficulty}
+          />
+          {/* <textarea
+      id="notes"
+      className="materialize-textarea validate"
+      value={notes}
+      // onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+      //   setDescription(e.target.value)
+      // }
+    ></textarea> */}
+        </div>
+      </>
+    );
+  };
   return (
-    <Container maxWidth="md">
-      <div className={classes.root}>
-        <Header title={title} description={description} />
-      </div>
-      <AvatarList users={users} />
-
-      <div className={classes.root}>
-        <Grid container>
-          <Grid item xs={9}>
-            <Typography variant="h5" component="h5">
-              <b>In project: </b>{" "}
-              <Link to={`/projects/${project.id}`}>{project.title}</Link>
-            </Typography>
-          </Grid>
-          <Grid item xs>
-            <Timer /> <span>Due in {daysToEnd} days</span>
-          </Grid>
-        </Grid>
-      </div>
-
-      <div className={classes.root}>
-        <InfoTable
-          status={status}
-          category={category}
-          impact={impact}
-          difficulty={difficulty}
-        />
-        {/* <textarea
-            id="notes"
-            className="materialize-textarea validate"
-            value={notes}
-            // onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            //   setDescription(e.target.value)
-            // }
-          ></textarea> */}
-      </div>
-    </Container>
+    <PageLayout
+      header={<Header title={title} description={description} />}
+      content={<Content />}
+    />
   );
 };
 
