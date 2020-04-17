@@ -13,6 +13,8 @@ interface IProps {
   link?: string;
   members?: User[];
   progress?: number;
+  ticketsNumber?: number;
+  ticketsDone?: number;
 }
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -29,6 +31,8 @@ const ProjectCard: FC<IProps> = ({
   link = "#",
   members,
   progress = 0,
+  ticketsNumber,
+  ticketsDone,
 }) => {
   const classes = useStyles();
 
@@ -37,7 +41,11 @@ const ProjectCard: FC<IProps> = ({
       <>
         {members && <AvatarList users={members} />}
         <div className={classes.progress}>
-          <ProgressInfo remainingDays={getRemainingdays(remainingDays)} />
+          <ProgressInfo
+            remainingDays={getRemainingdays(remainingDays)}
+            tasksDone={ticketsDone}
+            tasksTotalCount={ticketsNumber}
+          />
         </div>
       </>
     );

@@ -71,6 +71,12 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
                 link={`/projects/${t.id}`}
                 members={t.users}
                 progress={t.progression}
+                ticketsNumber={t.tickets === undefined ? 0 : t.tickets.length}
+                ticketsDone={
+                  t.tickets === undefined
+                    ? 0
+                    : t.tickets.filter((t) => t.status === "Done").length
+                }
               />
             ))
           )}
