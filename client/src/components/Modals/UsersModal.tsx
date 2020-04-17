@@ -1,12 +1,21 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from "react";
+import { useParams } from "react-router-dom";
+import { Grid } from "@material-ui/core";
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Checkbox from "@material-ui/core/Checkbox";
+import Avatar from "@material-ui/core/Avatar";
 import { Modal } from "./Modal";
 import { AvatarList } from "../Avatars/AvatarList";
-import { User } from "../../types/User";
 import { FilterBar } from "../FilterBar";
+import { UsersModalEntry } from "./UsersModalEntry";
+import { User } from "../../types/User";
 import { patch } from "../../utils/http";
 import { Constants } from "../../utils/Constants";
-import { UsersModalEntry } from "./UsersModalEntry";
-import { useParams } from "react-router-dom";
 
 interface IProps {
   show: boolean;
@@ -15,28 +24,55 @@ interface IProps {
   handleClose(): void;
 }
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper,
+    },
+  })
+);
+
 export const UsersModal: FC<IProps> = ({
   show,
   handleClose,
   users,
   allUsers,
 }) => {
-  const [filterText, setFilterText] = useState<string>("");
-  const [members, setMembers] = useState<User[]>(users);
   const { id } = useParams();
 
+  const [filterText, setFilterText] = useState<string>("");
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
+  };
+
+  const memberIDs = users.map((u) => u.id);
+  const [members, setMembers] = useState<string[]>(memberIDs);
+
+  const handleToggle = (value: string) => () => {
+    const currentIndex = members.indexOf(value);
+    const newChecked = [...members];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setMembers(newChecked);
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
-      members.map((m) => m.id)
+      members //.map((m) => m.id)
     );
     handleClose();
   };
+
+  const classes = useStyles();
 
   return (
     <Modal
@@ -46,48 +82,33 @@ export const UsersModal: FC<IProps> = ({
       action="Submit"
       handleAction={handleSubmit}
     >
-      <div className="row valign-wrapper indigo">
-        <div className="col s10">
-          <h4 className="white-text">Manage users</h4>
-        </div>
-        <div className="col s2">
-          <i
-            className="right material-icons indigo lighten-3 circle"
-            onClick={handleClose}
-          >
-            close
-          </i>
-        </div>
-      </div>
-      <div className="center">
+      <Grid container justify="center">
         <AvatarList users={users} />
         <FilterBar
           filterText={filterText}
           clearFilterText={() => setFilterText("")}
           handleChange={handleChange}
         />
-      </div>
+      </Grid>
 
-      <form onSubmit={handleSubmit}>
-        <ul>
-          {allUsers.map((u: User) => (
-            <li key={u.id}>
-              <UsersModalEntry
-                user={u}
-                members={members}
-                setMembers={setMembers}
+      <List dense className={classes.root}>
+        {allUsers.map((u: User) => (
+          <ListItem key={u.id}>
+            <ListItemAvatar>
+              <Avatar alt={u.fullName} src={u.picture} />
+            </ListItemAvatar>
+            <ListItemText id={u.id} primary={u.fullName} />
+            <ListItemSecondaryAction>
+              <Checkbox
+                edge="end"
+                onChange={handleToggle(u.id)}
+                checked={members.indexOf(u.id) !== -1}
+                inputProps={{ "aria-labelledby": `checkbox-${u.id}` }}
               />
-            </li>
-          ))}
-        </ul>
-        <div className="modal-footer grey lighten-3">
-          <input
-            type="submit"
-            className="modal-close waves-effect waves-green btn indigo"
-            value="Done"
-          />
-        </div>
-      </form>
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
     </Modal>
   );
 };
