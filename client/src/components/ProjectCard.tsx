@@ -18,15 +18,14 @@ interface IProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     progress: {
-      paddingTop: theme.spacing(4),
-      paddingBottom: theme.spacing(4),
+      paddingTop: theme.spacing(2),
     },
   })
 );
 
 const ProjectCard: FC<IProps> = ({
   title,
-  remainingDays,
+  remainingDays = "",
   link = "#",
   members,
   progress = 0,
@@ -38,10 +37,7 @@ const ProjectCard: FC<IProps> = ({
       <>
         {members && <AvatarList users={members} />}
         <div className={classes.progress}>
-          {/* <Typography variant="body2" component="p">
-            Progression:
-          </Typography> */}
-          <ProgressInfo />
+          <ProgressInfo remainingDays={getRemainingdays(remainingDays)} />
         </div>
       </>
     );
