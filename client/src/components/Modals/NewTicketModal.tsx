@@ -1,12 +1,11 @@
 import React, { FC, useState, FormEvent } from "react";
 import { useRouteMatch } from "react-router-dom";
+import { TextField, MenuItem } from "@material-ui/core";
 import { Modal } from "./Modal";
-import { NewTicketForm } from "../NewTicketForm";
 import { Ticket } from "../../types/Ticket";
 import { Project } from "../../types/Project";
 import { post } from "../../utils/http";
 import { Constants } from "../../utils/Constants";
-import { TextField, MenuItem } from "@material-ui/core";
 
 interface IProps {
   show: boolean;

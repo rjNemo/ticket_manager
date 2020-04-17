@@ -63,7 +63,7 @@ export const ProjectTabPanel: FC<IProps> = ({
   tickets,
   tabNames,
   files,
-  // allProjects
+  allProjects,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -103,7 +103,11 @@ export const ProjectTabPanel: FC<IProps> = ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <TicketList tickets={tickets} allProjects={[]} addButton={true} />
+          <TicketList
+            tickets={tickets}
+            allProjects={allProjects}
+            addButton={true}
+          />
         </TabPanel>
         {/* <TabPanel value={value} index={1} dir={theme.direction}>
           <FileList files={files} />
