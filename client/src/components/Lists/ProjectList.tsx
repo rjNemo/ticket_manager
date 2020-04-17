@@ -6,9 +6,9 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import { FilterBar } from "./FilterBar";
-import ProjectCard from "./ProjectCard";
-import { Project } from "../types/Project";
+import { FilterBar } from "../FilterBar";
+import ProjectCard from "../Cards/ProjectCard";
+import { Project } from "../../types/Project";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

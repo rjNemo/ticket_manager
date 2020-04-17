@@ -1,7 +1,7 @@
 import React, { FC, MouseEvent } from "react";
 import { HorizontalCard } from "./HorizontalCard";
 import { Button, Typography } from "@material-ui/core";
-import { getRemainingdays } from "../utils/methods";
+import { getRemainingdays } from "../../utils/methods";
 
 interface IProps {
   title?: string;

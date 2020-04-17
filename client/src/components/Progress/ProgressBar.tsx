@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { Box } from "@material-ui/core";
-import { PlaylistAddCheck } from "@material-ui/icons";
 
 type IProps = {
   value: number;
@@ -44,9 +43,3 @@ export const ProgressBar: FC<IProps> = ({ value }) => {
     </Box>
   );
 };
-
-{
-  /* <div className="progress">
-  <div className={`determinate ${barColor}`} style={styleString}></div>
-</div> */
-}

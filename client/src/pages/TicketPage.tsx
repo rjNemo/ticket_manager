@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Header } from "../components/Header";
-import { AvatarList } from "../components/AvatarList";
+import { AvatarList } from "../components/Avatars/AvatarList";
 import { TicketVM } from "../VM/TicketVM";
 import { getRemainingdays } from "../utils/methods";
 

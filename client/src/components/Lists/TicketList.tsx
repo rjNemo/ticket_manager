@@ -6,16 +6,15 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core";
-import { FloatingButton } from "./FloatingButton";
-import { HorizontalCard } from "./HorizontalCard";
-import { FilterBar } from "./FilterBar";
-import { HttpResponse } from "../types/HttpResponse";
-import { Ticket } from "../types/Ticket";
-import { NewTicketModal } from "./NewTicketModal";
-import { Project } from "../types/Project";
-import { put } from "../utils/http";
-import { Constants } from "../utils/Constants";
-import TicketCard from "./TicketCard";
+import { FloatingButton } from "../Buttons/FloatingButton";
+import { FilterBar } from "../FilterBar";
+import { HttpResponse } from "../../types/HttpResponse";
+import { Ticket } from "../../types/Ticket";
+import { NewTicketModal } from "../Modals/NewTicketModal";
+import { Project } from "../../types/Project";
+import { put } from "../../utils/http";
+import { Constants } from "../../utils/Constants";
+import TicketCard from "../Cards/TicketCard";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { InputField } from "./InputField";
 import { PasswordField } from "./PasswordField";
-import { Button } from "./Button";
+import { Button } from "./Buttons/Button";
 
 export const LogInForm: FC = () => {
   return (

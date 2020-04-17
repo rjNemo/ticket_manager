@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { Header } from "../components/Header";
-import { UserAvatar } from "./UserAvatar";
+import { UserAvatar } from "./Avatars/UserAvatar";
 import {
   Grid,
   //  makeStyles, Theme

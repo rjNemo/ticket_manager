@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
-import { ProjectList } from "./ProjectList";
-import { Ticket } from "../types/Ticket";
-import { Project } from "../types/Project";
-import { TicketList } from "./TicketList";
+import { ProjectList } from "../Lists/ProjectList";
+import { Ticket } from "../../types/Ticket";
+import { Project } from "../../types/Project";
+import { TicketList } from "../Lists/TicketList";
 
 interface IProps {
   tabNames: string[];

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import { User } from "../types/User";
+import { User } from "../../types/User";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
 
 interface AvatarListProps {

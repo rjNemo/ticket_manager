@@ -1,11 +1,11 @@
 import React, { FC, useState, FormEvent } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { Modal } from "./Modal";
-import { NewTicketForm } from "./NewTicketForm";
-import { Ticket } from "../types/Ticket";
-import { Project } from "../types/Project";
-import { post } from "../utils/http";
-import { Constants } from "../utils/Constants";
+import { NewTicketForm } from "../NewTicketForm";
+import { Ticket } from "../../types/Ticket";
+import { Project } from "../../types/Project";
+import { post } from "../../utils/http";
+import { Constants } from "../../utils/Constants";
 
 interface IProps {
   show: boolean;
@@ -16,7 +16,7 @@ interface IProps {
 export const NewTicketModal: FC<IProps> = ({
   show,
   handleClose,
-  allProjects
+  allProjects,
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -35,7 +35,7 @@ export const NewTicketModal: FC<IProps> = ({
       description: description,
       endingDate: new Date(endingDate).toISOString(),
       creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94",
-      projectId: parseInt(projectId)
+      projectId: parseInt(projectId),
     };
 
     // const response: HttpResponse<Ticket> =

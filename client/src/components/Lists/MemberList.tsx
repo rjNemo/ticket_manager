@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { UsersModalEntry } from "./UsersModalEntry";
-import { FilterBar } from "./FilterBar";
-import { User } from "../types/User";
+import { UsersModalEntry } from "../Modals/UsersModalEntry";
+import { FilterBar } from "../FilterBar";
+import { User } from "../../types/User";
 
 interface IProps {
   users: User[];

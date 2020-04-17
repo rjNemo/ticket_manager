@@ -1,11 +1,11 @@
-import React, { FC, MouseEvent, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import { ProgressBar } from "./ProgressBar";
+import { ProgressBar } from "../Progress/ProgressBar";
 
 interface IProps {
   title?: string;

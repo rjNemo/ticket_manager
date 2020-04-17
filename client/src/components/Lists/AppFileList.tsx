@@ -1,8 +1,8 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { AppFile } from "../types/AppFile";
-import { FileCollection } from "./FileCollection";
-import { InputFile } from "./InputFile";
-import { FilterBar } from "./FilterBar";
+import { AppFile } from "../../types/AppFile";
+import { FileCollection } from "../FileCollection";
+import { InputFile } from "../InputFile";
+import { FilterBar } from "../FilterBar";
 import { Grid, Typography } from "@material-ui/core";
 
 type IProps = {

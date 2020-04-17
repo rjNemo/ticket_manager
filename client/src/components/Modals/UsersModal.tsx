@@ -1,10 +1,10 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from "react";
 import { Modal } from "./Modal";
-import { AvatarList } from "./AvatarList";
-import { User } from "../types/User";
-import { FilterBar } from "./FilterBar";
-import { patch } from "../utils/http";
-import { Constants } from "../utils/Constants";
+import { AvatarList } from "../Avatars/AvatarList";
+import { User } from "../../types/User";
+import { FilterBar } from "../FilterBar";
+import { patch } from "../../utils/http";
+import { Constants } from "../../utils/Constants";
 import { UsersModalEntry } from "./UsersModalEntry";
 import { useParams } from "react-router-dom";
 
@@ -19,7 +19,7 @@ export const UsersModal: FC<IProps> = ({
   show,
   handleClose,
   users,
-  allUsers
+  allUsers,
 }) => {
   const [filterText, setFilterText] = useState<string>("");
   const [members, setMembers] = useState<User[]>(users);
@@ -35,7 +35,7 @@ export const UsersModal: FC<IProps> = ({
     e.preventDefault();
     await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
-      members.map(m => m.id)
+      members.map((m) => m.id)
     );
     handleClose();
   };

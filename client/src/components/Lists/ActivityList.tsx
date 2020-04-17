@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { ActivityCollection } from "./ActivityCollection";
-import { Activity } from "../types/Activity";
-import { FilterBar } from "./FilterBar";
+import { ActivityCollection } from "../ActivityCollection";
+import { Activity } from "../../types/Activity";
+import { FilterBar } from "../FilterBar";
 
 type IProps = {
   activities: Activity[];

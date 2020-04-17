@@ -1,14 +1,14 @@
 import React, { FC, useState } from "react";
 import { Grid, makeStyles, Theme } from "@material-ui/core";
 import { Header } from "../components/Header";
-import { AvatarList } from "../components/AvatarList";
-import { ProgressBar } from "../components/ProgressBar";
-import { FloatingButton } from "../components/FloatingButton";
-import { UsersModal } from "../components/UsersModal";
-import { ProjectTabPanel } from "../components/ProjectTabPanel";
+import { AvatarList } from "../components/Avatars/AvatarList";
+import { ProgressBar } from "../components/Progress/ProgressBar";
+import { FloatingButton } from "../components/Buttons/FloatingButton";
+import { UsersModal } from "../components/Modals/UsersModal";
+import { ProjectTabPanel } from "../components/Panels/ProjectTabPanel";
 import ProjectVM from "../VM/ProjectVM";
 import PageLayout from "../layouts/PageLayout";
-import { ProgressInfo } from "../components/ProgressInfo";
+import { ProgressInfo } from "../components/Progress/ProgressInfo";
 
 interface IProps {
   viewModel: ProjectVM;
@@ -62,8 +62,6 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
             alignItems="center"
           >
             <AvatarList users={users} />
-            {/* </Grid>
-          <Grid item xs={9}> */}
             <FloatingButton
               icon="add"
               color="default"

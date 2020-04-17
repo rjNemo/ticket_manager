@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { UserAvatar } from "./UserAvatar";
+import { UserAvatar } from "./Avatars/UserAvatar";
 import { Link } from "react-router-dom";
 
 export const ProfileSelector: FC = () => {

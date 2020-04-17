@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
+// import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
 import { Box } from "@material-ui/core";
 import { PlaylistAddCheck } from "@material-ui/icons";
 
@@ -10,23 +9,23 @@ type IProps = {
   remainingDays?: number;
 };
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      width: "100%",
-      "& > * + *": {
-        marginTop: theme.spacing(2),
-      },
-    },
-  })
-);
+// const useStyles = makeStyles((theme: Theme) =>
+//   createStyles({
+//     root: {
+//       width: "100%",
+//       "& > * + *": {
+//         marginTop: theme.spacing(2),
+//       },
+//     },
+//   })
+// );
 
 export const ProgressInfo: FC<IProps> = ({
   tasksDone,
   tasksTotalCount,
   remainingDays,
 }) => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <Box>

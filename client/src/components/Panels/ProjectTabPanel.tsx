@@ -1,16 +1,16 @@
 import React, { FC, useState, ReactNode } from "react";
-import SwipeableViews from "react-swipeable-views";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
-import { Ticket } from "../types/Ticket";
-import { Project } from "../types/Project";
-import { FileList } from "./AppFileList";
-import { TicketList } from "./TicketList";
-import { AppFile } from "../types/AppFile";
+import SwipeableViews from "react-swipeable-views";
+import { Ticket } from "../../types/Ticket";
+import { Project } from "../../types/Project";
+import { TicketList } from "../Lists/TicketList";
+// import { FileList } from "./AppFileList";
+import { AppFile } from "../../types/AppFile";
 
 interface TabProps {
   children?: ReactNode;

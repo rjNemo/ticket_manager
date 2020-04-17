@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { UserVM } from "../VM/UserVM";
 import { UserHeader } from "../components/UserHeader";
-import { UserTabPanel } from "../components/UserTabPanel";
+import { UserTabPanel } from "../components/Panels/UserTabPanel";
 import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
