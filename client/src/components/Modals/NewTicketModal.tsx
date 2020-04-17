@@ -6,6 +6,21 @@ import { Ticket } from "../../types/Ticket";
 import { Project } from "../../types/Project";
 import { post } from "../../utils/http";
 import { Constants } from "../../utils/Constants";
+import {
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  TextField,
+  DialogActions,
+  Button,
+  Typography,
+  IconButton,
+  Theme,
+  createStyles,
+  makeStyles,
+} from "@material-ui/core";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
 
 interface IProps {
   show: boolean;
@@ -26,9 +41,7 @@ export const NewTicketModal: FC<IProps> = ({
   const id = url.split("/")[2];
   const [projectId, setProjectId] = useState(id);
 
-  const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
-    e: FormEvent
-  ) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     let newTicket = {
       title: title,
@@ -44,11 +57,17 @@ export const NewTicketModal: FC<IProps> = ({
   };
 
   return (
-    <Modal show={show} handleClose={handleClose}>
+    <Modal
+      name="New Ticket"
+      show={show}
+      handleClose={handleClose}
+      action="New Ticket"
+      handleAction={handleSubmit}
+    >
       <div className="row valign-wrapper indigo">
-        <div className="col s10">
+        {/* <div className="col s10">
           <h4 className="white-text">New Ticket</h4>
-        </div>
+        </div> */}
 
         <div className="col s2">
           <i

@@ -29,9 +29,7 @@ export const UsersModal: FC<IProps> = ({
     setFilterText(e.target.value);
   };
 
-  const handleSubmit: (event: FormEvent<HTMLFormElement>) => void = async (
-    e: FormEvent
-  ) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     await patch<User[]>(
       `${Constants.projectsURI}/${id}/members`,
@@ -41,7 +39,13 @@ export const UsersModal: FC<IProps> = ({
   };
 
   return (
-    <Modal show={show} handleClose={handleClose}>
+    <Modal
+      name="Manage Users"
+      show={show}
+      handleClose={handleClose}
+      action="Submit"
+      handleAction={handleSubmit}
+    >
       <div className="row valign-wrapper indigo">
         <div className="col s10">
           <h4 className="white-text">Manage users</h4>
