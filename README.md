@@ -56,3 +56,4 @@
 - [ ] Refactor Lists code
 - [ ] Query project members in UserPage
 - [ ] Query progression info in UserPage
+- [ ] Add info fields in New Ticket Form

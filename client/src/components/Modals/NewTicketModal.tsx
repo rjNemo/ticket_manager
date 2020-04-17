@@ -49,7 +49,6 @@ export const NewTicketModal: FC<IProps> = ({
       action="New Ticket"
       handleAction={handleSubmit}
     >
-      {/* <form onSubmit={handleSubmit}> */}
       <div className="row">
         <TextField
           variant="outlined"
@@ -82,9 +81,35 @@ export const NewTicketModal: FC<IProps> = ({
         />
 
         <TextField
+          id="project"
+          name="project"
+          select
+          fullWidth
+          required
+          label="Project"
+          value={projectId}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            e.preventDefault();
+            setProjectId(e.target.value);
+          }}
+          // helperText="Please select your currency"
+          variant="outlined"
+          margin="normal"
+        >
+          {allProjects.map((p) => (
+            <MenuItem key={p.id} value={p.id}>
+              {p.title}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <TextField
           id="date"
+          name="date"
           label="Due Date"
           type="date"
+          margin="normal"
+          fullWidth
           // defaultValue={new Date().toISOString()}
           // className={classes.textField}
           InputLabelProps={{
@@ -97,27 +122,7 @@ export const NewTicketModal: FC<IProps> = ({
             setEndingDate(e.target.value)
           }
         />
-
-        <TextField
-          id="project"
-          select
-          label="Project"
-          value={projectId}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            e.preventDefault();
-            setProjectId(e.target.value);
-          }}
-          // helperText="Please select your currency"
-          variant="outlined"
-        >
-          {allProjects.map((p) => (
-            <MenuItem key={p.id} value={p.id}>
-              {p.title}
-            </MenuItem>
-          ))}
-        </TextField>
       </div>
-      {/* </form> */}
     </Modal>
   );
 };
