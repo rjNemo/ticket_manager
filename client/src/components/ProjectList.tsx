@@ -1,12 +1,26 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { Ticket } from "../types/Ticket";
+import {
+  Typography,
+  Grid,
+  makeStyles,
+  createStyles,
+  Theme,
+} from "@material-ui/core";
 import { HorizontalCard } from "./HorizontalCard";
 import { FilterBar } from "./FilterBar";
-import { put } from "../utils/http";
-import { Constants } from "../utils/Constants";
+import { Ticket } from "../types/Ticket";
 import { HttpResponse } from "../types/HttpResponse";
 import { Project } from "../types/Project";
-import { Typography, Grid } from "@material-ui/core";
+import { put } from "../utils/http";
+import { Constants } from "../utils/Constants";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    header: {
+      paddingBottom: theme.spacing(2),
+    },
+  })
+);
 
 type IProps = {
   projects: Project[];
@@ -23,19 +37,25 @@ export const ProjectList: FC<IProps> = ({ projects }) => {
   };
 
   let filteredTickets = projects.filter(
-    t =>
+    (t) =>
       t.status !== "Done" &&
       t.title.toLowerCase().includes(filterText.toLowerCase())
   );
 
+  const classes = useStyles();
+
   return (
     <Grid container>
-      <Grid item xs>
+      <Grid
+        container
+        direction="row"
+        justify="space-between"
+        alignItems="center"
+        className={classes.header}
+      >
         <Typography variant="h4" component="h4">
           Projects
         </Typography>
-      </Grid>
-      <Grid item xs={4}>
         <FilterBar
           filterText={filterText}
           handleChange={handleChange}
