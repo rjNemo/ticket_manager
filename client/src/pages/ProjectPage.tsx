@@ -16,7 +16,8 @@ interface IProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    margin: theme.spacing(1),
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(4),
     flexGrow: 1,
   },
 }));
@@ -54,10 +55,15 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
         />
 
         <Grid container>
-          <Grid item xs={3}>
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+          >
             <AvatarList users={users} />
-          </Grid>
-          <Grid item xs={9}>
+            {/* </Grid>
+          <Grid item xs={9}> */}
             <FloatingButton
               icon="add"
               color="default"
