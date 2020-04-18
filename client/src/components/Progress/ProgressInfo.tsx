@@ -34,7 +34,7 @@ export const ProgressInfo: FC<IProps> = ({
         {tasksDone}/{tasksTotalCount}
       </span>
       <Box className="right">
-        <span>Due {remainingDays} days</span>
+        <span>Due in {remainingDays} days</span>
       </Box>
     </Box>
   );

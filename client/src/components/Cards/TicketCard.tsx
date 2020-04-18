@@ -20,7 +20,7 @@ const TicketCard: FC<IProps> = ({
     return (
       <Typography variant="body2" component="p">
         <span>
-          Due{" "}
+          Due in{" "}
           {remainingDays ? (
             getRemainingdays(remainingDays)
           ) : (

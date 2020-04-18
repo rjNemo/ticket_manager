@@ -12,7 +12,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { Modal } from "./Modal";
 import { AvatarList } from "../Avatars/AvatarList";
 import { FilterBar } from "../FilterBar";
-import { UsersModalEntry } from "./UsersModalEntry";
 import { User } from "../../types/User";
 import { patch } from "../../utils/http";
 import { Constants } from "../../utils/Constants";
