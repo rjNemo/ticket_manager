@@ -6,7 +6,6 @@ import {
   Grid,
   makeStyles,
   Theme,
-  createStyles,
 } from "@material-ui/core";
 import { Modal } from "./Modal";
 import { Ticket } from "../../types/Ticket";

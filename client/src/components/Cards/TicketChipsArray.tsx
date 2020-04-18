@@ -3,7 +3,6 @@ import { Grid, Chip, makeStyles, Theme, createStyles } from "@material-ui/core";
 import CategoryIcon from "@material-ui/icons/Category";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
 import SpeedIcon from "@material-ui/icons/Speed";
-import { Ticket } from "../../types/Ticket";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -1,13 +1,9 @@
 import React, { FC, MouseEvent } from "react";
 import { Button, Typography, Grid } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Chip from "@material-ui/core/Chip";
-import Paper from "@material-ui/core/Paper";
-
 import { HorizontalCard } from "./HorizontalCard";
+import TicketChipsArray from "./TicketChipsArray";
 import { Ticket } from "../../types/Ticket";
 import { getRemainingdays } from "../../utils/methods";
-import TicketChipsArray from "./TicketChipsArray";
 
 interface IProps {
   ticket?: Ticket;

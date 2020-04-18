@@ -1,12 +1,5 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import { makeStyles, Theme, Grid, Typography } from "@material-ui/core";
 import { Timer } from "@material-ui/icons";
 import PageLayout from "../layouts/PageLayout";

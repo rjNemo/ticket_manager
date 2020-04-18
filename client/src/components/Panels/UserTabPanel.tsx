@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: "#E9ECEF",
     borderRadius: "20px",
   },
+  topbar: { borderTopLeftRadius: "10px", borderTopRightRadius: "10px" },
 }));
 
 interface IProps {
@@ -77,11 +78,7 @@ export const UserTabPanel: FC<IProps> = ({
 
   return (
     <div className={classes.root}>
-      <AppBar
-        position="static"
-        color="inherit"
-        style={{ borderTopLeftRadius: "10px", borderTopRightRadius: "10px" }}
-      >
+      <AppBar position="static" color="inherit" className={classes.topbar}>
         <Tabs
           value={value}
           onChange={handleChange}
