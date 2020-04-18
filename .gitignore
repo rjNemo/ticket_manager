@@ -1,0 +1,14 @@
+.vs/
+.vscode/
+bin/
+obj/
+Properties/
+Scripts/
+Tests/TicketManager.Tests/UnitTests/ControllersTests/ControllerTests.cs
+Tests/TicketManager.Tests/UnitTests/ControllersTests/SeedDb.cs
+Tests/TicketManager.Tests/bin/
+Tests/TicketManager.Tests/obj/
+client/node_modules/
+client/src/authentication/config.json
+client/src/pages/TestPage.tsx
+ 
