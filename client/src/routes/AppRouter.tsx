@@ -5,13 +5,14 @@ import { ProjectController } from "../controllers/ProjectController";
 import { UserController } from "../controllers/UserController";
 import { TicketController } from "../controllers/TicketController";
 import { NotFoundPage } from "../pages/NotFoundPage";
+import { TestPage } from "../pages/TestPage";
 
 export const AppRouter = () => {
   return (
     <Switch>
-      {/* <PrivateRoute exact path="/test">
+      <Route exact path="/test">
         <TestPage />
-      </PrivateRoute> */}
+      </Route>
 
       <Route exact path="/">
         <HomeController />
