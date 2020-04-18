@@ -58,3 +58,5 @@
 - [ ] Query progression info in UserPage
 - [x] Add info fields in New Ticket Form
 - [ ] Filter users in Users Modal
+- [ ] EditForms for Project and Ticket
+- [ ] Admin Page
