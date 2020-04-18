@@ -53,3 +53,10 @@
 - [x] Form validators
 - [x] API deployed to Azure
 - [x] Front-end deployment: build first then use ssh …
+- [x] Azure
+- [ ] Refactor TabPanels code
+- [ ] Refactor Lists code
+- [ ] Query project members in UserPage
+- [ ] Query progression info in UserPage
+- [x] Add info fields in New Ticket Form
+- [ ] Filter users in Users Modal

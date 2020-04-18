@@ -1,13 +1,12 @@
 import React, { FC } from "react";
 import { Route, useRouteMatch, Redirect } from "react-router-dom";
 import { TabRouterHeader } from "./TabRouterHeader";
-import { TicketList } from "./TicketList";
-import { FileList } from "./AppFileList";
-// import { ActivityList } from "./ActivityList";
-import { Ticket } from "../types/Ticket";
-import { AppFile } from "../types/AppFile";
-import { Activity } from "../types/Activity";
-import { Project } from "../types/Project";
+import { TicketList } from "../Lists/TicketList";
+import { FileList } from "../Lists/AppFileList";
+import { Ticket } from "../../types/Ticket";
+import { AppFile } from "../../types/AppFile";
+import { Activity } from "../../types/Activity";
+import { Project } from "../../types/Project";
 
 interface IProps {
   tickets: Ticket[];
@@ -23,7 +22,7 @@ export const TabRouter: FC<IProps> = ({
   tabNames,
   files,
   activities,
-  allProjects
+  allProjects,
 }) => {
   const { url } = useRouteMatch();
 

@@ -1,28 +1,41 @@
 import React, { FC } from "react";
 import { UserVM } from "../VM/UserVM";
 import { UserHeader } from "../components/UserHeader";
-import { UserTabRouter } from "../components/UserTabRouter";
+import { UserTabPanel } from "../components/Panels/UserTabPanel";
+import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
   viewModel: UserVM;
 }
+
 export const UserPage: FC<IProps> = ({ viewModel }) => {
-  const { fullName, presentation, picture, projects, tickets } = viewModel;
+  const {
+    fullName,
+    presentation,
+    picture,
+    projects,
+    tickets,
+    allUsers,
+  } = viewModel;
   const tabNames: string[] = ["Projects", "Tickets"];
+
   return (
-    <div className="section">
-      <div className="container">
+    <PageLayout
+      header={
         <UserHeader
           picture={picture}
           fullName={fullName}
           presentation={presentation}
         />
-        <UserTabRouter
+      }
+      content={
+        <UserTabPanel
           tabNames={tabNames}
           projects={projects}
           tickets={tickets}
+          allUsers={allUsers}
         />
-      </div>
-    </div>
+      }
+    />
   );
 };

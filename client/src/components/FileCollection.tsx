@@ -1,4 +1,11 @@
 import React, { FC } from "react";
+import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Avatar from "@material-ui/core/Avatar";
+import WorkIcon from "@material-ui/icons/Work";
 import { AppFile } from "../types/AppFile";
 
 type IProps = {
@@ -6,24 +13,32 @@ type IProps = {
   filterText: string;
 };
 
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      maxWidth: 360,
+      backgroundColor: theme.palette.background.paper
+    }
+  })
+);
+
 export const FileCollection: FC<IProps> = ({ files, filterText }) => {
-  console.log();
+  const classes = useStyles();
   return (
-    <>
-      <ul className="collection">
-        {files.length === 0 ? (
-          <FileEntry />
-        ) : (
-          files
-            .filter(
-              f =>
-                f.name.toLowerCase().includes(filterText.toLowerCase()) ||
-                f.format.toLowerCase().includes(filterText.toLowerCase())
-            )
-            .map((file: AppFile) => <FileEntry file={file} key={file.id} />)
-        )}
-      </ul>
-    </>
+    <List className={classes.root}>
+      {files.length === 0 ? (
+        <FileEntry />
+      ) : (
+        files
+          .filter(
+            f =>
+              f.name.toLowerCase().includes(filterText.toLowerCase()) ||
+              f.format.toLowerCase().includes(filterText.toLowerCase())
+          )
+          .map((file: AppFile) => <FileEntry file={file} key={file.id} />)
+      )}
+    </List>
   );
 };
 
@@ -33,16 +48,16 @@ type IFProps = {
 
 export const FileEntry: FC<IFProps> = ({ file }) => {
   return (
-    <li className="collection-item avatar">
-      {/* <img src={require("../images/user_1.jpg")} alt="" className="circle" /> */}
-      <i className="material-icons circle indigo lighten-1">folder</i>
-      <span className="title">{file ? file.name : "Add your first file"}</span>
-      <p>
-        {file ? file.size : 0}kb {file ? file.format : "pdf"}
-      </p>
-      <a href="#!" className="secondary-content">
-        <i className="material-icons">more_vert</i>
-      </a>
-    </li>
+    <ListItem>
+      <ListItemAvatar>
+        <Avatar>
+          <WorkIcon />
+        </Avatar>
+      </ListItemAvatar>
+      <ListItemText
+        primary={file ? file.name : "Add your first file"}
+        secondary={`${file ? file.size : 0}kb ${file ? file.format : "pdf"}`}
+      />
+    </ListItem>
   );
 };

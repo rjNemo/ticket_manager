@@ -1,21 +1,36 @@
 import React, { FC } from "react";
 import { Header } from "../components/Header";
-import { Avatar } from "../components/Avatar";
+import { UserAvatar } from "./Avatars/UserAvatar";
+import {
+  Grid,
+  //  makeStyles, Theme
+} from "@material-ui/core";
 
 interface IProps {
   fullName: string;
   presentation: string;
   picture: string;
 }
+
+// const useStyles = makeStyles((theme: Theme) => ({
+//   root: {
+//     paddingTop: theme.spacing(2),
+//     flexGrow: 1,
+//   },
+// }));
+
 export const UserHeader: FC<IProps> = ({ fullName, presentation, picture }) => {
+  // const classes = useStyles();
   return (
-    <div className="row valign-wrapper">
-      <div className="col s2">
-        <Avatar picture={picture} />
-      </div>
-      <div className="col s10">
+    // <div className={classes.root}>
+    <Grid container>
+      <Grid item xs={2}>
+        <UserAvatar picture={picture} alt="" />
+      </Grid>
+      <Grid item xs>
         <Header title={fullName} description={presentation} />
-      </div>
-    </div>
+      </Grid>
+    </Grid>
+    // </div>
   );
 };

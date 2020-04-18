@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { TextField, MenuItem } from "@material-ui/core";
 import { Project } from "../types/Project";
 
 interface IProps {
@@ -22,45 +23,17 @@ export const NewTicketForm: FC<IProps> = ({
   setEndingDate,
   allProjects,
   projectId,
-  setProjectId
+  setProjectId,
 }) => {
   return (
     <>
-      <div className="row">
-        <div className="input-field">
-          <i className="material-icons prefix">note_add</i>
-          <input
-            id="title"
-            type="text"
-            className="validate"
-            value={title}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setTitle(e.target.value)
-            }
-          />
-          <label htmlFor="title">Title</label>
-        </div>
-
-        <div className="input-field">
-          <i className="material-icons prefix">mode_edit</i>
-          <textarea
-            id="description"
-            className="materialize-textarea validate"
-            value={description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setDescription(e.target.value)
-            }
-          ></textarea>
-          <label htmlFor="description">Description</label>
-        </div>
-
+      {/* <div className="row">
         <div className="input-field">
           <i className="material-icons prefix">date_range</i>
           <input
             id="Due Date"
             type="text"
             className="datepicker"
-            value={endingDate}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setEndingDate(e.target.value)
             }
@@ -81,14 +54,14 @@ export const NewTicketForm: FC<IProps> = ({
             <option value={0} disabled>
               Project
             </option>
-            {allProjects.map(p => (
+            {allProjects.map((p) => (
               <option key={p.id} value={p.id}>
                 {p.title}
               </option>
             ))}
           </select>
         </div>
-      </div>
+      </div> */}
     </>
   );
 };

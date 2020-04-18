@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { User } from "../types/User";
+import { User } from "../../types/User";
 
 interface IProps {
   setMembers: React.Dispatch<React.SetStateAction<User[]>>;
@@ -9,7 +9,7 @@ interface IProps {
 
 export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
   const match: (id: string) => boolean = (id: string) => {
-    return Boolean(members.find(m => m.id === id));
+    return Boolean(members.find((m) => m.id === id));
   };
   return (
     <div className="valign-wrapper">
@@ -22,7 +22,7 @@ export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
           onChange={() => {
             !match(user.id)
               ? setMembers([...members, user])
-              : setMembers(members.filter(p => p.id !== user.id));
+              : setMembers(members.filter((p) => p.id !== user.id));
           }}
         />
         <span>

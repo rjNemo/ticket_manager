@@ -28,6 +28,8 @@
     </PropertyGroup>
     
     <ItemGroup>
+    </ItemGroup>
+    <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.2" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.0.2" />
@@ -39,7 +41,6 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.0.1" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.0.1" />
-        <!-- <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.1" /> -->
         <PackageReference Include="Microsoft.OpenApi" Version="1.1.4" />
         <PackageReference Include="Moq" Version="4.13.0" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />

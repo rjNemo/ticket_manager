@@ -1,8 +1,14 @@
-import React, { FC } from "react";
-import Layout from "./pages/Layout";
+import React from "react";
+import { Router } from "react-router-dom";
 import { useAuth0 } from "./authentication/auth0";
+import * as createHistory from "history";
+// import history from "./utils/history";
+import MainLayout from "./layouts/MainLayout";
+import { AppRouter } from "./utils/router";
 
-const App: FC = () => {
+export const history = createHistory.createBrowserHistory();
+
+export default function App() {
   const { loading } = useAuth0();
 
   if (loading) {
@@ -10,10 +16,10 @@ const App: FC = () => {
   }
 
   return (
-    <div className="App">
-      <Layout />
-    </div>
+    <Router history={history}>
+      <MainLayout>
+        <AppRouter />
+      </MainLayout>
+    </Router>
   );
-};
-
-export default App;
+}

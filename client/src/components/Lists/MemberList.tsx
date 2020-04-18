@@ -1,7 +1,7 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { UsersModalEntry } from "./UsersModalEntry";
-import { FilterBar } from "./FilterBar";
-import { User } from "../types/User";
+import { UsersModalEntry } from "../Modals/UsersModalEntry";
+import { FilterBar } from "../FilterBar";
+import { User } from "../../types/User";
 
 interface IProps {
   users: User[];
@@ -10,12 +10,10 @@ interface IProps {
 export const MemberList: FC<IProps> = ({ users }) => {
   const [members, setMembers] = useState<User[]>([]);
   const [filterText, setFilterText] = useState<string>("");
-  const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
+  const clearFilterText = (e: MouseEvent): void => {
     setFilterText("");
   };
-  const handleChange: (e: ChangeEvent<HTMLInputElement>) => void = (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
     setFilterText(e.target.value);
   };
   return (
