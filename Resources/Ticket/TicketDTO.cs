@@ -20,7 +20,7 @@ namespace TicketManager.Resources
             Difficulty = ticket.Difficulty.ToString();
             Category = ticket.Category.ToString();
             CreatorId = ticket.CreatorId;
-            Project = ticket.Project != null ? new ProjectDTORequest(ticket.Project) : null;
+            Project = ticket.Project != null ? new ProjectDTORead(ticket.Project) : null;
             Notes = ticket.Notes;
             Activities = ticket.Activities;
             Files = ticket.Files;
@@ -49,7 +49,7 @@ namespace TicketManager.Resources
 
         public Guid CreatorId { get; set; }
 
-        public ProjectDTORequest Project { get; set; }
+        public ProjectDTORead Project { get; set; }
 
         public List<Note> Notes { get; set; } = new List<Note>();
 
