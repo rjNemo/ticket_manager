@@ -23,7 +23,7 @@ export const UserTabRouter: FC<IProps> = ({ tickets, tabNames, projects }) => {
         <Redirect from={url} to={`${url}/projects`} />
 
         <Route path={`${url}/projects`}>
-          <ProjectList projects={projects} />
+          {/* <ProjectList projects={projects} /> */}
         </Route>
 
         <Route path={`${url}/tickets`}>

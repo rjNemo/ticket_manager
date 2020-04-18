@@ -10,6 +10,7 @@ import { Ticket } from "../../types/Ticket";
 import { Project } from "../../types/Project";
 import { ProjectList } from "../Lists/ProjectList";
 import { TicketList } from "../Lists/TicketList";
+import { User } from "../../types/User";
 
 interface TabProps {
   children?: ReactNode;
@@ -53,9 +54,15 @@ interface IProps {
   tabNames: string[];
   tickets: Ticket[];
   projects: Project[];
+  allUsers: User[];
 }
 
-export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
+export const UserTabPanel: FC<IProps> = ({
+  tickets,
+  tabNames,
+  projects,
+  allUsers,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -94,7 +101,7 @@ export const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <ProjectList projects={projects} />
+          <ProjectList projects={projects} allUsers={allUsers} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <TicketList tickets={tickets} allProjects={[]} addButton={false} />

@@ -9,7 +9,14 @@ interface IProps {
 }
 
 export const UserPage: FC<IProps> = ({ viewModel }) => {
-  const { fullName, presentation, picture, projects, tickets } = viewModel;
+  const {
+    fullName,
+    presentation,
+    picture,
+    projects,
+    tickets,
+    allUsers,
+  } = viewModel;
   const tabNames: string[] = ["Projects", "Tickets"];
 
   return (
@@ -26,6 +33,7 @@ export const UserPage: FC<IProps> = ({ viewModel }) => {
           tabNames={tabNames}
           projects={projects}
           tickets={tickets}
+          allUsers={allUsers}
         />
       }
     />

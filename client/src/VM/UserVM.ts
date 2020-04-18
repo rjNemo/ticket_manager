@@ -16,8 +16,9 @@ export class UserVM {
   public projects: Project[];
   public tickets: Ticket[];
   public activities: Activity[];
+  public allUsers: User[];
 
-  public constructor(user: User) {
+  public constructor(user: User, allUsers: User[]) {
     this.id = user.id;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
@@ -30,5 +31,6 @@ export class UserVM {
     this.projects = user.projects;
     this.tickets = user.tickets;
     this.activities = user.activities;
+    this.allUsers = allUsers;
   }
 }

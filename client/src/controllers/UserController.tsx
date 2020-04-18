@@ -14,6 +14,7 @@ export const UserController: FC = () => {
   const [user, setUser] = useState<User>({} as User);
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
+  const [allUsers, setAllUsers] = useState<User[]>([]);
   const { id } = useParams();
 
   async function httpGetUser(id: string): Promise<void> {
@@ -32,9 +33,24 @@ export const UserController: FC = () => {
     }
   }
 
+  async function httpGetAllUsers(): Promise<void> {
+    try {
+      const response: HttpResponse<User> = await get<User>(
+        `${Constants.usersURI}`
+      );
+      if (response.parsedBody !== undefined) {
+        setAllUsers((response.parsedBody as unknown) as User[]);
+      }
+    } catch (ex) {
+      setHasError(true);
+      setError(ex);
+    }
+  }
+
   useEffect(() => {
     if (id !== undefined) {
       httpGetUser(id);
+      httpGetAllUsers();
     } else {
       setHasError(true);
       setError("Bad Request");
@@ -45,6 +61,6 @@ export const UserController: FC = () => {
     return <ErrorController error={error} />;
   }
 
-  const viewModel = new UserVM(user);
+  const viewModel = new UserVM(user, allUsers);
   return isLoading ? <Preloader /> : <UserPage viewModel={viewModel} />;
 };
