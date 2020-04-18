@@ -18,6 +18,7 @@ interface IProps {
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
+    marginBottom: 20,
   },
 });
 
