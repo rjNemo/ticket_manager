@@ -106,8 +106,7 @@ export const TicketList: FC<TicketListProps> = ({
               filteredTickets.map((t: Ticket) => (
                 <TicketCard
                   key={t.id}
-                  title={t.title}
-                  remainingDays={t.endingDate}
+                  ticket={t}
                   link={`/tickets/${t.id}`}
                   validateTicket={async (e: MouseEvent) => {
                     e.preventDefault();
