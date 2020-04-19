@@ -7,14 +7,14 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import { Modal } from "./Modal";
-import { Ticket } from "../../types/Ticket";
-import { Project } from "../../types/Project";
-import { post } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import Modal from "./Modal";
+import Ticket from "../../types/Ticket";
+import Project from "../../types/Project";
 import Category from "../../types/enums/category";
 import Impact from "../../types/enums/impact";
 import Difficulty from "../../types/enums/difficulty";
+import { post } from "../../utils/http";
+import Constants from "../../utils/Constants";
 
 interface IProps {
   show: boolean;
@@ -28,11 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const NewTicketModal: FC<IProps> = ({
-  show,
-  handleClose,
-  allProjects,
-}) => {
+const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
@@ -211,3 +207,5 @@ export const NewTicketModal: FC<IProps> = ({
     </Modal>
   );
 };
+
+export default NewTicketModal;

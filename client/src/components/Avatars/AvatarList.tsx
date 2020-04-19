@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 import { Link } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
+import { makeStyles, Theme, createStyles, Avatar } from "@material-ui/core";
 import AvatarGroup from "@material-ui/lab/AvatarGroup";
-import { User } from "../../types/User";
-import { makeStyles, Theme, createStyles } from "@material-ui/core";
+import User from "../../types/User";
 
 interface AvatarListProps {
   users: User[];
@@ -34,3 +33,5 @@ export const AvatarList: FC<AvatarListProps> = ({ users }) => {
     </div>
   );
 };
+
+export default AvatarList;

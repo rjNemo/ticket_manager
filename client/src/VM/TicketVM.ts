@@ -1,8 +1,8 @@
-import { Ticket } from "../types/Ticket";
-import { Project } from "../types/Project";
-import { User } from "../types/User";
+import Project from "../types/Project";
+import Ticket from "../types/Ticket";
+import User from "../types/User";
 
-export class TicketVM {
+export default class TicketVM {
   public id: number;
   public title: string;
   public description: string;

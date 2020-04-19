@@ -1,7 +1,7 @@
-import { Project } from "../types/Project";
-import { Ticket } from "../types/Ticket";
-import { User } from "../types/User";
-import { Activity } from "../types/Activity";
+import Activity from "../types/Activity";
+import Project from "../types/Project";
+import Ticket from "../types/Ticket";
+import User from "../types/User";
 
 export class UserVM {
   public id: string;

@@ -1,12 +1,14 @@
 import React, { FC } from "react";
+import {
+  Avatar,
+  ListItemAvatar,
+  List,
+  ListItemText,
+  ListItem,
+} from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Avatar from "@material-ui/core/Avatar";
 import WorkIcon from "@material-ui/icons/Work";
-import { AppFile } from "../types/AppFile";
+import AppFile from "../types/AppFile";
 
 type IProps = {
   files: AppFile[];
@@ -18,12 +20,12 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       width: "100%",
       maxWidth: 360,
-      backgroundColor: theme.palette.background.paper
-    }
+      backgroundColor: theme.palette.background.paper,
+    },
   })
 );
 
-export const FileCollection: FC<IProps> = ({ files, filterText }) => {
+const FileCollection: FC<IProps> = ({ files, filterText }) => {
   const classes = useStyles();
   return (
     <List className={classes.root}>
@@ -32,7 +34,7 @@ export const FileCollection: FC<IProps> = ({ files, filterText }) => {
       ) : (
         files
           .filter(
-            f =>
+            (f) =>
               f.name.toLowerCase().includes(filterText.toLowerCase()) ||
               f.format.toLowerCase().includes(filterText.toLowerCase())
           )
@@ -61,3 +63,4 @@ export const FileEntry: FC<IFProps> = ({ file }) => {
     </ListItem>
   );
 };
+export default FileCollection;

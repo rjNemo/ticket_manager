@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-export const InputField: FC = () => {
+const InputField: FC = () => {
   return (
     <div className="input-field">
       <input id="email" type="text" className="validate" />
@@ -8,3 +8,5 @@ export const InputField: FC = () => {
     </div>
   );
 };
+
+export default InputField;

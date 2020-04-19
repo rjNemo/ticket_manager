@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 import PageLayout from "../layouts/PageLayout";
-import { Header } from "../components/Header";
+import Header from "../components/Header";
 
-interface IProps {}
-export const NotFoundPage: FC<IProps> = () => {
+const NotFoundPage: FC = () => {
   return (
     <PageLayout
       header={<Header title="Error page" description="Something went wrong" />}
@@ -11,3 +10,5 @@ export const NotFoundPage: FC<IProps> = () => {
     />
   );
 };
+
+export default NotFoundPage;

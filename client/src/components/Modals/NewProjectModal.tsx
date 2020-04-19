@@ -1,10 +1,10 @@
 import React, { FC, useState, FormEvent } from "react";
-import { TextField } from "@material-ui/core";
-import { Modal } from "./Modal";
-import { Project } from "../../types/Project";
-import { User } from "../../types/User";
-import { post } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import TextField from "@material-ui/core";
+import Modal from "./Modal";
+import Project from "../../types/Project";
+import User from "../../types/User";
+import post from "../../utils/http";
+import Constants from "../../utils/Constants";
 
 interface IProps {
   show: boolean;
@@ -12,7 +12,7 @@ interface IProps {
   allUsers: User[];
 }
 
-export const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
+const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
@@ -88,3 +88,5 @@ export const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
     </Modal>
   );
 };
+
+export default NewProjectModal;

@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { Route, useRouteMatch, Redirect } from "react-router-dom";
-import { TabRouterHeader } from "./TabRouterHeader";
-import { TicketList } from "../Lists/TicketList";
-import { FileList } from "../Lists/AppFileList";
-import { Ticket } from "../../types/Ticket";
-import { AppFile } from "../../types/AppFile";
-import { Activity } from "../../types/Activity";
-import { Project } from "../../types/Project";
+import TabRouterHeader from "./TabRouterHeader";
+import TicketList from "../Lists/TicketList";
+import FileList from "../Lists/AppFileList";
+import Ticket from "../../types/Ticket";
+import AppFile from "../../types/AppFile";
+import Activity from "../../types/Activity";
+import Project from "../../types/Project";
 
 interface IProps {
   tickets: Ticket[];
@@ -17,7 +17,7 @@ interface IProps {
   allProjects: Project[];
 }
 
-export const TabRouter: FC<IProps> = ({
+const TabRouter: FC<IProps> = ({
   tickets,
   tabNames,
   files,
@@ -48,3 +48,5 @@ export const TabRouter: FC<IProps> = ({
     </>
   );
 };
+
+export default TabRouter;

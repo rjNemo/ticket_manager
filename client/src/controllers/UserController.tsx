@@ -1,15 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { UserPage } from "../pages/UserPage";
+import ErrorController from "./ErrorController";
+import UserPage from "../pages/UserPage";
 import { UserVM } from "../VM/UserVM";
-import { User } from "../types/User";
-import { HttpResponse } from "../types/HttpResponse";
+import HttpResponse from "../types/HttpResponse";
+import User from "../types/User";
 import { Preloader } from "../components/Preloader";
+import Constants from "../utils/Constants";
 import { get } from "../utils/http";
-import { Constants } from "../utils/Constants";
-import { ErrorController } from "./ErrorController";
 
-export const UserController: FC = () => {
+const UserController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState<User>({} as User);
   const [hasError, setHasError] = useState(false);
@@ -64,3 +64,5 @@ export const UserController: FC = () => {
   const viewModel = new UserVM(user, allUsers);
   return isLoading ? <Preloader /> : <UserPage viewModel={viewModel} />;
 };
+
+export default UserController;

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 // import { LogInForm } from "../components/LogInForm";
 // import { ProfileSelector } from "../components/ProfileSelector";
 import SignInSide from "../components/SignInSide";
 
-export const HomePage: React.FC = () => {
+const HomePage: FC = () => {
   return (
     // <div className="section">
     //   <div className="container center">
@@ -21,3 +21,5 @@ export const HomePage: React.FC = () => {
     <SignInSide />
   );
 };
+
+export default HomePage;

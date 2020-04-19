@@ -6,9 +6,9 @@ interface IProps {
   tabNames: string[];
 }
 
-export const TabRouterHeader: FC<IProps> = ({
+const TabRouterHeader: FC<IProps> = ({
   tabNames,
-  tabClass = `tab col s${12 / tabNames.length}`
+  tabClass = `tab col s${12 / tabNames.length}`,
 }) => {
   const [isActive, setIsActive] = useState(0);
   const nTabs = tabNames.length;
@@ -31,7 +31,7 @@ export const TabRouterHeader: FC<IProps> = ({
           className="indicator indigo lighten-2"
           style={{
             left: `${(isActive / nTabs) * 100}%`,
-            right: `${(1 - (isActive + 1) / nTabs) * 100}%`
+            right: `${(1 - (isActive + 1) / nTabs) * 100}%`,
           }}
         ></li>
       </ul>
@@ -54,7 +54,7 @@ const TabUnit: FC<TabUnitProps> = ({
   setIsActive,
   text,
   value,
-  nTabs
+  nTabs,
 }) => {
   const { url } = useRouteMatch();
   return (
@@ -63,7 +63,7 @@ const TabUnit: FC<TabUnitProps> = ({
       key={value}
       style={{
         left: `${(isActive / nTabs) * 100}%`,
-        right: `${(1 - (isActive + 1) / nTabs) * 100}%`
+        right: `${(1 - (isActive + 1) / nTabs) * 100}%`,
       }}
     >
       <Link
@@ -81,3 +81,5 @@ const TabUnit: FC<TabUnitProps> = ({
     </li>
   );
 };
+
+export default TabRouterHeader;

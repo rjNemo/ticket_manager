@@ -9,12 +9,12 @@ interface IProps {
   onClick?: (e: MouseEvent) => void;
 }
 
-export const Button: FC<IProps> = ({
+const Button: FC<IProps> = ({
   size = "small",
   shape = "",
   color,
   onClick,
-  children
+  children,
 }) => {
   return (
     <button
@@ -25,3 +25,5 @@ export const Button: FC<IProps> = ({
     </button>
   );
 };
+
+export default Button;

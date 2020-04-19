@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import { HorizontalCard } from "./HorizontalCard";
 import { makeStyles, Theme, createStyles } from "@material-ui/core";
-import { AvatarList } from "../Avatars/AvatarList";
-import { ProgressInfo } from "../Progress/ProgressInfo";
-import { User } from "../../types/User";
-import { getRemainingdays } from "../../utils/methods";
+import HorizontalCard from "./HorizontalCard";
+import AvatarList from "../Avatars/AvatarList";
+import ProgressInfo from "../Progress/ProgressInfo";
+import User from "../../types/User";
+import getRemainingdays from "../../utils/methods";
 
 interface IProps {
   title?: string;

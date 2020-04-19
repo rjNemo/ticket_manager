@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-export const PasswordField: FC = () => {
+const PasswordField: FC = () => {
   return (
     <div className="input-field">
       <input id="password" type="password" className="validate" />
@@ -8,3 +8,5 @@ export const PasswordField: FC = () => {
     </div>
   );
 };
+
+export default PasswordField;

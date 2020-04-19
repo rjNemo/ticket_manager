@@ -1,16 +1,16 @@
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ErrorController } from "./ErrorController";
-import { ProjectPage } from "../pages/ProjectPage";
+import ErrorController from "./ErrorController";
+import ProjectPage from "../pages/ProjectPage";
 import ProjectVM from "../VM/ProjectVM";
-import { Project } from "../types/Project";
-import { HttpResponse } from "../types/HttpResponse";
+import HttpResponse from "../types/HttpResponse";
+import Project from "../types/Project";
+import User from "../types/User";
 import { Preloader } from "../components/Preloader";
-import { Constants } from "../utils/Constants";
+import Constants from "../utils/Constants";
 import { get } from "../utils/http";
-import { User } from "../types/User";
 
-export const ProjectController: FC = () => {
+const ProjectController: FC = () => {
   const [project, setProject] = useState<Project>({} as Project);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [allProjects, setAllProjects] = useState<Project[]>([]);
@@ -81,3 +81,5 @@ export const ProjectController: FC = () => {
   const viewModel = new ProjectVM(project, allUsers, allProjects);
   return isLoading ? <Preloader /> : <ProjectPage viewModel={viewModel} />;
 };
+
+export default ProjectController;

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-export const Preloader: FC = () => {
+const Preloader: FC = () => {
   return (
     <div className="preloader-wrapper big active">
       <div className="spinner-layer spinner-blue">
@@ -53,3 +53,5 @@ export const Preloader: FC = () => {
     </div>
   );
 };
+
+export default Preloader;

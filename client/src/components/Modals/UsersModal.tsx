@@ -1,20 +1,22 @@
 import React, { FC, useState, ChangeEvent, FormEvent } from "react";
 import { useParams } from "react-router-dom";
-import { Grid } from "@material-ui/core";
+import {
+  Avatar,
+  Checkbox,
+  Grid,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  ListItemAvatar,
+} from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import Checkbox from "@material-ui/core/Checkbox";
-import Avatar from "@material-ui/core/Avatar";
-import { Modal } from "./Modal";
-import { AvatarList } from "../Avatars/AvatarList";
-import { FilterBar } from "../FilterBar";
-import { User } from "../../types/User";
+import AvatarList from "../Avatars/AvatarList";
+import FilterBar from "../FilterBar";
+import Modal from "./Modal";
+import User from "../../types/User";
 import { patch } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import Constants from "../../utils/Constants";
 
 interface IProps {
   show: boolean;
@@ -33,12 +35,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const UsersModal: FC<IProps> = ({
-  show,
-  handleClose,
-  users,
-  allUsers,
-}) => {
+const UsersModal: FC<IProps> = ({ show, handleClose, users, allUsers }) => {
   const { id } = useParams();
 
   const [filterText, setFilterText] = useState<string>("");
@@ -112,3 +109,5 @@ export const UsersModal: FC<IProps> = ({
     </Modal>
   );
 };
+
+export default UsersModal;

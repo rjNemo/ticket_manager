@@ -1,9 +1,7 @@
 import React, { FC, ChangeEvent, MouseEvent } from "react";
 import { useRouteMatch } from "react-router-dom";
+import { Grid, TextField } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import { Grid } from "@material-ui/core";
-// import { AccountCircle, FilterList, FilterListSharp } from "@material-ui/icons";
 
 type IProps = {
   filterText: string;
@@ -28,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const FilterBar: FC<IProps> = ({
+const FilterBar: FC<IProps> = ({
   filterText,
   handleChange,
   // clearFilterText
@@ -55,3 +53,4 @@ export const FilterBar: FC<IProps> = ({
     </div>
   );
 };
+export default FilterBar;

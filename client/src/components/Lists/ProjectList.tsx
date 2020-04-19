@@ -6,12 +6,12 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import { FilterBar } from "../FilterBar";
+import FilterBar from "../FilterBar";
 import ProjectCard from "../Cards/ProjectCard";
-import { FloatingButton } from "../Buttons/FloatingButton";
-import { NewProjectModal } from "../Modals/NewProjectModal";
-import { Project } from "../../types/Project";
-import { User } from "../../types/User";
+import FloatingButton from "../Buttons/FloatingButton";
+import NewProjectModal from "../Modals/NewProjectModal";
+import Project from "../../types/Project";
+import User from "../../types/User";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -30,7 +30,7 @@ type IProps = {
   allUsers: User[];
 };
 
-export const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
+const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -109,3 +109,5 @@ export const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
     </>
   );
 };
+
+export default ProjectList;

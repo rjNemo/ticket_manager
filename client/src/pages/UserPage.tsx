@@ -1,14 +1,14 @@
 import React, { FC } from "react";
 import { UserVM } from "../VM/UserVM";
-import { UserHeader } from "../components/UserHeader";
-import { UserTabPanel } from "../components/Panels/UserTabPanel";
+import UserHeader from "../components/UserHeader";
+import UserTabPanel from "../components/Panels/UserTabPanel";
 import PageLayout from "../layouts/PageLayout";
 
 interface IProps {
   viewModel: UserVM;
 }
 
-export const UserPage: FC<IProps> = ({ viewModel }) => {
+const UserPage: FC<IProps> = ({ viewModel }) => {
   const {
     fullName,
     presentation,
@@ -39,3 +39,5 @@ export const UserPage: FC<IProps> = ({ viewModel }) => {
     />
   );
 };
+
+export default UserPage;

@@ -1,8 +1,8 @@
-import { Activity } from "./Activity";
-import { Project } from "./Project";
-import { Ticket } from "./Ticket";
+import Activity from "./Activity";
+import Project from "./Project";
+import Ticket from "./Ticket";
 
-export interface User {
+export default interface User {
   id: string;
   firstName: string;
   lastName: string;

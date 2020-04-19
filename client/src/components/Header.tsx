@@ -6,7 +6,7 @@ type HeaderProps = {
   description: string;
 };
 
-export const Header: FC<HeaderProps> = ({ title, description }) => {
+const Header: FC<HeaderProps> = ({ title, description }) => {
   return (
     <Box>
       <Typography variant="h2" component="h2">
@@ -18,3 +18,5 @@ export const Header: FC<HeaderProps> = ({ title, description }) => {
     </Box>
   );
 };
+
+export default Header;

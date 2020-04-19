@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import { Activity } from "../types/Activity";
+import Activity from "../types/Activity";
 
 type IProps = {
   activities: Activity[];
   filterText: string;
 };
 
-export const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
+const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
   return activities === undefined ? (
     <></>
   ) : (
@@ -17,7 +17,7 @@ export const ActivityCollection: FC<IProps> = ({ activities, filterText }) => {
         ) : (
           activities
             .filter(
-              a =>
+              (a) =>
                 a.description
                   .toLowerCase()
                   .includes(filterText.toLowerCase()) ||
@@ -67,3 +67,4 @@ export const ActivityEntry: FC<IFProps> = ({ activity }) => {
     </>
   );
 };
+export default ActivityCollection;

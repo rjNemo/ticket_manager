@@ -1,15 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TicketPage } from "../pages/TicketPage";
-import { ErrorController } from "./ErrorController";
-import { HttpResponse } from "../types/HttpResponse";
+import ErrorController from "./ErrorController";
+import TicketPage from "../pages/TicketPage";
+import TicketVM from "../VM/TicketVM";
+import HttpResponse from "../types/HttpResponse";
+import Ticket from "../types/Ticket";
 import { Preloader } from "../components/Preloader";
 import { get } from "../utils/http";
-import { Constants } from "../utils/Constants";
-import { Ticket } from "../types/Ticket";
-import { TicketVM } from "../VM/TicketVM";
+import Constants from "../utils/Constants";
 
-export const TicketController: FC = () => {
+const TicketController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ticket, setTicket] = useState<Ticket>({} as Ticket);
   const [hasError, setHasError] = useState(false);
@@ -48,3 +48,5 @@ export const TicketController: FC = () => {
   const viewModel = new TicketVM(ticket);
   return isLoading ? <Preloader /> : <TicketPage viewModel={viewModel} />;
 };
+
+export default TicketController;

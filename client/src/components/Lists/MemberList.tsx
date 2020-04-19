@@ -1,13 +1,13 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { UsersModalEntry } from "../Modals/UsersModalEntry";
-import { FilterBar } from "../FilterBar";
-import { User } from "../../types/User";
+import FilterBar from "../FilterBar";
+import UsersModalEntry from "../Modals/UsersModalEntry";
+import User from "../../types/User";
 
 interface IProps {
   users: User[];
 }
 
-export const MemberList: FC<IProps> = ({ users }) => {
+const MemberList: FC<IProps> = ({ users }) => {
   const [members, setMembers] = useState<User[]>([]);
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText = (e: MouseEvent): void => {
@@ -37,3 +37,5 @@ export const MemberList: FC<IProps> = ({ users }) => {
     </>
   );
 };
+
+export default MemberList;

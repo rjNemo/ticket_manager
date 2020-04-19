@@ -6,15 +6,15 @@ import {
   Theme,
   createStyles,
 } from "@material-ui/core";
-import { FloatingButton } from "../Buttons/FloatingButton";
-import { FilterBar } from "../FilterBar";
-import { HttpResponse } from "../../types/HttpResponse";
-import { Ticket } from "../../types/Ticket";
-import { NewTicketModal } from "../Modals/NewTicketModal";
-import { Project } from "../../types/Project";
-import { put } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import FloatingButton from "../Buttons/FloatingButton";
+import FilterBar from "../FilterBar";
 import TicketCard from "../Cards/TicketCard";
+import NewTicketModal from "../Modals/NewTicketModal";
+import HttpResponse from "../../types/HttpResponse";
+import Ticket from "../../types/Ticket";
+import Project from "../../types/Project";
+import { put } from "../../utils/http";
+import Constants from "../../utils/Constants";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +34,7 @@ type TicketListProps = {
   addButton?: Boolean;
 };
 
-export const TicketList: FC<TicketListProps> = ({
+const TicketList: FC<TicketListProps> = ({
   tickets,
   allProjects,
   addButton = true,
@@ -124,3 +124,5 @@ export const TicketList: FC<TicketListProps> = ({
     </>
   );
 };
+
+export default TicketList;
