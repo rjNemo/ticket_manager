@@ -6,13 +6,12 @@ import { UserController } from "../controllers/UserController";
 import { TicketController } from "../controllers/TicketController";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { TestPage } from "../pages/TestPage";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRouter = () => {
   return (
     <Switch>
-      <Route exact path="/test">
-        <TestPage />
-      </Route>
+      <PrivateRoute path="/test" component={TestPage} />
 
       <Route exact path="/">
         <HomeController />

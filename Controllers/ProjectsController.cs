@@ -13,7 +13,7 @@ using System;
 namespace TicketManager.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
