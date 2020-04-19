@@ -17,17 +17,11 @@ const AppRouter = () => {
         <HomeController />
       </Route>
 
-      <Route path="/users/:id">
-        <UserController />
-      </Route>
+      <PrivateRoute path="/projects/:id" component={ProjectController} />
 
-      <Route path="/projects/:id">
-        <ProjectController />
-      </Route>
+      <PrivateRoute path="/tickets/:id" component={TicketController} />
 
-      <Route path="/tickets/:id">
-        <TicketController />
-      </Route>
+      <PrivateRoute path="/users/:id" component={UserController} />
 
       <Route path="/404">
         <NotFoundPage />
