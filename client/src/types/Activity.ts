@@ -1,5 +1,5 @@
-import { User } from "./User";
-import { Ticket } from "./Ticket";
+import User from "./User";
+import Ticket from "./Ticket";
 
 export default interface Activity {
   id: number;

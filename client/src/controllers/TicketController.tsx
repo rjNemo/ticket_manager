@@ -5,7 +5,7 @@ import TicketPage from "../pages/TicketPage";
 import TicketVM from "../VM/TicketVM";
 import HttpResponse from "../types/HttpResponse";
 import Ticket from "../types/Ticket";
-import { Preloader } from "../components/Preloader";
+import Preloader from "../components/Preloader";
 import { get } from "../utils/http";
 import Constants from "../utils/Constants";
 

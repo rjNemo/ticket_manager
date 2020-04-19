@@ -6,7 +6,7 @@ import ProjectVM from "../VM/ProjectVM";
 import HttpResponse from "../types/HttpResponse";
 import Project from "../types/Project";
 import User from "../types/User";
-import { Preloader } from "../components/Preloader";
+import Preloader from "../components/Preloader";
 import Constants from "../utils/Constants";
 import { get } from "../utils/http";
 

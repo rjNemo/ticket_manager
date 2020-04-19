@@ -4,7 +4,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "./authentication/auth0";
 import config from "./authentication/config.json";
-import { history } from "./utils/history";
+import history from "./utils/history";
 
 const onRedirectCallback = (appState) => {
   history.push(

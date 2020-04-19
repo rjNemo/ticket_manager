@@ -2,7 +2,7 @@ import React, { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardActions, CardContent, Typography } from "@material-ui/core";
-import { ProgressBar } from "../Progress/ProgressBar";
+import ProgressBar from "../Progress/ProgressBar";
 
 interface IProps {
   title?: string;

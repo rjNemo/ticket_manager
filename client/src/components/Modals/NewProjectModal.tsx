@@ -1,9 +1,9 @@
 import React, { FC, useState, FormEvent } from "react";
-import TextField from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import Modal from "./Modal";
 import Project from "../../types/Project";
 import User from "../../types/User";
-import post from "../../utils/http";
+import { post } from "../../utils/http";
 import Constants from "../../utils/Constants";
 
 interface IProps {

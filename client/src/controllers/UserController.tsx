@@ -5,7 +5,7 @@ import UserPage from "../pages/UserPage";
 import { UserVM } from "../VM/UserVM";
 import HttpResponse from "../types/HttpResponse";
 import User from "../types/User";
-import { Preloader } from "../components/Preloader";
+import Preloader from "../components/Preloader";
 import Constants from "../utils/Constants";
 import { get } from "../utils/http";
 
