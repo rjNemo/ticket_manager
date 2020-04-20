@@ -51,15 +51,9 @@ interface IProps {
   tabNames: string[];
   tickets: Ticket[];
   projects: Project[];
-  allUsers: User[];
 }
 
-const UserTabPanel: FC<IProps> = ({
-  tickets,
-  tabNames,
-  projects,
-  allUsers,
-}) => {
+const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -94,7 +88,7 @@ const UserTabPanel: FC<IProps> = ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <ProjectList projects={projects} allUsers={allUsers} />
+          <ProjectList projects={projects} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <TicketList tickets={tickets} allProjects={[]} addButton={false} />

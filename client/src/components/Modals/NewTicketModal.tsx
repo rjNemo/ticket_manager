@@ -13,8 +13,8 @@ import Project from "../../types/Project";
 import Category from "../../types/enums/category";
 import Impact from "../../types/enums/impact";
 import Difficulty from "../../types/enums/difficulty";
-import { post } from "../../utils/http";
-import Constants from "../../utils/Constants";
+import { TicketService } from "../../services";
+import { useAuth0 } from "../../authentication/auth0";
 
 interface IProps {
   show: boolean;
@@ -39,6 +39,7 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
   const [categoryID, setCategoryID] = useState(0);
   const [impactID, setImpactID] = useState(0);
   const [difficultyID, setDifficultyID] = useState(0);
+  const { getTokenSilently, user } = useAuth0();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -53,8 +54,9 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
       category: categoryID,
     };
 
-    // const response: HttpResponse<Ticket> =
-    await post<Ticket>(`${Constants.ticketsURI}`, newTicket);
+    const token = await getTokenSilently();
+    const Tickets = new TicketService(token);
+    await Tickets.add(newTicket);
     handleClose();
   };
 

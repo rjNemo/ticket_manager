@@ -5,17 +5,19 @@ import Project from "../../types/Project";
 import User from "../../types/User";
 import { post } from "../../utils/http";
 import Constants from "../../utils/Constants";
+import { useAuth0 } from "../../authentication/auth0";
+import { ProjectService } from "../../services";
 
 interface IProps {
   show: boolean;
   handleClose: () => void;
-  allUsers: User[];
 }
 
 const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [endingDate, setEndingDate] = useState("");
+  const { getTokenSilently, user } = useAuth0();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -26,7 +28,9 @@ const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
       managerId: "cd179eb7-3a54-4060-b22c-3e947bdffcbc", // get current User id
     };
 
-    await post<Project>(`${Constants.projectsURI}`, newProject);
+    const token = await getTokenSilently();
+    const Projects = new ProjectService(token);
+    await Projects.add(newProject);
     handleClose();
   };
 

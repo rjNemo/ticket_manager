@@ -3,11 +3,10 @@ import { useParams } from "react-router-dom";
 import ErrorController from "./ErrorController";
 import TicketPage from "../pages/TicketPage";
 import TicketVM from "../VM/TicketVM";
-import HttpResponse from "../types/HttpResponse";
 import Ticket from "../types/Ticket";
 import Preloader from "../components/Preloader";
-import { get } from "../utils/http";
-import Constants from "../utils/Constants";
+import { useAuth0 } from "../authentication/auth0";
+import { TicketService } from "../services";
 
 const TicketController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,26 +14,26 @@ const TicketController: FC = () => {
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
   const { id } = useParams();
-
-  async function httpGetTicket(id: string): Promise<void> {
-    try {
-      const response: HttpResponse<Ticket> = await get<Ticket>(
-        `${Constants.ticketsURI}/${id}`
-      );
-      if (response.parsedBody !== undefined) {
-        setTicket(response.parsedBody);
-        setIsLoading(false);
-      }
-    } catch (ex) {
-      console.error(ex);
-      setHasError(true);
-      setError(ex);
-    }
-  }
+  const { getTokenSilently } = useAuth0();
 
   useEffect(() => {
+    const getTicket = async (id: string): Promise<void> => {
+      const token = await getTokenSilently();
+      try {
+        const Tickets = new TicketService(token);
+        const response: Ticket = await Tickets.get(id);
+        if (response !== undefined) {
+          setTicket(response);
+          setIsLoading(false);
+        }
+      } catch (ex) {
+        setHasError(true);
+        setError(ex);
+      }
+    };
+
     if (id !== undefined) {
-      httpGetTicket(id);
+      getTicket(id);
     } else {
       setHasError(true);
       setError("Bad Request");

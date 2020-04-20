@@ -27,10 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   projects: Project[];
-  allUsers: User[];
 };
 
-const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
+const ProjectList: FC<IProps> = ({ projects }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -59,7 +58,6 @@ const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
           setShowNew(false);
         }}
         show={showNew}
-        allUsers={allUsers}
       />
       <Grid container>
         <Grid
