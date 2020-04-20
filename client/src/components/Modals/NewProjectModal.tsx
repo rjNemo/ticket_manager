@@ -1,12 +1,8 @@
 import React, { FC, useState, FormEvent } from "react";
 import { TextField } from "@material-ui/core";
-import Modal from "./Modal";
-import Project from "../../types/Project";
-import User from "../../types/User";
-import { post } from "../../utils/http";
-import Constants from "../../utils/Constants";
 import { useAuth0 } from "../../authentication/auth0";
 import { ProjectService } from "../../services";
+import Modal from "./Modal";
 
 interface IProps {
   show: boolean;

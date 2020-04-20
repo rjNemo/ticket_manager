@@ -40,7 +40,7 @@ const UserController: FC = () => {
       setHasError(true);
       setError("Bad Request");
     }
-  }, [id]);
+  }, [id, getTokenSilently]);
 
   if (hasError) {
     return <ErrorController error={error} />;

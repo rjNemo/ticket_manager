@@ -6,7 +6,6 @@ import ProjectList from "../Lists/ProjectList";
 import TicketList from "../Lists/TicketList";
 import Ticket from "../../types/Ticket";
 import Project from "../../types/Project";
-import User from "../../types/User";
 
 interface TabProps {
   children?: ReactNode;

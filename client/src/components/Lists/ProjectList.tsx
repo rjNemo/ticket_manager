@@ -11,7 +11,6 @@ import ProjectCard from "../Cards/ProjectCard";
 import FloatingButton from "../Buttons/FloatingButton";
 import NewProjectModal from "../Modals/NewProjectModal";
 import Project from "../../types/Project";
-import User from "../../types/User";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

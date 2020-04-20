@@ -35,9 +35,9 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
   const { url } = useRouteMatch();
   const id = url.split("/")[2];
   const [projectId, setProjectId] = useState(id);
-  const [categoryID, setCategoryID] = useState(0);
-  const [impactID, setImpactID] = useState(0);
-  const [difficultyID, setDifficultyID] = useState(0);
+  const [categoryID, setCategoryID] = useState(1);
+  const [impactID, setImpactID] = useState(1);
+  const [difficultyID, setDifficultyID] = useState(1);
   const { getTokenSilently, user } = useAuth0();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -157,7 +157,7 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
           className={classes.select}
         >
           {Category.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
@@ -178,7 +178,7 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
           margin="normal"
         >
           {Impact.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
@@ -199,7 +199,7 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
           margin="normal"
         >
           {Difficulty.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
