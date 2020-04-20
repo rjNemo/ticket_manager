@@ -16,11 +16,11 @@ namespace TicketManager.Resources
         [DataType(DataType.Date)]
         public DateTime EndingDate { get; set; }
 
-        public string Impact { get; set; }
+        public int Impact { get; set; }
 
-        public string Difficulty { get; set; }
+        public int Difficulty { get; set; }
 
-        public string Category { get; set; }
+        public int Category { get; set; }
         [Required]
         public Guid CreatorId { get; set; }
         [Required]

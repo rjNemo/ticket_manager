@@ -8,7 +8,6 @@ import {
   Theme,
 } from "@material-ui/core";
 import Modal from "./Modal";
-import Ticket from "../../types/Ticket";
 import Project from "../../types/Project";
 import Category from "../../types/enums/category";
 import Impact from "../../types/enums/impact";

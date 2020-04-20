@@ -105,6 +105,9 @@ namespace TicketManager.Controllers
                 Description = ticketDto.Description,
                 EndingDate = ticketDto.EndingDate,
                 CreatorId = ticketDto.CreatorId,
+                Category = (Category)ticketDto.Category,
+                Impact = (Impact)ticketDto.Impact,
+                Difficulty = (Difficulty)ticketDto.Difficulty,
                 Project = await _context.Projects.FindAsync(ticketDto.ProjectId)
             };
 
