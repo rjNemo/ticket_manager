@@ -12,6 +12,7 @@ interface NewTicket {
   difficulty: number;
   category: number;
 }
+
 export default class TicketService implements IService<Ticket> {
   constructor(private key: string) {}
 
@@ -36,7 +37,12 @@ export default class TicketService implements IService<Ticket> {
   update(id: string, item: Ticket): Promise<void> {
     throw new Error("Method not implemented.");
   }
+
   delete(id: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
+
+  close = async (id: string): Promise<void> => {
+    await this.http.put(`${this.path}/${id}/closed`, {}, this.key);
+  };
 }

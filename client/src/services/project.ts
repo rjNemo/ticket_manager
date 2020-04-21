@@ -1,6 +1,7 @@
 import IService from ".";
 import Project from "../types/Project";
 import HttpHandler from "./http";
+import User from "../types/User";
 
 interface NewProject {
   title: string;
@@ -35,4 +36,8 @@ export default class ProjectService implements IService<Project> {
   delete(id: string): Promise<void> {
     throw new Error("Method not implemented.");
   }
+
+  setMembers = async (id: string, members: string[]): Promise<void> => {
+    await this.http.patch(`${this.path}/${id}/members`, members, this.key);
+  };
 }

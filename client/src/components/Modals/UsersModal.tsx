@@ -15,8 +15,8 @@ import AvatarList from "../Avatars/AvatarList";
 import FilterBar from "../FilterBar";
 import Modal from "./Modal";
 import User from "../../types/User";
-import { patch } from "../../utils/http";
-import Constants from "../../utils/Constants";
+import { ProjectService } from "../../services";
+import { useAuth0 } from "../../authentication/auth0";
 
 interface IProps {
   show: boolean;
@@ -59,12 +59,14 @@ const UsersModal: FC<IProps> = ({ show, handleClose, users, allUsers }) => {
     setMembers(newChecked);
   };
 
+  const { getTokenSilently } = useAuth0();
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    await patch<User[]>(
-      `${Constants.projectsURI}/${id}/members`,
-      members //.map((m) => m.id)
-    );
+    if (id !== undefined) {
+      const token = await getTokenSilently();
+      const Projects = new ProjectService(token);
+      await Projects.setMembers(id, members);
+    }
     handleClose();
   };
 

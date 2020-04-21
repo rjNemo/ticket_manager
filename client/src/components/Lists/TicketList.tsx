@@ -10,11 +10,10 @@ import FloatingButton from "../Buttons/FloatingButton";
 import FilterBar from "../FilterBar";
 import TicketCard from "../Cards/TicketCard";
 import NewTicketModal from "../Modals/NewTicketModal";
-import HttpResponse from "../../types/HttpResponse";
 import Ticket from "../../types/Ticket";
 import Project from "../../types/Project";
-import { put } from "../../utils/http";
-import Constants from "../../utils/Constants";
+import { useAuth0 } from "../../authentication/auth0";
+import { TicketService } from "../../services";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -59,6 +58,14 @@ const TicketList: FC<TicketListProps> = ({
       t.title.toLowerCase().includes(filterText.toLowerCase())
   );
 
+  const { getTokenSilently } = useAuth0();
+
+  const handleValidate = async (id: number) => {
+    const token = await getTokenSilently();
+    const Tickets = new TicketService(token);
+    await Tickets.close(id.toString());
+  };
+
   const classes = useStyles();
 
   return (
@@ -99,26 +106,20 @@ const TicketList: FC<TicketListProps> = ({
           />
         </Grid>
         <Grid item xs={12}>
-          <div className="col s12 grey lighten-1">
-            {filteredTickets.length === 0 ? (
-              <TicketCard />
-            ) : (
-              filteredTickets.map((t: Ticket) => (
-                <TicketCard
-                  key={t.id}
-                  ticket={t}
-                  link={`/tickets/${t.id}`}
-                  validateTicket={async (e: MouseEvent) => {
-                    e.preventDefault();
-                    await put<HttpResponse<Ticket>>(
-                      `${Constants.ticketsURI}/${t.id}/closed`,
-                      {}
-                    );
-                  }}
-                />
-              ))
-            )}
-          </div>
+          {filteredTickets.length === 0 ? (
+            <TicketCard />
+          ) : (
+            filteredTickets.map((t: Ticket) => (
+              <TicketCard
+                key={t.id}
+                ticket={t}
+                link={`/tickets/${t.id}`}
+                validateTicket={() => {
+                  handleValidate(t.id);
+                }}
+              />
+            ))
+          )}
         </Grid>
       </Grid>
     </>
