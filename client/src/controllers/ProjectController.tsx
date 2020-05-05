@@ -19,60 +19,62 @@ const ProjectController: FC = () => {
   const { id } = useParams();
   const { getTokenSilently } = useAuth0();
 
+  const getProject = async (id: string): Promise<void> => {
+    const token = await getTokenSilently();
+    try {
+      const Projects = new ProjectService(token);
+      const project: Project = await Projects.get(id);
+      if (project !== undefined) {
+        setProject(project);
+      }
+    } catch (ex) {
+      setHasError(true);
+      setError(ex);
+    }
+  };
+
+  const getAllUsers = async (): Promise<void> => {
+    const token = await getTokenSilently();
+    try {
+      const Users = new UserService(token);
+      const response: User[] = await Users.all();
+      if (response !== undefined) {
+        setAllUsers(response);
+      }
+    } catch (ex) {
+      setHasError(true);
+      setError(ex);
+    }
+  };
+
+  const getAllProjects = async (): Promise<void> => {
+    const token = await getTokenSilently();
+    try {
+      const Projects = new ProjectService(token);
+      const response: Project[] = await Projects.all();
+      if (response !== undefined) {
+        setAllProjects(response);
+      }
+    } catch (ex) {
+      setHasError(true);
+      setError(ex);
+    }
+  };
+
   useEffect(() => {
-    const getProject = async (id: string): Promise<void> => {
-      const token = await getTokenSilently();
-      try {
-        const Projects = new ProjectService(token);
-        const project: Project = await Projects.get(id);
-        if (project !== undefined) {
-          setProject(project);
-          setIsLoading(false);
-        }
-      } catch (ex) {
-        setHasError(true);
-        setError(ex);
-      }
-    };
-
-    const getAllUsers = async (): Promise<void> => {
-      const token = await getTokenSilently();
-      try {
-        const Users = new UserService(token);
-        const response: User[] = await Users.all();
-        if (response !== undefined) {
-          setAllUsers(response);
-          setIsLoading(false);
-        }
-      } catch (ex) {
-        setHasError(true);
-        setError(ex);
-      }
-    };
-
-    const getAllProjects = async (): Promise<void> => {
-      const token = await getTokenSilently();
-      try {
-        const Projects = new ProjectService(token);
-        const response: Project[] = await Projects.all();
-        if (response !== undefined) {
-          setAllProjects(response);
-        }
-      } catch (ex) {
-        setHasError(true);
-        setError(ex);
-      }
-    };
-
     if (id !== undefined) {
-      getProject(id);
-      getAllUsers();
-      getAllProjects();
+      // wait for all data to be fetched
+      Promise.all([getProject(id), getAllUsers(), getAllProjects()])
+        .then(() => setIsLoading(false))
+        .catch((ex) => {
+          setHasError(true);
+          setError(ex);
+        });
     } else {
       setHasError(true);
       setError("Bad Request");
     }
-  }, [id, getTokenSilently]);
+  }, [id]);
 
   if (hasError) {
     return <ErrorController error={error} />;

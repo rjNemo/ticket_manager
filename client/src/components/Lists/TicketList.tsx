@@ -52,6 +52,7 @@ const TicketList: FC<TicketListProps> = ({
   };
 
   const [showNew, setShowNew] = useState(false);
+
   let filteredTickets = tickets.filter(
     (t) =>
       t.status !== "Done" &&
