@@ -8,7 +8,7 @@ namespace TicketManager.Models
 {
     public class AppUser
     {
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [StringLength(50)]

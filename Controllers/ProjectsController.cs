@@ -271,7 +271,7 @@ namespace TicketManager.Controllers
         [HttpPatch("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(
             [FromRoute] int id,
-            [FromBody] Guid[] membersId)
+            [FromBody] string[] membersId)
         {
             Project project = await _context.Projects
                 .Include(p => p.Assignments)

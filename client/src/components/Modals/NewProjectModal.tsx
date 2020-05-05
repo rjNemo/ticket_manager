@@ -3,6 +3,7 @@ import { TextField } from "@material-ui/core";
 import { useAuth0 } from "../../authentication/auth0";
 import { ProjectService } from "../../services";
 import Modal from "./Modal";
+import { getUID } from "../../authentication/helpers";
 
 interface IProps {
   show: boolean;
@@ -21,7 +22,7 @@ const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
       title: title,
       description: description,
       endingDate: new Date(endingDate).toISOString(),
-      managerId: "cd179eb7-3a54-4060-b22c-3e947bdffcbc", // get current User id
+      managerId: getUID(user), // get current User id
     };
 
     const token = await getTokenSilently();

@@ -23,7 +23,7 @@ namespace TicketManager.Resources
             Tickets = user.GetTickets().Select(u => new TicketDTORead(u)).ToList();
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 
