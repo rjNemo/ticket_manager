@@ -20,7 +20,7 @@ type IProps = {
 //   })
 // );
 
-export const ProgressInfo: FC<IProps> = ({
+const ProgressInfo: FC<IProps> = ({
   tasksDone,
   tasksTotalCount,
   remainingDays,
@@ -39,3 +39,5 @@ export const ProgressInfo: FC<IProps> = ({
     </Box>
   );
 };
+
+export default ProgressInfo;

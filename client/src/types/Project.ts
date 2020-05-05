@@ -1,9 +1,9 @@
-import { Ticket } from "./Ticket";
-import { User } from "./User";
-import { AppFile } from "./AppFile";
-import { Activity } from "./Activity";
+import AppFile from "./AppFile";
+import Activity from "./Activity";
+import Ticket from "./Ticket";
+import User from "./User";
 
-export interface Project {
+export default interface Project {
   id: number;
   title: string;
   description: string;

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import { Header } from "../components/Header";
-import { UserAvatar } from "./Avatars/UserAvatar";
+import Header from "../components/Header";
+import UserAvatar from "./Avatars/UserAvatar";
 import {
   Grid,
   //  makeStyles, Theme
@@ -19,7 +19,7 @@ interface IProps {
 //   },
 // }));
 
-export const UserHeader: FC<IProps> = ({ fullName, presentation, picture }) => {
+const UserHeader: FC<IProps> = ({ fullName, presentation, picture }) => {
   // const classes = useStyles();
   return (
     // <div className={classes.root}>
@@ -34,3 +34,5 @@ export const UserHeader: FC<IProps> = ({ fullName, presentation, picture }) => {
     // </div>
   );
 };
+
+export default UserHeader;

@@ -1,15 +1,15 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { AppFile } from "../../types/AppFile";
-import { FileCollection } from "../FileCollection";
-import { InputFile } from "../InputFile";
-import { FilterBar } from "../FilterBar";
 import { Grid, Typography } from "@material-ui/core";
+import FileCollection from "../FileCollection";
+import FilterBar from "../FilterBar";
+import InputFile from "../InputFile";
+import AppFile from "../../types/AppFile";
 
 type IProps = {
   files: AppFile[];
 };
 
-export const FileList: FC<IProps> = ({ files }) => {
+const FileList: FC<IProps> = ({ files }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText = (e: MouseEvent): void => {
     setFilterText("");
@@ -38,3 +38,5 @@ export const FileList: FC<IProps> = ({ files }) => {
     </>
   );
 };
+
+export default FileList;

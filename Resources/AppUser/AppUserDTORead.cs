@@ -20,7 +20,7 @@ namespace TicketManager.Resources
             Picture = user.Picture;
         }
 
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string FirstName { get; set; }
 

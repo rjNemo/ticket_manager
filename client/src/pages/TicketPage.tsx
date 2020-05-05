@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles, Theme, Grid, Typography } from "@material-ui/core";
 import { Timer } from "@material-ui/icons";
+import TicketVM from "../VM/TicketVM";
 import PageLayout from "../layouts/PageLayout";
-import { TicketVM } from "../VM/TicketVM";
-import { Header } from "../components/Header";
-import { AvatarList } from "../components/Avatars/AvatarList";
+import Header from "../components/Header";
+import AvatarList from "../components/Avatars/AvatarList";
 import TicketChipsArray from "../components/Cards/TicketChipsArray";
-import { getRemainingdays } from "../utils/methods";
+import getRemainingdays from "../utils/methods";
 
 interface IProps {
   viewModel: TicketVM;
@@ -16,7 +16,6 @@ interface IProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     margin: theme.spacing(1),
-    // flexGrow: 1,
   },
   table: {
     margin: "auto",
@@ -28,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const TicketPage: FC<IProps> = ({ viewModel }) => {
+const TicketPage: FC<IProps> = ({ viewModel }) => {
   const {
     title,
     description,
@@ -133,3 +132,5 @@ export const TicketPage: FC<IProps> = ({ viewModel }) => {
 //     </TableContainer>
 //   );
 // };
+
+export default TicketPage;

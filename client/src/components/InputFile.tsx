@@ -3,22 +3,20 @@ import { CloudUpload } from "@material-ui/icons";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 
-export const InputFile: FC = () => {
+const InputFile: FC = () => {
   return (
-    <>
-      <form action="/upload">
-        <div className="file-field input-field">
-          <UploadButton>
-            <CloudUpload />
-            <input
-              type="file"
-              multiple
-              accept=".doc,.docx,.pdf,.md,.gdoc,.zip,image/*"
-            />
-          </UploadButton>
-        </div>
-      </form>
-    </>
+    <form action="/upload">
+      <div className="file-field input-field">
+        <UploadButton>
+          <CloudUpload />
+          <input
+            type="file"
+            multiple
+            accept=".doc,.docx,.pdf,.md,.gdoc,.zip,image/*"
+          />
+        </UploadButton>
+      </div>
+    </form>
   );
 };
 
@@ -26,12 +24,12 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       "& > *": {
-        margin: theme.spacing(1)
-      }
+        margin: theme.spacing(1),
+      },
     },
     input: {
-      display: "none"
-    }
+      display: "none",
+    },
   })
 );
 
@@ -60,3 +58,5 @@ const UploadButton: FC = () => {
     </div>
   );
 };
+
+export default InputFile;

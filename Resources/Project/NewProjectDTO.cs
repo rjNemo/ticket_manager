@@ -11,6 +11,6 @@ namespace TicketManager.Resources
         [Required]
         public DateTime EndingDate { get; set; }
         [Required]
-        public Guid ManagerId { get; set; }
+        public string ManagerId { get; set; }
     }
 }

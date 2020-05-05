@@ -1,45 +1,44 @@
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { TicketPage } from "../pages/TicketPage";
-import { ErrorController } from "./ErrorController";
-import { HttpResponse } from "../types/HttpResponse";
-import { Preloader } from "../components/Preloader";
-import { get } from "../utils/http";
-import { Constants } from "../utils/Constants";
-import { Ticket } from "../types/Ticket";
-import { TicketVM } from "../VM/TicketVM";
+import ErrorController from "./ErrorController";
+import TicketPage from "../pages/TicketPage";
+import TicketVM from "../VM/TicketVM";
+import Ticket from "../types/Ticket";
+import Preloader from "../components/Preloader";
+import { useAuth0 } from "../authentication/auth0";
+import { TicketService } from "../services";
 
-export const TicketController: FC = () => {
+const TicketController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [ticket, setTicket] = useState<Ticket>({} as Ticket);
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
   const { id } = useParams();
-
-  async function httpGetTicket(id: string): Promise<void> {
-    try {
-      const response: HttpResponse<Ticket> = await get<Ticket>(
-        `${Constants.ticketsURI}/${id}`
-      );
-      if (response.parsedBody !== undefined) {
-        setTicket(response.parsedBody);
-        setIsLoading(false);
-      }
-    } catch (ex) {
-      console.error(ex);
-      setHasError(true);
-      setError(ex);
-    }
-  }
+  const { getTokenSilently } = useAuth0();
 
   useEffect(() => {
+    const getTicket = async (id: string): Promise<void> => {
+      const token = await getTokenSilently();
+      try {
+        const Tickets = new TicketService(token);
+        const response: Ticket = await Tickets.get(id);
+        if (response !== undefined) {
+          setTicket(response);
+          setIsLoading(false);
+        }
+      } catch (ex) {
+        setHasError(true);
+        setError(ex);
+      }
+    };
+
     if (id !== undefined) {
-      httpGetTicket(id);
+      getTicket(id);
     } else {
       setHasError(true);
       setError("Bad Request");
     }
-  }, [id]);
+  }, [id, getTokenSilently]);
 
   if (hasError) {
     return <ErrorController error={error} />;
@@ -48,3 +47,5 @@ export const TicketController: FC = () => {
   const viewModel = new TicketVM(ticket);
   return isLoading ? <Preloader /> : <TicketPage viewModel={viewModel} />;
 };
+
+export default TicketController;

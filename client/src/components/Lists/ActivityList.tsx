@@ -1,13 +1,13 @@
 import React, { FC, useState, ChangeEvent, MouseEvent } from "react";
-import { ActivityCollection } from "../ActivityCollection";
-import { Activity } from "../../types/Activity";
-import { FilterBar } from "../FilterBar";
+import ActivityCollection from "../ActivityCollection";
+import FilterBar from "../FilterBar";
+import Activity from "../../types/Activity";
 
 type IProps = {
   activities: Activity[];
 };
 
-export const ActivityList: FC<IProps> = ({ activities }) => {
+const ActivityList: FC<IProps> = ({ activities }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -30,3 +30,5 @@ export const ActivityList: FC<IProps> = ({ activities }) => {
     </>
   );
 };
+
+export default ActivityList;

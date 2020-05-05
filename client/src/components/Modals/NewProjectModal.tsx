@@ -1,36 +1,48 @@
 import React, { FC, useState, FormEvent } from "react";
 import { TextField } from "@material-ui/core";
-import { Modal } from "./Modal";
-import { Project } from "../../types/Project";
-import { User } from "../../types/User";
-import { post } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import Modal from "./Modal";
+import Preloader from "../Preloader";
+import { useAuth0 } from "../../authentication/auth0";
+import { ProjectService } from "../../services";
+import { getUID } from "../../authentication/helpers";
+import { today } from "../../utils/methods";
 
 interface IProps {
   show: boolean;
   handleClose: () => void;
-  allUsers: User[];
 }
 
-export const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
+const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [endingDate, setEndingDate] = useState("");
+  const [endingDate, setEndingDate] = useState(today());
+  const [loading, setLoading] = useState(false);
+  const { getTokenSilently, user } = useAuth0();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     let newProject = {
       title: title,
       description: description,
       endingDate: new Date(endingDate).toISOString(),
-      managerId: "cd179eb7-3a54-4060-b22c-3e947bdffcbc", // get current User id
+      managerId: getUID(user),
     };
 
-    await post<Project>(`${Constants.projectsURI}`, newProject);
+    const token = await getTokenSilently();
+    const Projects = new ProjectService(token);
+    Projects.add(newProject).catch((err) => console.error(err));
+    setLoading(false);
+    setTitle("");
+    setDescription("");
+    setEndingDate(today());
+
     handleClose();
   };
 
-  return (
+  return loading ? (
+    <Preloader />
+  ) : (
     <Modal
       name="New Project"
       show={show}
@@ -88,3 +100,5 @@ export const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
     </Modal>
   );
 };
+
+export default NewProjectModal;

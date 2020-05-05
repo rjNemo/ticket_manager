@@ -1,16 +1,11 @@
 import React, { FC, useState, ReactNode } from "react";
 import SwipeableViews from "react-swipeable-views";
 import { makeStyles, Theme, useTheme } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import Typography from "@material-ui/core/Typography";
-import Box from "@material-ui/core/Box";
-import { Ticket } from "../../types/Ticket";
-import { Project } from "../../types/Project";
-import { ProjectList } from "../Lists/ProjectList";
-import { TicketList } from "../Lists/TicketList";
-import { User } from "../../types/User";
+import { AppBar, Box, Tab, Tabs, Typography } from "@material-ui/core";
+import ProjectList from "../Lists/ProjectList";
+import TicketList from "../Lists/TicketList";
+import Ticket from "../../types/Ticket";
+import Project from "../../types/Project";
 
 interface TabProps {
   children?: ReactNode;
@@ -55,15 +50,9 @@ interface IProps {
   tabNames: string[];
   tickets: Ticket[];
   projects: Project[];
-  allUsers: User[];
 }
 
-export const UserTabPanel: FC<IProps> = ({
-  tickets,
-  tabNames,
-  projects,
-  allUsers,
-}) => {
+const UserTabPanel: FC<IProps> = ({ tickets, tabNames, projects }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(0);
@@ -98,7 +87,7 @@ export const UserTabPanel: FC<IProps> = ({
         onChangeIndex={handleChangeIndex}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <ProjectList projects={projects} allUsers={allUsers} />
+          <ProjectList projects={projects} />
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <TicketList tickets={tickets} allProjects={[]} addButton={false} />
@@ -107,3 +96,4 @@ export const UserTabPanel: FC<IProps> = ({
     </div>
   );
 };
+export default UserTabPanel;

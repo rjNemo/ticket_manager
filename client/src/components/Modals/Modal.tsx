@@ -1,6 +1,6 @@
 import React, { FC } from "react";
-import Dialog from "@material-ui/core/Dialog";
 import {
+  Dialog,
   DialogTitle,
   Typography,
   IconButton,
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const Modal: FC<IProps> = ({
+const Modal: FC<IProps> = ({
   handleClose,
   show,
   action,
@@ -77,3 +77,5 @@ export const Modal: FC<IProps> = ({
     </Dialog>
   );
 };
+
+export default Modal;

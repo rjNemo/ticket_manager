@@ -1,9 +1,9 @@
-import { Ticket } from "../types/Ticket";
-import { Project } from "../types/Project";
-import { AppFile } from "../types/AppFile";
-import { Activity } from "../types/Activity";
-import { User } from "../types/User";
-import { getRemainingdays } from "../utils/methods";
+import Activity from "../types/Activity";
+import AppFile from "../types/AppFile";
+import Project from "../types/Project";
+import Ticket from "../types/Ticket";
+import User from "../types/User";
+import getRemainingdays from "../utils/methods";
 
 export default class ProjectVM {
   public id: number;
@@ -47,7 +47,7 @@ export default class ProjectVM {
     this.ticketsDone =
       this.tickets === undefined
         ? 0
-        : this.tickets.filter(t => t.status === "Done").length;
+        : this.tickets.filter((t) => t.status === "Done").length;
     this.remainingDays = getRemainingdays(project.endingDate);
     this.allProjects = allProjects;
   }

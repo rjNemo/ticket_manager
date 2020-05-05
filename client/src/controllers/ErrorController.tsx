@@ -5,7 +5,7 @@ interface IProps {
   error: string;
 }
 
-export const ErrorController: FC<IProps> = ({ error }) => {
+const ErrorController: FC<IProps> = ({ error }) => {
   switch (error) {
     case "Bad Request":
       return <Redirect to="/400" />;
@@ -20,3 +20,5 @@ export const ErrorController: FC<IProps> = ({ error }) => {
       return <Redirect to="/404" />;
   }
 };
+
+export default ErrorController;

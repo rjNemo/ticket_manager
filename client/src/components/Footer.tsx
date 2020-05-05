@@ -1,8 +1,7 @@
 import React, { FC } from "react";
-import Typography from "@material-ui/core/Typography";
+import { Link as RouterLink } from "react-router-dom";
+import { Container, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Link from "@material-ui/core/Link";
 
 interface IProps {
   brand: string;
@@ -11,14 +10,14 @@ interface IProps {
 
 const copyParams: IProps = {
   brand: "BugBuster",
-  text: "Made with 🔥"
+  text: "Made with 🔥",
 };
 
 const Copyright: FC<IProps> = ({ brand, text }) => {
   return (
     <Typography variant="body2" color="textSecondary">
       {"© "}
-      <Link color="inherit" href="/">
+      <Link color="inherit" component={RouterLink} to="/">
         {brand}
       </Link>{" "}
       {new Date().getFullYear()}
@@ -27,15 +26,15 @@ const Copyright: FC<IProps> = ({ brand, text }) => {
   );
 };
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   footer: {
     padding: theme.spacing(3, 2),
     marginTop: "auto",
     backgroundColor:
       theme.palette.type === "light"
         ? theme.palette.grey[200]
-        : theme.palette.grey[800]
-  }
+        : theme.palette.grey[800],
+  },
 }));
 
 export default function Footer() {

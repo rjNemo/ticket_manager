@@ -1,11 +1,8 @@
 import React, { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
-import { ProgressBar } from "../Progress/ProgressBar";
+import { Card, CardActions, CardContent, Typography } from "@material-ui/core";
+import ProgressBar from "../Progress/ProgressBar";
 
 interface IProps {
   title?: string;
@@ -22,7 +19,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const HorizontalCard: FC<IProps> = ({
+const HorizontalCard: FC<IProps> = ({
   title,
   link = "#",
   content,
@@ -46,3 +43,5 @@ export const HorizontalCard: FC<IProps> = ({
     </Card>
   );
 };
+
+export default HorizontalCard;

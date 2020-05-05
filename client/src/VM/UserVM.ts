@@ -1,7 +1,7 @@
-import { Project } from "../types/Project";
-import { Ticket } from "../types/Ticket";
-import { User } from "../types/User";
-import { Activity } from "../types/Activity";
+import Activity from "../types/Activity";
+import Project from "../types/Project";
+import Ticket from "../types/Ticket";
+import User from "../types/User";
 
 export class UserVM {
   public id: string;
@@ -16,9 +16,8 @@ export class UserVM {
   public projects: Project[];
   public tickets: Ticket[];
   public activities: Activity[];
-  public allUsers: User[];
 
-  public constructor(user: User, allUsers: User[]) {
+  public constructor(user: User) {
     this.id = user.id;
     this.firstName = user.firstName;
     this.lastName = user.lastName;
@@ -31,6 +30,5 @@ export class UserVM {
     this.projects = user.projects;
     this.tickets = user.tickets;
     this.activities = user.activities;
-    this.allUsers = allUsers;
   }
 }

@@ -6,12 +6,11 @@ import {
   createStyles,
   Theme,
 } from "@material-ui/core";
-import { FilterBar } from "../FilterBar";
+import FilterBar from "../FilterBar";
 import ProjectCard from "../Cards/ProjectCard";
-import { FloatingButton } from "../Buttons/FloatingButton";
-import { NewProjectModal } from "../Modals/NewProjectModal";
-import { Project } from "../../types/Project";
-import { User } from "../../types/User";
+import FloatingButton from "../Buttons/FloatingButton";
+import NewProjectModal from "../Modals/NewProjectModal";
+import Project from "../../types/Project";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,10 +26,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 type IProps = {
   projects: Project[];
-  allUsers: User[];
 };
 
-export const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
+const ProjectList: FC<IProps> = ({ projects }) => {
   const [filterText, setFilterText] = useState<string>("");
   const clearFilterText: (e: MouseEvent) => void = (e: MouseEvent) => {
     setFilterText("");
@@ -59,7 +57,6 @@ export const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
           setShowNew(false);
         }}
         show={showNew}
-        allUsers={allUsers}
       />
       <Grid container>
         <Grid
@@ -109,3 +106,5 @@ export const ProjectList: FC<IProps> = ({ projects, allUsers }) => {
     </>
   );
 };
+
+export default ProjectList;

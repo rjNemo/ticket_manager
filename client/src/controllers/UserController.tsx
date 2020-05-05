@@ -1,66 +1,75 @@
 import React, { FC, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { UserPage } from "../pages/UserPage";
+import ErrorController from "./ErrorController";
+import UserPage from "../pages/UserPage";
 import { UserVM } from "../VM/UserVM";
-import { User } from "../types/User";
-import { HttpResponse } from "../types/HttpResponse";
-import { Preloader } from "../components/Preloader";
-import { get } from "../utils/http";
-import { Constants } from "../utils/Constants";
-import { ErrorController } from "./ErrorController";
+import User from "../types/User";
+import Preloader from "../components/Preloader";
+import { UserService } from "../services";
+import { useAuth0 } from "../authentication/auth0";
+import { getUID } from "../authentication/helpers";
 
-export const UserController: FC = () => {
+const UserController: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [user, setUser] = useState<User>({} as User);
+  const [account, setAccount] = useState<User>({} as User);
   const [hasError, setHasError] = useState(false);
   const [error, setError] = useState("");
-  const [allUsers, setAllUsers] = useState<User[]>([]);
   const { id } = useParams();
-
-  async function httpGetUser(id: string): Promise<void> {
-    try {
-      const response: HttpResponse<User> = await get<User>(
-        `${Constants.usersURI}/${id}`
-      );
-      if (response.parsedBody !== undefined) {
-        setUser(response.parsedBody);
-        setIsLoading(false);
-      }
-    } catch (ex) {
-      console.error(ex);
-      setHasError(true);
-      setError(ex);
-    }
-  }
-
-  async function httpGetAllUsers(): Promise<void> {
-    try {
-      const response: HttpResponse<User> = await get<User>(
-        `${Constants.usersURI}`
-      );
-      if (response.parsedBody !== undefined) {
-        setAllUsers((response.parsedBody as unknown) as User[]);
-      }
-    } catch (ex) {
-      setHasError(true);
-      setError(ex);
-    }
-  }
+  const { getTokenSilently, user } = useAuth0();
 
   useEffect(() => {
+    const getUser = async (id: string): Promise<void> => {
+      const token = await getTokenSilently();
+      const Users = new UserService(token);
+      let response: User | undefined;
+
+      try {
+        response = await Users.get(id);
+      } catch (ex) {
+        if (ex === "Not Found") {
+          // create user
+          const { given_name, family_name, email, nickname, picture } = user;
+          const newUser: User = {
+            id: getUID(user),
+            firstName: given_name,
+            lastName: family_name,
+            fullName: `${given_name} ${family_name}`,
+            email,
+            presentation: nickname,
+            picture,
+            phone: "",
+            creationDate: Date.now().toLocaleString(),
+            activities: [],
+            projects: [],
+            tickets: [],
+          };
+          response = await Users.add(newUser);
+        } else {
+          setHasError(true);
+          setError(ex);
+        }
+      } finally {
+        if (response !== undefined) {
+          setAccount(response);
+          setIsLoading(false);
+        }
+      }
+    };
+
     if (id !== undefined) {
-      httpGetUser(id);
-      httpGetAllUsers();
+      getUser(id);
     } else {
       setHasError(true);
       setError("Bad Request");
     }
-  }, [id]);
+  }, [id, getTokenSilently, user]);
 
   if (hasError) {
     return <ErrorController error={error} />;
   }
 
-  const viewModel = new UserVM(user, allUsers);
+  const viewModel = new UserVM(account);
   return isLoading ? <Preloader /> : <UserPage viewModel={viewModel} />;
 };
+
+export default UserController;

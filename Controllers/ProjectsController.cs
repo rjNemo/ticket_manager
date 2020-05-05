@@ -13,7 +13,7 @@ using System;
 namespace TicketManager.Controllers
 {
     // [Authorize(Roles = "Admin")]
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
@@ -180,11 +180,15 @@ namespace TicketManager.Controllers
                 EndingDate = projectDto.EndingDate,
                 Manager = await _context.AppUsers.FindAsync(projectDto.ManagerId)
             };
-            // project.LogAction(
-            //     $"{project.Title} has been created by {project.Manager.FullName}.",
-            //     ActivityType.StartTask);
 
             _context.Projects.Add(project);
+            _context.Assignments.Add(new Assignment()
+            {
+                Project = project,
+                ProjectId = project.Id,
+                User = project.Manager,
+                UserId = project.Manager.Id
+            });
             await _context.SaveChangesAsync();
             var dto = new ProjectDTO(project);
             return CreatedAtAction("GetProject", new { id = project.Id }, dto);
@@ -271,7 +275,7 @@ namespace TicketManager.Controllers
         [HttpPatch("{id}/members")]
         public async Task<ActionResult<Project>> SetProjectMembers(
             [FromRoute] int id,
-            [FromBody] Guid[] membersId)
+            [FromBody] string[] membersId)
         {
             Project project = await _context.Projects
                 .Include(p => p.Assignments)

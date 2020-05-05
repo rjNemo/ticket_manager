@@ -13,7 +13,7 @@ using TicketManager.Resources;
 
 namespace TicketManager.Controllers
 {
-    // [Authorize]
+    [Authorize]
     [Produces("application/json")]
     [Route("api/v1/users")]
     [ApiController]
@@ -64,7 +64,7 @@ namespace TicketManager.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<AppUserDTO>> GetUser(Guid id)
+        public async Task<ActionResult<AppUserDTO>> GetUser(string id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -103,7 +103,7 @@ namespace TicketManager.Controllers
         [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> PutUser(Guid id, AppUser user)
+        public async Task<IActionResult> PutUser(string id, AppUser user)
         {
             if (id != user.Id)
             {
@@ -159,6 +159,7 @@ namespace TicketManager.Controllers
 
             var user = new AppUser()
             {
+                Id = userDto.Id,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 Presentation = userDto.Presentation,
@@ -202,7 +203,7 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/projects")]
-        public async Task<ActionResult<IEnumerable<ProjectDTORead>>> GetAppUserProjects(Guid id)
+        public async Task<ActionResult<IEnumerable<ProjectDTORequest>>> GetAppUserProjects(string id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -218,7 +219,7 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/tickets/")]
-        public async Task<ActionResult<IEnumerable<TicketDTORead>>> GetAppUserTickets(Guid id)
+        public async Task<ActionResult<IEnumerable<TicketDTORead>>> GetAppUserTickets(string id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
@@ -233,7 +234,7 @@ namespace TicketManager.Controllers
             return user.GetTickets().Select(t => new TicketDTORead(t)).ToList();
         }
 
-        private bool UserExists(Guid id)
+        private bool UserExists(string id)
         {
             return _context.AppUsers.Any(e => e.Id == id);
         }

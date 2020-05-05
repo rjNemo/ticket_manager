@@ -1,6 +1,6 @@
-import { User } from "./User";
+import User from "./User";
 
-export interface AppFile {
+export default interface AppFile {
   id: number;
   name: string;
   description: string;

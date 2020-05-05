@@ -1,3 +1,3 @@
-export interface Note {
+export default interface Note {
   Id: number;
 }

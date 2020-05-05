@@ -7,14 +7,16 @@ import {
   makeStyles,
   Theme,
 } from "@material-ui/core";
-import { Modal } from "./Modal";
-import { Ticket } from "../../types/Ticket";
-import { Project } from "../../types/Project";
-import { post } from "../../utils/http";
-import { Constants } from "../../utils/Constants";
+import Modal from "./Modal";
+import Project from "../../types/Project";
 import Category from "../../types/enums/category";
 import Impact from "../../types/enums/impact";
 import Difficulty from "../../types/enums/difficulty";
+import { TicketService } from "../../services";
+import { useAuth0 } from "../../authentication/auth0";
+import { getUID } from "../../authentication/helpers";
+import { today } from "../../utils/methods";
+import Preloader from "../Preloader";
 
 interface IProps {
   show: boolean;
@@ -28,42 +30,50 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const NewTicketModal: FC<IProps> = ({
-  show,
-  handleClose,
-  allProjects,
-}) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [endingDate, setEndingDate] = useState("");
-
+const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
+  const { getTokenSilently, user } = useAuth0();
   const { url } = useRouteMatch();
   const id = url.split("/")[2];
   const [projectId, setProjectId] = useState(id);
-  const [categoryID, setCategoryID] = useState(0);
-  const [impactID, setImpactID] = useState(0);
-  const [difficultyID, setDifficultyID] = useState(0);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [endingDate, setEndingDate] = useState(today());
+  const [categoryID, setCategoryID] = useState(1);
+  const [impactID, setImpactID] = useState(1);
+  const [difficultyID, setDifficultyID] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     let newTicket = {
       title: title,
       description: description,
       endingDate: new Date(endingDate).toISOString(),
-      creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94", // get current User id
+      creatorId: getUID(user),
       projectId: parseInt(projectId),
       impact: impactID,
       difficulty: difficultyID,
       category: categoryID,
     };
 
-    // const response: HttpResponse<Ticket> =
-    await post<Ticket>(`${Constants.ticketsURI}`, newTicket);
+    const token = await getTokenSilently();
+    const Tickets = new TicketService(token);
+    Tickets.add(newTicket).catch((err) => console.error(err));
+    setLoading(false);
+    setTitle("");
+    setDescription("");
+    setEndingDate(today());
+    setCategoryID(1);
+    setImpactID(1);
+    setDifficultyID(1);
     handleClose();
   };
 
   const classes = useStyles();
-  return (
+  return loading ? (
+    <Preloader />
+  ) : (
     <Modal
       name="New Ticket"
       show={show}
@@ -160,7 +170,7 @@ export const NewTicketModal: FC<IProps> = ({
           className={classes.select}
         >
           {Category.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
@@ -181,7 +191,7 @@ export const NewTicketModal: FC<IProps> = ({
           margin="normal"
         >
           {Impact.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
@@ -202,7 +212,7 @@ export const NewTicketModal: FC<IProps> = ({
           margin="normal"
         >
           {Difficulty.map((c: string, i: number) => (
-            <MenuItem key={i} value={i}>
+            <MenuItem key={i} value={i + 1}>
               {c}
             </MenuItem>
           ))}
@@ -211,3 +221,5 @@ export const NewTicketModal: FC<IProps> = ({
     </Modal>
   );
 };
+
+export default NewTicketModal;

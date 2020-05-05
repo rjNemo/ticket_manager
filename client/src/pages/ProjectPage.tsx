@@ -1,14 +1,14 @@
 import React, { FC, useState } from "react";
 import { Grid, makeStyles, Theme } from "@material-ui/core";
-import { Header } from "../components/Header";
-import { AvatarList } from "../components/Avatars/AvatarList";
-import { ProgressBar } from "../components/Progress/ProgressBar";
-import { FloatingButton } from "../components/Buttons/FloatingButton";
-import { UsersModal } from "../components/Modals/UsersModal";
-import { ProjectTabPanel } from "../components/Panels/ProjectTabPanel";
+import Header from "../components/Header";
+import AvatarList from "../components/Avatars/AvatarList";
+import ProgressBar from "../components/Progress/ProgressBar";
+import FloatingButton from "../components/Buttons/FloatingButton";
+import UsersModal from "../components/Modals/UsersModal";
+import ProjectTabPanel from "../components/Panels/ProjectTabPanel";
+import ProgressInfo from "../components/Progress/ProgressInfo";
 import ProjectVM from "../VM/ProjectVM";
 import PageLayout from "../layouts/PageLayout";
-import { ProgressInfo } from "../components/Progress/ProgressInfo";
 
 interface IProps {
   viewModel: ProjectVM;
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const ProjectPage: FC<IProps> = ({ viewModel }) => {
+const ProjectPage: FC<IProps> = ({ viewModel }) => {
   const {
     // id,
     title,
@@ -97,3 +97,5 @@ export const ProjectPage: FC<IProps> = ({ viewModel }) => {
     />
   );
 };
+
+export default ProjectPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "../authentication/auth0";
 
-export const NavBar = () => {
+const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
@@ -14,3 +14,5 @@ export const NavBar = () => {
     </div>
   );
 };
+
+export default NavBar;

@@ -10,13 +10,7 @@ interface IProps {
   text?: string;
 }
 
-export const FloatingButton: FC<IProps> = ({
-  color,
-  icon,
-  size,
-  text,
-  onClick
-}) => {
+const FloatingButton: FC<IProps> = ({ color, icon, size, text, onClick }) => {
   return (
     <Fab color={color} aria-label={icon} size={size} onClick={onClick}>
       <AddIcon />
@@ -24,3 +18,5 @@ export const FloatingButton: FC<IProps> = ({
     </Fab>
   );
 };
+
+export default FloatingButton;

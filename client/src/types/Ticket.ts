@@ -1,7 +1,7 @@
-import { Project } from "./Project";
-import { User } from "./User";
+import Project from "./Project";
+import User from "./User";
 
-export interface Ticket {
+export default interface Ticket {
   id: number;
   title: string;
   description: string;

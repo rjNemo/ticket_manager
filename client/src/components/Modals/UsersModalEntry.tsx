@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { User } from "../../types/User";
+import User from "../../types/User";
 
 interface IProps {
   setMembers: React.Dispatch<React.SetStateAction<User[]>>;
@@ -7,7 +7,7 @@ interface IProps {
   user: User;
 }
 
-export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
+const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
   const match: (id: string) => boolean = (id: string) => {
     return Boolean(members.find((m) => m.id === id));
   };
@@ -40,3 +40,5 @@ export const UsersModalEntry: FC<IProps> = ({ user, setMembers, members }) => {
     </div>
   );
 };
+
+export default UsersModalEntry;

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { UserAvatar } from "./Avatars/UserAvatar";
 import { Link } from "react-router-dom";
+import { UserAvatar } from "./Avatars/UserAvatar";
 
-export const ProfileSelector: FC = () => {
+const ProfileSelector: FC = () => {
   return (
     <div className="section col s10 offset-s1 white z-depth-1">
       <div className="row ">
@@ -20,3 +20,4 @@ export const ProfileSelector: FC = () => {
     </div>
   );
 };
+export default ProfileSelector;

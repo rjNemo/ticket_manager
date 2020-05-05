@@ -1,7 +1,6 @@
 import React, { FC } from "react";
+import { Box, LinearProgress } from "@material-ui/core";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import { Box } from "@material-ui/core";
 
 type IProps = {
   value: number;
@@ -18,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const ProgressBar: FC<IProps> = ({ value }) => {
+const ProgressBar: FC<IProps> = ({ value }) => {
   // const styleString: CSSProperties = { width: `${value}%` };
   // let barColor: string = "green";
 
@@ -43,3 +42,5 @@ export const ProgressBar: FC<IProps> = ({ value }) => {
     </Box>
   );
 };
+
+export default ProgressBar;
