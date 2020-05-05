@@ -1,7 +1,13 @@
 import React, { FC, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Card, CardActions, CardContent, Typography } from "@material-ui/core";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  Link,
+} from "@material-ui/core";
 import ProgressBar from "../Progress/ProgressBar";
 
 interface IProps {
@@ -33,7 +39,7 @@ const HorizontalCard: FC<IProps> = ({
       <ProgressBar value={progress} />
       <CardContent>
         <Typography variant="h5" component="h2">
-          <Link to={link}>
+          <Link color="primary" component={RouterLink} to={link}>
             <b>{title ?? "Nothing to do"}</b>
           </Link>
         </Typography>

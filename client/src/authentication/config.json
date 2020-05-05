@@ -1,4 +1,5 @@
 {
     "domain": "dev-fyjrvohx.auth0.com",
-    "clientId": "NOTxfOhjCLkdvsstLm2tcS1kiAjCdWm9"
+    "clientId": "NOTxfOhjCLkdvsstLm2tcS1kiAjCdWm9",
+    "audience": "https://localhost:5001/api/V1/"
 }
