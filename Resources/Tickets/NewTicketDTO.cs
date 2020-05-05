@@ -22,7 +22,7 @@ namespace TicketManager.Resources
 
         public int Category { get; set; }
         [Required]
-        public Guid CreatorId { get; set; }
+        public string CreatorId { get; set; }
         [Required]
         public int ProjectId { get; set; }
     }

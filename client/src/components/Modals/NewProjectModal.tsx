@@ -1,9 +1,11 @@
 import React, { FC, useState, FormEvent } from "react";
 import { TextField } from "@material-ui/core";
+import Modal from "./Modal";
+import Preloader from "../Preloader";
 import { useAuth0 } from "../../authentication/auth0";
 import { ProjectService } from "../../services";
-import Modal from "./Modal";
 import { getUID } from "../../authentication/helpers";
+import { today } from "../../utils/methods";
 
 interface IProps {
   show: boolean;
@@ -13,11 +15,13 @@ interface IProps {
 const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [endingDate, setEndingDate] = useState("");
+  const [endingDate, setEndingDate] = useState(today());
+  const [loading, setLoading] = useState(false);
   const { getTokenSilently, user } = useAuth0();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     let newProject = {
       title: title,
       description: description,
@@ -27,11 +31,18 @@ const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
 
     const token = await getTokenSilently();
     const Projects = new ProjectService(token);
-    await Projects.add(newProject);
+    Projects.add(newProject).catch((err) => console.error(err));
+    setLoading(false);
+    setTitle("");
+    setDescription("");
+    setEndingDate(today());
+
     handleClose();
   };
 
-  return (
+  return loading ? (
+    <Preloader />
+  ) : (
     <Modal
       name="New Project"
       show={show}

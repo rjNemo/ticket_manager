@@ -28,7 +28,7 @@ namespace TicketManager.Models
         public Impact Impact { get; set; } = Impact.Undefined;
         public Difficulty Difficulty { get; set; } = Difficulty.Undefined;
         public Category Category { get; set; } = Category.Undefined;
-        public Guid CreatorId { get; set; }
+        public string CreatorId { get; set; }
 
         [Display(Name = "Project")]
         public Project Project { get; set; }

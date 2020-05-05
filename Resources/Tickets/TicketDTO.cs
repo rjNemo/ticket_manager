@@ -47,7 +47,7 @@ namespace TicketManager.Resources
 
         public string Category { get; set; }
 
-        public Guid CreatorId { get; set; }
+        public string CreatorId { get; set; }
 
         public ProjectDTORequest Project { get; set; }
 

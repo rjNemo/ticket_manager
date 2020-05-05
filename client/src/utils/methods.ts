@@ -5,3 +5,8 @@ const getRemainingdays: (endDate: string) => number = (endDate: string) => {
 };
 
 export default getRemainingdays;
+
+/**
+ * get today date
+ */
+export const today = (): string => new Date().toISOString().split("T")[0];

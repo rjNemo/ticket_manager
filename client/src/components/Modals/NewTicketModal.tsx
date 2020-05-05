@@ -15,6 +15,8 @@ import Difficulty from "../../types/enums/difficulty";
 import { TicketService } from "../../services";
 import { useAuth0 } from "../../authentication/auth0";
 import { getUID } from "../../authentication/helpers";
+import { today } from "../../utils/methods";
+import Preloader from "../Preloader";
 
 interface IProps {
   show: boolean;
@@ -29,20 +31,21 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [endingDate, setEndingDate] = useState("");
-
+  const { getTokenSilently, user } = useAuth0();
   const { url } = useRouteMatch();
   const id = url.split("/")[2];
   const [projectId, setProjectId] = useState(id);
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [endingDate, setEndingDate] = useState(today());
   const [categoryID, setCategoryID] = useState(1);
   const [impactID, setImpactID] = useState(1);
   const [difficultyID, setDifficultyID] = useState(1);
-  const { getTokenSilently, user } = useAuth0();
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setLoading(true);
     let newTicket = {
       title: title,
       description: description,
@@ -56,12 +59,21 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
 
     const token = await getTokenSilently();
     const Tickets = new TicketService(token);
-    await Tickets.add(newTicket);
+    Tickets.add(newTicket).catch((err) => console.error(err));
+    setLoading(false);
+    setTitle("");
+    setDescription("");
+    setEndingDate(today());
+    setCategoryID(1);
+    setImpactID(1);
+    setDifficultyID(1);
     handleClose();
   };
 
   const classes = useStyles();
-  return (
+  return loading ? (
+    <Preloader />
+  ) : (
     <Modal
       name="New Ticket"
       show={show}
