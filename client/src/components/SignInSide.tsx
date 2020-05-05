@@ -12,7 +12,7 @@ import { useAuth0 } from "../authentication/auth0";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      height: "100vh",
+      height: "90vh",
     },
     image: {
       backgroundImage: "url(https://source.unsplash.com/daily?dev)",
@@ -41,6 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
     submit: {
       margin: theme.spacing(3, 0, 2),
     },
+    subTitle: {
+      margin: theme.spacing(3, 0),
+    },
   })
 );
 
@@ -57,19 +60,22 @@ export default function SignInSide() {
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
+          <Typography component="h1" variant="h3">
+            BugBuster
+          </Typography>
+          <Typography component="h2" variant="h5" className={classes.subTitle}>
+            Catch any Bugs on the Fly
           </Typography>
           <form className={classes.form} noValidate>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              color="primary"
+              color="secondary"
               className={classes.submit}
               onClick={() => loginWithRedirect({})}
             >
-              Sign In
+              Get Started
             </Button>
           </form>
         </div>
