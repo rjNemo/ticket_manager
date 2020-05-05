@@ -203,7 +203,7 @@ namespace TicketManager.Controllers
         }
 
         [HttpGet("{id}/projects")]
-        public async Task<ActionResult<IEnumerable<ProjectDTORequest>>> GetAppUserProjects(string id)
+        public async Task<ActionResult<IEnumerable<ProjectDTORead>>> GetAppUserProjects(string id)
         {
             var user = await _context.AppUsers
                 .Include(u => u.Assignments)
