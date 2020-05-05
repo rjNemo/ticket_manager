@@ -159,6 +159,7 @@ namespace TicketManager.Controllers
 
             var user = new AppUser()
             {
+                Id = userDto.Id,
                 FirstName = userDto.FirstName,
                 LastName = userDto.LastName,
                 Presentation = userDto.Presentation,

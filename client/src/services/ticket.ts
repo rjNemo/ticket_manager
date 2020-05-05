@@ -30,8 +30,10 @@ export default class TicketService implements IService<Ticket> {
     return body ?? ({} as Ticket);
   };
 
-  add = async (item: NewTicket): Promise<void> => {
-    await this.http.post(this.path, item, this.key);
+  add = async (item: NewTicket): Promise<Ticket> => {
+    const response = await this.http.post(this.path, item, this.key);
+    const body = response.parsedBody;
+    return body ?? ({} as Ticket);
   };
 
   update(id: string, item: Ticket): Promise<void> {

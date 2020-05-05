@@ -1,7 +1,6 @@
 import IService from ".";
 import Project from "../types/Project";
 import HttpHandler from "./http";
-import User from "../types/User";
 
 interface NewProject {
   title: string;
@@ -26,8 +25,10 @@ export default class ProjectService implements IService<Project> {
     return body ?? ({} as Project);
   };
 
-  add = async (item: NewProject): Promise<void> => {
-    await this.http.post(this.path, item, this.key);
+  add = async (item: NewProject): Promise<Project> => {
+    const response = await this.http.post(this.path, item, this.key);
+    const body = response.parsedBody;
+    return body ?? ({} as Project);
   };
 
   update(id: string, item: Project): Promise<void> {

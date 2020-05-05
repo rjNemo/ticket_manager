@@ -14,6 +14,7 @@ import Impact from "../../types/enums/impact";
 import Difficulty from "../../types/enums/difficulty";
 import { TicketService } from "../../services";
 import { useAuth0 } from "../../authentication/auth0";
+import { getUID } from "../../authentication/helpers";
 
 interface IProps {
   show: boolean;
@@ -46,7 +47,7 @@ const NewTicketModal: FC<IProps> = ({ show, handleClose, allProjects }) => {
       title: title,
       description: description,
       endingDate: new Date(endingDate).toISOString(),
-      creatorId: "20bf4b2a-7209-4826-96cd-29c2bc937a94", // get current User id
+      creatorId: getUID(user),
       projectId: parseInt(projectId),
       impact: impactID,
       difficulty: difficultyID,

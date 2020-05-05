@@ -19,8 +19,10 @@ export default class UserService implements IService<User> {
     return body ?? ({} as User);
   };
 
-  add = async (item: User): Promise<void> => {
-    await this.http.post(this.path, item, this.key);
+  add = async (item: User): Promise<User> => {
+    const response = await this.http.post(this.path, item, this.key);
+    const body = response.parsedBody;
+    return body ?? ({} as User);
   };
 
   update = async (id: string, item: User): Promise<void> => {

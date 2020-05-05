@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SignInSide() {
   const classes = useStyles();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
 
   return (
     <Grid container component="main" className={classes.root}>
