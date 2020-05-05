@@ -1,14 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Button,
   IconButton,
   Toolbar,
   Typography,
+  Avatar,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import * as ROUTES from "../constants/routes";
 import { useAuth0 } from "../authentication/auth0";
+import { getUID } from "../authentication/helpers";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function ButtonAppBar() {
   const classes = useStyles();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
   return (
     <div className={classes.root}>
@@ -41,18 +45,32 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Button color="inherit" href="/">
-              BugBuster
+            <Button color="inherit" component={Link} to={ROUTES.HOME}>
+              {/* <Button color="inherit" href={ROUTES.HOME}> */}
+              🐞BugBuster
             </Button>
           </Typography>
           {!isAuthenticated ? (
-            <Button color="inherit" onClick={() => loginWithRedirect({})}>
+            <Button
+              color="secondary"
+              variant="contained"
+              onClick={() => loginWithRedirect({})}
+            >
               Log in
             </Button>
           ) : (
-            <Button color="inherit" onClick={() => logout()}>
-              Log out
-            </Button>
+            <>
+              <Button
+                color="inherit"
+                component={Link}
+                to={`${ROUTES.USERS}/${getUID(user)}`}
+              >
+                <Avatar src={user.picture} />
+              </Button>
+              <Button color="inherit" onClick={() => logout()}>
+                Log out
+              </Button>
+            </>
           )}
         </Toolbar>
       </AppBar>
