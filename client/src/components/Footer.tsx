@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { Link as RouterLink } from "react-router-dom";
 import { Container, Typography, Link } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -16,7 +17,7 @@ const Copyright: FC<IProps> = ({ brand, text }) => {
   return (
     <Typography variant="body2" color="textSecondary">
       {"© "}
-      <Link color="inherit" href="/">
+      <Link color="inherit" component={RouterLink} to="/">
         {brand}
       </Link>{" "}
       {new Date().getFullYear()}

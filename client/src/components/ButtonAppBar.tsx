@@ -46,8 +46,7 @@ export default function ButtonAppBar() {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             <Button color="inherit" component={Link} to={ROUTES.HOME}>
-              {/* <Button color="inherit" href={ROUTES.HOME}> */}
-              🐞BugBuster
+              BugBuster
             </Button>
           </Typography>
           {!isAuthenticated ? (

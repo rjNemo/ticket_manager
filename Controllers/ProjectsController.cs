@@ -180,11 +180,15 @@ namespace TicketManager.Controllers
                 EndingDate = projectDto.EndingDate,
                 Manager = await _context.AppUsers.FindAsync(projectDto.ManagerId)
             };
-            // project.LogAction(
-            //     $"{project.Title} has been created by {project.Manager.FullName}.",
-            //     ActivityType.StartTask);
 
             _context.Projects.Add(project);
+            _context.Assignments.Add(new Assignment()
+            {
+                Project = project,
+                ProjectId = project.Id,
+                User = project.Manager,
+                UserId = project.Manager.Id
+            });
             await _context.SaveChangesAsync();
             var dto = new ProjectDTO(project);
             return CreatedAtAction("GetProject", new { id = project.Id }, dto);

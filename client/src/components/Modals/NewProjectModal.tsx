@@ -22,7 +22,7 @@ const NewProjectModal: FC<IProps> = ({ show, handleClose }) => {
       title: title,
       description: description,
       endingDate: new Date(endingDate).toISOString(),
-      managerId: getUID(user), // get current User id
+      managerId: getUID(user),
     };
 
     const token = await getTokenSilently();
