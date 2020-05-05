@@ -60,3 +60,4 @@
 - [ ] Filter users in Users Modal
 - [ ] EditForms for Project and Ticket
 - [ ] Admin Page
+- [ ] Use auth0 user info to create appUser account
