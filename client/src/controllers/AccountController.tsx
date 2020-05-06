@@ -1,13 +1,15 @@
 import React, { FC, useState, useEffect } from "react";
 import AccountPage from "../pages/AccountPage";
+import Preloader from "../components/Preloader";
 import User from "../types/User";
 import { UserService } from "../services";
 import { useAuth0 } from "../authentication/auth0";
 import { getUID } from "../authentication/helpers";
 
-const Account: FC = () => {
+const AccountController: FC = () => {
   const { getTokenSilently, user } = useAuth0();
-  const [account, setAccount] = useState<User>({} as User);
+  const [account, setAccount] = useState<User>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -19,10 +21,16 @@ const Account: FC = () => {
         .then((authUser) => setAccount(authUser))
         .catch((err) => console.error(err));
     };
-    getUserInfo();
+    getUserInfo().then(() => setLoading(false));
   }, [getTokenSilently, user]);
 
-  return <AccountPage account={account} />;
+  return loading ? (
+    // display preloader until data is fetched
+    <Preloader />
+  ) : // don't render page until data is fetched
+  !!account ? (
+    <AccountPage account={account} />
+  ) : null;
 };
 
-export default Account;
+export default AccountController;
