@@ -11,3 +11,4 @@ Tests/TicketManager.Tests/obj/
 client/node_modules/
 client/src/authentication/config.json
 client/src/pages/TestPage.tsx
+client/build
