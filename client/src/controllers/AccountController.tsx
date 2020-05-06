@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import React, { FC, useState, useEffect, useRef } from "react";
 import AccountPage from "../pages/AccountPage";
 import Preloader from "../components/Preloader";
 import User from "../types/User";
@@ -11,16 +11,20 @@ const AccountController: FC = () => {
   const [account, setAccount] = useState<User>();
   const [loading, setLoading] = useState<boolean>(true);
 
+  const token = useRef<string>("");
+
   useEffect(() => {
     const getUserInfo = async () => {
       // fetch current user data
-      const token: string = await getTokenSilently();
-      const Users = new UserService(token);
+      token.current = await getTokenSilently();
+      const Users = new UserService(token.current);
       const uid: string = getUID(user);
+
       Users.get(uid)
         .then((authUser) => setAccount(authUser))
         .catch((err) => console.error(err));
     };
+
     getUserInfo().then(() => setLoading(false));
   }, [getTokenSilently, user]);
 
@@ -29,7 +33,7 @@ const AccountController: FC = () => {
     <Preloader />
   ) : // don't render page until data is fetched
   !!account ? (
-    <AccountPage account={account} />
+    <AccountPage account={account} token={token.current} />
   ) : null;
 };
 

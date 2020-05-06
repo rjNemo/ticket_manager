@@ -1,27 +1,27 @@
 import React, { FC, useState } from "react";
+import { Button, Snackbar } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import Alert from "@material-ui/lab/Alert";
-import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
-import SendIcon from "@material-ui/icons/Send";
 import User from "../types/User";
 import InputField from "../components/InputField";
 import PageLayout from "../layouts/PageLayout";
 import UserHeader from "../components/UserHeader";
-import { Button, Snackbar } from "@material-ui/core";
+import { UserService } from "../services";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     input: {
-      margin: theme.spacing(2, 0),
+      marginBottom: theme.spacing(2),
     },
   })
 );
 
 interface IProps {
   account: User;
+  token: string;
 }
 
-const AccountPage: FC<IProps> = ({ account }) => {
+const AccountPage: FC<IProps> = ({ account, token }) => {
   const classes = useStyles();
 
   const [firstName, setFirstname] = useState(account.firstName);
@@ -31,23 +31,31 @@ const AccountPage: FC<IProps> = ({ account }) => {
 
   // user should at least have a name
   const isDisabled = firstName === "" && lastName === "";
-  const [showError, setShowError] = useState(isDisabled);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     // prevent default button behaviour
     e.preventDefault();
-
+    // send data to API
+    const Users = new UserService(token);
+    const newUser: User = {
+      id: account.id,
+      firstName: firstName,
+      lastName: lastName,
+      fullName: `${firstName} ${lastName}`,
+      email: account.email,
+      presentation: presentation,
+      picture: account.picture,
+      phone,
+      creationDate: Date.now().toLocaleString(),
+      activities: account.activities,
+      projects: account.projects,
+      tickets: account.tickets,
+    };
+    Users.update(account.id, newUser)
+      .then(() => console.log("ok"))
+      .catch((err) => console.error(err));
     // reinitialize inputfiled
     // setText("");
-  };
-
-  // error message
-  const handleClose = (e?: React.SyntheticEvent, reason?: string) => {
-    if (reason === "clickaway") {
-      return;
-    }
-
-    setShowError(false);
   };
 
   return (
@@ -95,12 +103,8 @@ const AccountPage: FC<IProps> = ({ account }) => {
           >
             Update Info
           </Button>
-          <Snackbar
-            open={isDisabled}
-            autoHideDuration={6000}
-            // onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="warning">
+          <Snackbar open={isDisabled} autoHideDuration={6000}>
+            <Alert severity="warning">
               User should have at least a first or last name!
             </Alert>
           </Snackbar>

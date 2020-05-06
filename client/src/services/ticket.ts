@@ -1,6 +1,7 @@
 import IService from ".";
 import Ticket from "../types/Ticket";
 import HttpHandler from "./http";
+import * as API from "../constants/api";
 
 interface NewTicket {
   title: string;
@@ -17,7 +18,7 @@ export default class TicketService implements IService<Ticket> {
   constructor(private key: string) {}
 
   private http = new HttpHandler<Ticket>();
-  private path: string = "/api/v1/tickets";
+  private path: string = API.TICKETS;
 
   all = async (): Promise<Ticket[]> => {
     const response = await this.http.get(this.path, this.key);

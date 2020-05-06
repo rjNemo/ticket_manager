@@ -1,6 +1,7 @@
 import IService from ".";
 import Project from "../types/Project";
 import HttpHandler from "./http";
+import * as API from "../constants/api";
 
 interface NewProject {
   title: string;
@@ -12,7 +13,7 @@ export default class ProjectService implements IService<Project> {
   constructor(private key: string) {}
 
   private http = new HttpHandler<Project>();
-  private path: string = "/api/v1/projects";
+  private path: string = API.PROJECTS;
 
   all = async (): Promise<Project[]> => {
     const response = await this.http.get(this.path, this.key);

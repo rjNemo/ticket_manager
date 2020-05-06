@@ -1,12 +1,13 @@
 import IService from ".";
 import User from "../types/User";
 import HttpHandler from "./http";
+import * as API from "../constants/api";
 
 export default class UserService implements IService<User> {
   constructor(private key: string) {}
 
   private http = new HttpHandler<User>();
-  private path: string = "/api/v1/users";
+  private path: string = API.USERS;
 
   all = async (): Promise<User[]> => {
     const response = await this.http.get(this.path, this.key);
@@ -26,7 +27,10 @@ export default class UserService implements IService<User> {
   };
 
   update = async (id: string, item: User): Promise<void> => {
-    throw new Error("Method not implemented.");
+    // const response =
+    await this.http.put(`${this.path}/${id}`, item, this.key);
+    // const body = response.parsedBody;
+    // return body ?? ({} as User);
   };
 
   delete = async (id: string): Promise<void> => {

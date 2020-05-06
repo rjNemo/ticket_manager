@@ -8,9 +8,11 @@ using TicketManager.Data;
 using TicketManager.Resources;
 using TicketManager.Models;
 
+
 namespace TicketManager.Controllers
 {
     [Authorize]
+    [Produces("application/json")]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class TicketsController : ControllerBase

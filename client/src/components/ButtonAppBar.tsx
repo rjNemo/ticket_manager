@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   AppBar,
   Button,
-  IconButton,
+  // IconButton,
   Toolbar,
   Typography,
   Avatar,
@@ -12,7 +12,7 @@ import {
   Popover,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import * as ROUTES from "../constants/routes";
 import { useAuth0 } from "../authentication/auth0";
