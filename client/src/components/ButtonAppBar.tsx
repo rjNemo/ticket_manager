@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
+import BugReportIcon from "@material-ui/icons/BugReport";
 import * as ROUTES from "../constants/routes";
 import { useAuth0 } from "../authentication/auth0";
 import { getUID } from "../authentication/helpers";
@@ -45,7 +46,12 @@ export default function ButtonAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            <Button color="inherit" component={Link} to={ROUTES.HOME}>
+            <Button
+              color="inherit"
+              component={Link}
+              to={ROUTES.HOME}
+              startIcon={<BugReportIcon />}
+            >
               BugBuster
             </Button>
           </Typography>
