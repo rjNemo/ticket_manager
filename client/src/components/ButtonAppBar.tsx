@@ -120,7 +120,7 @@ export default function ButtonAppBar() {
                       to={ROUTES.ACCOUNT}
                       onClick={handleClose}
                     >
-                      Settings
+                      Edit Profile
                     </Button>
                   </ListItem>
                   <ListItem>
@@ -137,67 +137,3 @@ export default function ButtonAppBar() {
     </div>
   );
 }
-
-// export function ProfilePopover() {
-//   const classes = useStyles();
-//   const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
-
-//   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) =>
-//     setAnchor(event.currentTarget);
-
-//   const handleClose = () => {
-//     setAnchor(null);
-//   };
-
-//   const open: boolean = !!anchor;
-//   const id = open ? "profile-popover" : undefined;
-
-//   return (
-//     <div>
-//       <Button
-//         aria-describedby={id}
-//         variant="contained"
-//         color="primary"
-//         onClick={handleClick}
-//       >
-//         <Avatar src={user.picture} />
-//       </Button>
-//       <Popover
-//         id={id}
-//         open={open}
-//         anchorEl={anchor}
-//         onClose={handleClose}
-//         anchorOrigin={{
-//           vertical: "bottom",
-//           horizontal: "center",
-//         }}
-//         transformOrigin={{
-//           vertical: "top",
-//           horizontal: "center",
-//         }}
-//       >
-//         <List>
-//           <ListItem>
-//             <Button
-//               color="inherit"
-//               component={Link}
-//               to={`${ROUTES.USERS}/${getUID(user)}`}
-//             >
-//               Profile
-//             </Button>
-//           </ListItem>
-//           <ListItem>
-//             <Button color="inherit" component={Link} to={ROUTES.ACCOUNT}>
-//               Settings
-//             </Button>
-//           </ListItem>
-//           <ListItem>
-//             <Button color="inherit" onClick={() => logout()}>
-//               Log out
-//             </Button>
-//           </ListItem>
-//         </List>
-//       </Popover>
-//     </div>
-//   );
-// }
