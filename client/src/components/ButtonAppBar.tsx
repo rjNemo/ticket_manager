@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   AppBar,
   Button,
-  IconButton,
+  // IconButton,
   Toolbar,
   Typography,
   Avatar,
+  List,
+  ListItem,
+  Popover,
 } from "@material-ui/core";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+// import MenuIcon from "@material-ui/icons/Menu";
 import BugReportIcon from "@material-ui/icons/BugReport";
 import * as ROUTES from "../constants/routes";
 import { useAuth0 } from "../authentication/auth0";
@@ -26,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
     title: {
       flexGrow: 1,
     },
+    typography: {
+      padding: theme.spacing(2),
+    },
   })
 );
 
@@ -33,18 +39,28 @@ export default function ButtonAppBar() {
   const classes = useStyles();
   const { isAuthenticated, loginWithRedirect, logout, user } = useAuth0();
 
+  const [anchor, setAnchor] = useState<HTMLButtonElement | null>(null);
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) =>
+    setAnchor(e.currentTarget);
+
+  const handleClose = () => setAnchor(null);
+
+  const open: boolean = !!anchor;
+  const id = open ? "profile-popover" : undefined;
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" className={classes.title}>
             <Button
               color="inherit"
@@ -66,15 +82,54 @@ export default function ButtonAppBar() {
           ) : (
             <>
               <Button
-                color="inherit"
-                component={Link}
-                to={`${ROUTES.USERS}/${getUID(user)}`}
+                aria-describedby={id}
+                color="primary"
+                onClick={handleClick}
               >
                 <Avatar src={user.picture} />
               </Button>
-              <Button color="inherit" onClick={() => logout()}>
-                Log out
-              </Button>
+              <Popover
+                id={id}
+                open={open}
+                anchorEl={anchor}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <List>
+                  <ListItem>
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      to={`${ROUTES.USERS}/${getUID(user)}`}
+                      onClick={handleClose}
+                    >
+                      Profile
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      to={ROUTES.ACCOUNT}
+                      onClick={handleClose}
+                    >
+                      Edit Profile
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Button color="inherit" onClick={() => logout()}>
+                      Log out
+                    </Button>
+                  </ListItem>
+                </List>
+              </Popover>
             </>
           )}
         </Toolbar>
