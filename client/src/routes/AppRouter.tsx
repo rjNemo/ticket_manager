@@ -5,9 +5,9 @@ import HomeController from "../controllers/HomeController";
 import ProjectController from "../controllers/ProjectController";
 import UserController from "../controllers/UserController";
 import TicketController from "../controllers/TicketController";
+import AccountController from "../controllers/AccountController";
 import NotFoundPage from "../pages/NotFoundPage";
 import TestPage from "../pages/TestPage";
-// import SigninPage from "../pages/SigninPage";
 import * as ROUTES from "../constants/routes";
 
 const AppRouter = () => {
@@ -15,7 +15,7 @@ const AppRouter = () => {
     <Switch>
       <PrivateRoute path={ROUTES.TEST} component={TestPage} />
       <Route exact path={ROUTES.HOME} component={HomeController} />
-      {/* <Route path={ROUTES.SIGN_IN} component={SigninPage} /> */}
+      <PrivateRoute path={ROUTES.ACCOUNT} component={AccountController} />
       <PrivateRoute
         path={`${ROUTES.PROJECTS}/:id`}
         component={ProjectController}
